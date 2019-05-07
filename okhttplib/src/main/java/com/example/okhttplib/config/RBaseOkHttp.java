@@ -1,5 +1,6 @@
 package com.example.okhttplib.config;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -49,12 +50,12 @@ public abstract class RBaseOkHttp {
 
 
     public RBaseOkHttp get() {
-        OkGo.<String>get(url).params(hashMap).execute(getStringCallback(okhttpImp, isShowLoading));
+        OkGo.<String>get(url).params(hashMap).tag(ActivityUtils.getTopActivity()).execute(getStringCallback(okhttpImp, isShowLoading));
         return this;
     }
 
     public RBaseOkHttp post() {
-        OkGo.<String>post(url).params(hashMap).execute(getStringCallback(okhttpImp, isShowLoading));
+        OkGo.<String>post(url).params(hashMap).tag(ActivityUtils.getTopActivity()).execute(getStringCallback(okhttpImp, isShowLoading));
         return this;
     }
 

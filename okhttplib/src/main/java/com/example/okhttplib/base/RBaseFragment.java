@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.okhttplib.eventbus.Event;
 import com.example.okhttplib.eventbus.EventBusUtil;
+import com.lzy.okgo.OkGo;
 import com.noober.background.BackgroundLibrary;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -221,6 +222,7 @@ public abstract class RBaseFragment extends Fragment {
      */
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(getActivity());
         if (isRegisterEventBus()) {
             EventBusUtil.unregister(this);
         }

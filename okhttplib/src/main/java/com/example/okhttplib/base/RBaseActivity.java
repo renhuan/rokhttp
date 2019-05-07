@@ -9,6 +9,7 @@ import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.okhttplib.eventbus.Event;
 import com.example.okhttplib.eventbus.EventBusUtil;
+import com.lzy.okgo.OkGo;
 import com.noober.background.BackgroundLibrary;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -227,6 +228,7 @@ public abstract class RBaseActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        OkGo.getInstance().cancelTag(this);
         if (isRegisterEventBus()) {
             EventBusUtil.unregister(this);
         }
