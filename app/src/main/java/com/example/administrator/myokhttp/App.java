@@ -5,11 +5,8 @@ import android.app.Application;
 
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CrashUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
-
-import java.util.ArrayList;
 
 public class App extends Application {
 

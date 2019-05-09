@@ -34,4 +34,8 @@ dependencies {
     //baseadapter
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
+    //圆形头像
+    api 'de.hdodenhof:circleimageview:2.2.0'
+
+
 }

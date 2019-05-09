@@ -1,17 +1,12 @@
 package com.example.administrator.myokhttp.config;
 
-import android.text.TextUtils;
-
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.example.administrator.myokhttp.base.BaseActivity;
-import com.example.okhttplib.base.RBaseActivity;
 import com.example.okhttplib.config.OkhttpImp;
 import com.example.okhttplib.config.RBaseOkHttp;
 import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.model.HttpHeaders;
-import com.lzy.okgo.model.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
