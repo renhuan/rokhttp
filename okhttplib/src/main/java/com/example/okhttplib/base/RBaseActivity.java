@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.example.okhttplib.config.MyOkHttpImp;
 import com.example.okhttplib.eventbus.Event;
 import com.example.okhttplib.eventbus.EventBusUtil;
 import com.lzy.okgo.OkGo;
@@ -20,7 +22,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 
-public abstract class RBaseActivity extends AppCompatActivity {
+public abstract class RBaseActivity extends AppCompatActivity implements MyOkHttpImp {
 
     public abstract int inflaterLayout();
 
@@ -41,9 +43,6 @@ public abstract class RBaseActivity extends AppCompatActivity {
         if (isRegisterEventBus()) {
             EventBusUtil.register(this);
         }
-
-        //检查网络连接
-        checkNet();
 
         //初始化数据
         init();
@@ -73,26 +72,29 @@ public abstract class RBaseActivity extends AppCompatActivity {
      *          activity的一些用于工具  start
      */
 
-    public void checkNet() {
-        if (!NetworkUtils.isConnected()) {
-            toast("当前无网络连接，请检查网络");
-        }
-    }
 
     public void toast(String s) {
         ToastUtils.showShort(s);
     }
 
+    /**
+     * 启动activity  无参数
+     */
     public void startActivity(Class cls) {
         startActivity(cls, null);
     }
 
+    /**
+     * 启动activity  一个参数
+     */
+    public void startActivity(Class cls, String key, Object value) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(key, value);
+        startActivity(cls, hashMap);
+    }
 
     /**
-     * 启动activity
-     *
-     * @param cls
-     * @param hashMap
+     * 启动activity  多个参数
      */
     public void startActivity(Class cls, HashMap<String, ? extends Object> hashMap) {
         Intent intent = new Intent(this, cls);

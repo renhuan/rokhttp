@@ -10,6 +10,8 @@ import com.example.okhttplib.base.RBaseActivity;
 import com.example.okhttplib.config.OkhttpImp;
 import com.example.okhttplib.config.RBaseOkHttp;
 import com.lxj.xpopup.XPopup;
+import com.lzy.okgo.model.HttpHeaders;
+import com.lzy.okgo.model.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +21,7 @@ import org.json.JSONObject;
  */
 public class BaseOkHttp extends RBaseOkHttp {
     private static XPopup xPopup;
+
 
     @Override
     public void onRSuccess(com.lzy.okgo.model.Response<String> response, OkhttpImp imp) {
@@ -36,6 +39,12 @@ public class BaseOkHttp extends RBaseOkHttp {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public HttpHeaders setHttpHead(HttpHeaders httpHeaders) {
+        return null;
+    }
+
 
     @Override
     public void showLoading(String tag) {

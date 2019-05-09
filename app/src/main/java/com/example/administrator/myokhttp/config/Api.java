@@ -2,6 +2,7 @@ package com.example.administrator.myokhttp.config;
 
 import com.example.okhttplib.config.MyOkHttpImp;
 import com.example.okhttplib.config.OkhttpImp;
+import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 

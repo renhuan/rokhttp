@@ -1,9 +1,6 @@
 package com.example.administrator.myokhttp.base;
 
-import android.os.Bundle;
-
 import com.example.okhttplib.base.RBaseActivity;
-import com.example.okhttplib.eventbus.EventBusUtil;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

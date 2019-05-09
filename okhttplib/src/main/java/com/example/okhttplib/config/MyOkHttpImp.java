@@ -1,5 +1,7 @@
 package com.example.okhttplib.config;
 
+import com.lzy.okgo.model.Response;
+
 public interface MyOkHttpImp {
 
     //数据请求成功
@@ -10,4 +12,5 @@ public interface MyOkHttpImp {
 
     //数据请求前
     void onBefore(int flag);
+
 }
