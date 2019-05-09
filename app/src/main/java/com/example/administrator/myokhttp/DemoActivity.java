@@ -9,7 +9,7 @@ import com.example.administrator.myokhttp.config.Api;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class DemoActivity extends BaseActivity {
 
     @BindView(R.id.tv)
     TextView tv;
@@ -18,7 +18,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public int inflaterLayout() {
-        return R.layout.activity_main;
+        return R.layout.activity_demo;
     }
 
     @Override

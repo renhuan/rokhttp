@@ -81,6 +81,14 @@ public abstract class RBaseFragment extends Fragment {
         startActivity(cls, null);
     }
 
+    /**
+     * 启动activity  一个参数
+     */
+    public void startActivity(Class cls, String key, Object value) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(key, value);
+        startActivity(cls, hashMap);
+    }
 
     /**
      * 启动activity
