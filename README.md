@@ -11,5 +11,5 @@
 	}
   
 	dependencies {
-	        implementation 'com.github.renhuan2015:MyOkHttp:Tag'
+	        implementation 'com.github.renhuan2015:MyOkHttp:1.0.0'
 	}
