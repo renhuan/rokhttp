@@ -65,12 +65,12 @@ public abstract class RBaseOkHttp {
     }
 
     public RBaseOkHttp get() {
-        OkGo.<String>get(url).params(hashMap).cacheMode(cacheMode).headers(setHttpHead(new HttpHeaders())).tag(ActivityUtils.getTopActivity()).execute(getStringCallback());
+        OkGo.<String>get(url).params(hashMap).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(new HttpHeaders())).tag(ActivityUtils.getTopActivity()).execute(getStringCallback());
         return this;
     }
 
     public RBaseOkHttp post() {
-        OkGo.<String>post(url).params(hashMap).cacheMode(cacheMode).headers(setHttpHead(new HttpHeaders())).tag(ActivityUtils.getTopActivity()).execute(getStringCallback());
+        OkGo.<String>post(url).params(hashMap).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(new HttpHeaders())).tag(ActivityUtils.getTopActivity()).execute(getStringCallback());
         return this;
     }
 
@@ -103,8 +103,8 @@ public abstract class RBaseOkHttp {
                 }
                 if (isShowLoading) {
                     if (CacheMode.FIRST_CACHE_THEN_REQUEST.equals(cacheMode)
-                            || CacheMode.DEFAULT.equals(cacheMode)
-                            || CacheMode.NO_CACHE.equals(cacheMode)) {
+                        || CacheMode.DEFAULT.equals(cacheMode)
+                        || CacheMode.NO_CACHE.equals(cacheMode)) {
                         showLoading(tag);
                     }
                 }
@@ -157,6 +157,8 @@ public abstract class RBaseOkHttp {
             baseActivity.toast("404链接错误");
         } else if (code == 500) {
             baseActivity.toast("500服务器错误");
+        } else if (code == 502) {
+            baseActivity.toast("502服务器错误");
         } else if (response.getException() instanceof SocketTimeoutException) {
             baseActivity.toast("请求超时");
         } else if (response.getException() instanceof SocketException) {

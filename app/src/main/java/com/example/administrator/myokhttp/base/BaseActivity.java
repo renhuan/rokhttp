@@ -1,5 +1,7 @@
 package com.example.administrator.myokhttp.base;
 
+import android.os.Bundle;
+
 import com.example.okhttplib.base.RBaseActivity;
 
 import butterknife.ButterKnife;
@@ -12,7 +14,7 @@ public abstract class BaseActivity extends RBaseActivity {
     private Unbinder bind;
 
     @Override
-    public void init() {
+    public void init(Bundle savedInstanceState) {
         //注册黄油刀
         bind = ButterKnife.bind(this);
     }

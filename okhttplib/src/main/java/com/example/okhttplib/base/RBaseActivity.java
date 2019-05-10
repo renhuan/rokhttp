@@ -1,5 +1,6 @@
 package com.example.okhttplib.base;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.noober.background.BackgroundLibrary;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -26,7 +28,7 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
 
     public abstract int inflaterLayout();
 
-    public abstract void init();
+    public abstract void init(Bundle savedInstanceState);
 
 
     @Override
@@ -45,7 +47,7 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
         }
 
         //初始化数据
-        init();
+        init(savedInstanceState);
     }
 
     /***
@@ -77,6 +79,14 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
         ToastUtils.showShort(s);
     }
 
+
+    /**
+     * 关闭当前activity
+     */
+    public void finishActivity() {
+        ActivityUtils.finishActivity(this);
+    }
+
     /**
      * 启动activity  无参数
      */
@@ -103,7 +113,7 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
             while (iterator.hasNext()) {
                 @SuppressWarnings("unchecked")
                 Map.Entry<String, Object> entry = (Map.Entry<String, Object>) iterator
-                        .next();
+                    .next();
                 String key = entry.getKey();
                 Object value = entry.getValue();
                 if (value instanceof String) {
@@ -120,6 +130,9 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
                 }
                 if (value instanceof Double) {
                     intent.putExtra(key, (double) value);
+                }
+                if (value instanceof Serializable) {
+                    intent.putExtra(key, (Serializable) value);
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.example.administrator.myokhttp;
 
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,8 +23,8 @@ public class DemoActivity extends BaseActivity {
     }
 
     @Override
-    public void init() {
-        super.init();
+    public void init(Bundle savedInstanceState) {
+        super.init(savedInstanceState);
     }
 
     @Override

@@ -1,1 +1,1 @@
-include ':app', ':okhttplib', ':xpoplibrary'
+include ':app', ':xpoplibrary', ':okhttplib'

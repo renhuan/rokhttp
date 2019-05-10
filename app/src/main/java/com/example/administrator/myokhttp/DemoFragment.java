@@ -1,18 +1,13 @@
 package com.example.administrator.myokhttp;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.administrator.myokhttp.base.BaseFragment;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 /**
@@ -24,7 +19,6 @@ public class DemoFragment extends BaseFragment {
     @BindView(R.id.tv)
     TextView tv;
 
-
     @Override
     public int inflaterLayout() {
         return R.layout.fragment_demo;
@@ -34,5 +28,20 @@ public class DemoFragment extends BaseFragment {
     public void init(View view) {
         super.init(view);
         tv.setText("ddd");
+    }
+
+    @Override
+    public void onSuccess(String json, int flag) {
+
+    }
+
+    @Override
+    public void onError(String json, int flag) {
+
+    }
+
+    @Override
+    public void onBefore(int flag) {
+
     }
 }

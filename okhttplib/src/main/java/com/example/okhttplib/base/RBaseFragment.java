@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +11,21 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.example.okhttplib.config.MyOkHttpImp;
 import com.example.okhttplib.eventbus.Event;
 import com.example.okhttplib.eventbus.EventBusUtil;
 import com.lzy.okgo.OkGo;
-import com.noober.background.BackgroundLibrary;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 
-public abstract class RBaseFragment extends Fragment {
+public abstract class RBaseFragment extends Fragment implements MyOkHttpImp {
 
     public abstract int inflaterLayout();
 
@@ -103,7 +103,7 @@ public abstract class RBaseFragment extends Fragment {
             while (iterator.hasNext()) {
                 @SuppressWarnings("unchecked")
                 Map.Entry<String, Object> entry = (Map.Entry<String, Object>) iterator
-                        .next();
+                    .next();
                 String key = entry.getKey();
                 Object value = entry.getValue();
                 if (value instanceof String) {
@@ -120,6 +120,9 @@ public abstract class RBaseFragment extends Fragment {
                 }
                 if (value instanceof Double) {
                     intent.putExtra(key, (double) value);
+                }
+                if (value instanceof Serializable) {
+                    intent.putExtra(key, (Serializable) value);
                 }
             }
         }
