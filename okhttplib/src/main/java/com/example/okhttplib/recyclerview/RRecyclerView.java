@@ -136,7 +136,7 @@ public class RRecyclerView extends RecyclerView {
     }
 
     /**
-     * 必须倒数第一个设置
+     * 以下必须倒数第一个设置
      *
      * @param
      * @return
@@ -146,6 +146,14 @@ public class RRecyclerView extends RecyclerView {
             throw new NullPointerException("必须先setRAdapter()后，才能使用此方法");
         }
         adapters.setOnItemClickListener(onItemClickListener);
+        return this;
+    }
+
+    public RRecyclerView setROnItemLongClickListener(BaseQuickAdapter.OnItemLongClickListener onItemClickListener) {
+        if (adapters == null) {
+            throw new NullPointerException("必须先setRAdapter()后，才能使用此方法");
+        }
+        adapters.setOnItemLongClickListener(onItemClickListener);
         return this;
     }
 
@@ -160,6 +168,5 @@ public class RRecyclerView extends RecyclerView {
         adapters.setOnItemChildClickListener(onItemChildClickListener);
         return this;
     }
-
 
 }

@@ -113,7 +113,7 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
             while (iterator.hasNext()) {
                 @SuppressWarnings("unchecked")
                 Map.Entry<String, Object> entry = (Map.Entry<String, Object>) iterator
-                    .next();
+                        .next();
                 String key = entry.getKey();
                 Object value = entry.getValue();
                 if (value instanceof String) {

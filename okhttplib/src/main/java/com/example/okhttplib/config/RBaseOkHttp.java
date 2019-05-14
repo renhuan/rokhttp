@@ -103,8 +103,8 @@ public abstract class RBaseOkHttp {
                 }
                 if (isShowLoading) {
                     if (CacheMode.FIRST_CACHE_THEN_REQUEST.equals(cacheMode)
-                        || CacheMode.DEFAULT.equals(cacheMode)
-                        || CacheMode.NO_CACHE.equals(cacheMode)) {
+                            || CacheMode.DEFAULT.equals(cacheMode)
+                            || CacheMode.NO_CACHE.equals(cacheMode)) {
                         showLoading(tag);
                     }
                 }
