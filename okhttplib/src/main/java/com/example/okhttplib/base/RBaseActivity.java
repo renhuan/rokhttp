@@ -84,7 +84,7 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
      * 关闭当前activity
      */
     public void finishActivity() {
-        ActivityUtils.finishActivity(this);
+        ActivityUtils.finishActivity(this, true);
     }
 
     /**

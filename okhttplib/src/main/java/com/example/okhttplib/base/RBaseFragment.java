@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.NetworkUtils;
@@ -73,6 +75,11 @@ public abstract class RBaseFragment extends Fragment implements MyOkHttpImp {
         }
     }
 
+    public String getEditText(TextView editText) {
+        return editText.getText().toString().trim();
+    }
+
+
     public void toast(String s) {
         ToastUtils.showShort(s);
     }
@@ -103,7 +110,7 @@ public abstract class RBaseFragment extends Fragment implements MyOkHttpImp {
             while (iterator.hasNext()) {
                 @SuppressWarnings("unchecked")
                 Map.Entry<String, Object> entry = (Map.Entry<String, Object>) iterator
-                    .next();
+                        .next();
                 String key = entry.getKey();
                 Object value = entry.getValue();
                 if (value instanceof String) {
