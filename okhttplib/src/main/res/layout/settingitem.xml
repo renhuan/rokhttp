@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/iv_lefticon"
-        android:layout_width="@dimen/dimen_25_dp"
-        android:layout_height="@dimen/dimen_25_dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:visibility="gone" />

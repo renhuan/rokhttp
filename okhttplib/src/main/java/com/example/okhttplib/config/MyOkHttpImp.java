@@ -2,6 +2,8 @@ package com.example.okhttplib.config;
 
 import com.lzy.okgo.model.Response;
 
+import org.json.JSONException;
+
 public interface MyOkHttpImp {
 
     //数据请求成功

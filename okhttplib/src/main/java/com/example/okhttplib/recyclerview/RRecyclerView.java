@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.okhttplib.R;
@@ -131,9 +132,17 @@ public class RRecyclerView extends RecyclerView {
         if (adapters.getData().size() == 0) {
             adapters.setEmptyView(emptyView, this);
         }
+        adapters.isUseEmpty(false);
         setAdapter(adapters);
         return this;
     }
+
+    public void isUseEmpty(boolean isUseEmpty) {
+        if (adapters != null) {
+            adapters.isUseEmpty(isUseEmpty);
+        }
+    }
+
 
     /**
      * 以下必须倒数第一个设置

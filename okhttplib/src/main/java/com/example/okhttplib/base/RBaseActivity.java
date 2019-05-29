@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -74,6 +77,14 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
      *          activity的一些用于工具  start
      */
 
+
+    public String getText(TextView textView) {
+        return textView.getText().toString().trim();
+    }
+
+    public boolean isEmpty(TextView textView) {
+        return TextUtils.isEmpty(getText(textView));
+    }
 
     public void toast(String s) {
         ToastUtils.showShort(s);

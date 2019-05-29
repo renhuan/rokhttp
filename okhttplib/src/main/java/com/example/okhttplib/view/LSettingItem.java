@@ -18,7 +18,7 @@ import com.example.okhttplib.R;
 
 
 /**
- * 作者：Leon
+ * 作者：设置item
  * 时间：2016/12/21 10:32
  */
 public class LSettingItem extends RelativeLayout {

@@ -1,6 +1,7 @@
 package com.example.okhttplib.config;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.example.okhttplib.base.RBaseActivity;
 import com.lzy.okgo.OkGo;
@@ -96,11 +97,15 @@ public abstract class RBaseOkHttp {
 
             @Override
             public void onStart(Request<String, ? extends Request> request) {
+                //请求网络前  先检查是否有网络连接
                 if (!NetworkUtils.isConnected()) {
                     ((RBaseActivity) ActivityUtils.getTopActivity()).toast("当前无网络连接，请检查网络");
                     OkGo.getInstance().cancelTag(ActivityUtils.getTopActivity());
                     return;
                 }
+                //然后隐藏软键盘
+                KeyboardUtils.hideSoftInput(ActivityUtils.getTopActivity());
+
                 if (isShowLoading) {
                     if (CacheMode.FIRST_CACHE_THEN_REQUEST.equals(cacheMode)
                             || CacheMode.DEFAULT.equals(cacheMode)
