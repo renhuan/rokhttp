@@ -25,6 +25,8 @@ public abstract class RApp extends Application {
 
     public abstract int setPrimaryColorsId();
 
+    public abstract void init();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -33,6 +35,7 @@ public abstract class RApp extends Application {
         initLog();
         initOkGO();
         initCrash();
+        init();
     }
 
     @SuppressLint("MissingPermission")
