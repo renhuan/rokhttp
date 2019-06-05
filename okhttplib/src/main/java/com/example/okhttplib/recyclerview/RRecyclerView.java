@@ -16,6 +16,7 @@ import com.example.okhttplib.R;
 public class RRecyclerView extends RecyclerView {
 
 
+    private final LinearDividerItemDecoration itemDecoration;
     /**
      * 默认 : LinearLayoutManager
      * 默认分割线 ：颜色透明 宽度1px
@@ -37,7 +38,7 @@ public class RRecyclerView extends RecyclerView {
         super(context, attrs);
         this.context = context;
         setRLinearLayoutManager();
-        addItemDecoration(new LinearDividerItemDecoration(LinearDividerItemDecoration.VERTICAL_LIST, 1));
+        addItemDecoration(itemDecoration = new LinearDividerItemDecoration(LinearDividerItemDecoration.VERTICAL_LIST, 1));
     }
 
 
@@ -54,6 +55,11 @@ public class RRecyclerView extends RecyclerView {
 
     public RRecyclerView setRLinearHorizontalLayoutManager() {
         setRLinearHorizontalLayoutManager(false);
+        return this;
+    }
+
+    public RRecyclerView removeItemDecoration() {
+        removeItemDecoration(itemDecoration);
         return this;
     }
 
