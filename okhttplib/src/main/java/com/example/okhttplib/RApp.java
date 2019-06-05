@@ -3,6 +3,7 @@ package com.example.okhttplib;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.AppUtils;
@@ -23,7 +24,6 @@ import java.util.ArrayList;
 
 public abstract class RApp extends Application {
 
-    public abstract int setPrimaryColorsId();
 
     public abstract void init();
 
@@ -34,8 +34,23 @@ public abstract class RApp extends Application {
         initRefresh();
         initLog();
         initOkGO();
-        initCrash();
+        if (isCrash()) {
+            initCrash();
+        }
         init();
+    }
+
+    /**
+     * 是否crash 重启  默认true
+     *
+     * @return
+     */
+    protected boolean isCrash() {
+        return true;
+    }
+
+    protected int setPrimaryColorsId() {
+        return Color.parseColor("#eeeeed");
     }
 
     @SuppressLint("MissingPermission")
@@ -52,7 +67,7 @@ public abstract class RApp extends Application {
         OkGo.getInstance().init(this);//必须调用初始化
     }
 
-    protected void initRefresh() {
+    private void initRefresh() {
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
             @NonNull
             @Override
@@ -71,7 +86,7 @@ public abstract class RApp extends Application {
         });
     }
 
-    public void initLog() {
+    private void initLog() {
         final LogUtils.Config config = LogUtils.getConfig()
                 .setLogSwitch(BuildConfig.DEBUG)// 设置 log 总开关，包括输出到控制台和文件，默认开
                 .setConsoleSwitch(BuildConfig.DEBUG)// 设置是否输出到控制台开关，默认开
