@@ -5,7 +5,6 @@ import com.blankj.utilcode.util.LogUtils;
 import com.example.administrator.myokhttp.base.BaseActivity;
 import com.example.okhttplib.config.OkhttpImp;
 import com.example.okhttplib.config.RBaseOkHttp;
-import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.model.HttpHeaders;
 
 import org.json.JSONException;
@@ -15,7 +14,7 @@ import org.json.JSONObject;
  * 此类实现接口成功后的success逻辑
  */
 public class BaseOkHttp extends RBaseOkHttp {
-    private static XPopup xPopup;
+//    private static XPopup xPopup;
 
 
     @Override
@@ -43,13 +42,13 @@ public class BaseOkHttp extends RBaseOkHttp {
 
     @Override
     public void showLoading(String tag) {
-        xPopup = XPopup.get(ActivityUtils.getTopActivity()).asLoading();
-        xPopup.show(tag);
+//        xPopup = XPopup.get(ActivityUtils.getTopActivity()).asLoading();
+//        xPopup.show(tag);
     }
 
     @Override
     public void hideLoading(String tag) {
-        if (xPopup != null)
-            xPopup.dismiss(tag);
+//        if (xPopup != null)
+//            xPopup.dismiss(tag);
     }
 }
