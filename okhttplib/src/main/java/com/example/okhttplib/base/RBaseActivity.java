@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.billy.android.loading.Gloading;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
@@ -29,6 +31,8 @@ import java.util.Map;
 
 public abstract class RBaseActivity extends AppCompatActivity implements MyOkHttpImp {
 
+    private Gloading.Holder holder;
+
     public abstract int inflaterLayout();
 
     public abstract void init(Bundle savedInstanceState);
@@ -49,9 +53,54 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
             EventBusUtil.register(this);
         }
 
+
         //初始化数据
         init(savedInstanceState);
+
+        initHolder();
     }
+
+    protected void onLoadRetry() {
+
+    }
+
+    /**
+     * 子类重写 给哪个view设置holder
+     *
+     * @return
+     */
+    protected View setHolder() {
+        return findViewById(android.R.id.content);
+    }
+
+    private void initHolder() {
+        if (holder == null) {
+            holder = Gloading.getDefault().wrap(setHolder()).withRetry(new Runnable() {
+                @Override
+                public void run() {
+                    onLoadRetry();
+                }
+            });
+        }
+    }
+
+
+    public void showLoading() {
+        holder.showLoading();
+    }
+
+    public void showLoadSuccess() {
+        holder.showLoadSuccess();
+    }
+
+    public void showLoadFailed() {
+        holder.showLoadFailed();
+    }
+
+    public void showEmpty() {
+        holder.showEmpty();
+    }
+
 
     /***
      *                    _ooOoo_

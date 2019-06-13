@@ -6,10 +6,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 
+import com.billy.android.loading.Gloading;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
+import com.example.okhttplib.adapter.GlobalAdapter;
 import com.lzy.okgo.OkGo;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -37,6 +39,7 @@ public abstract class RApp extends Application {
         if (isCrash()) {
             initCrash();
         }
+        Gloading.initDefault(new GlobalAdapter());
         init();
     }
 

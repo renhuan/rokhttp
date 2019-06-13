@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.billy.android.loading.Gloading;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -33,17 +35,52 @@ public abstract class RBaseFragment extends Fragment implements MyOkHttpImp {
 
     public abstract void init(View view);
 
+    private Gloading.Holder holder;
+
+    protected void onLoadRetry() {
+
+    }
+
+    View view = null;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(inflaterLayout(), container, false);
+        view = inflater.inflate(inflaterLayout(), container, false);
         if (isRegisterEventBus()) {
             EventBusUtil.register(this);
         }
+        initHolder();
         init(view);
-        return view;
+        return holder.getWrapper();
     }
 
+    private void initHolder() {
+        if (holder == null) {
+            holder = Gloading.getDefault().wrap(view).withRetry(new Runnable() {
+                @Override
+                public void run() {
+                    onLoadRetry();
+                }
+            });
+        }
+    }
+
+    public void showLoading() {
+        holder.showLoading();
+    }
+
+    public void showLoadSuccess() {
+        holder.showLoadSuccess();
+    }
+
+    public void showLoadFailed() {
+        holder.showLoadFailed();
+    }
+
+    public void showEmpty() {
+        holder.showEmpty();
+    }
 
     /***
      *                    _ooOoo_

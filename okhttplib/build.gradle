@@ -43,4 +43,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     api 'me.jessyan:autosize:1.1.2'
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-26'
+
+    api 'com.billy.android:gloading:1.0.1'
 }
