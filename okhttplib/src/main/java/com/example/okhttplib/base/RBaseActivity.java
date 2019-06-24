@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.billy.android.loading.Gloading;
@@ -14,9 +15,11 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
 import com.example.okhttplib.config.MyOkHttpImp;
 import com.example.okhttplib.eventbus.Event;
 import com.example.okhttplib.eventbus.EventBusUtil;
+import com.example.okhttplib.utils.GlideRequestOptionsUtils;
 import com.lzy.okgo.OkGo;
 import com.noober.background.BackgroundLibrary;
 
@@ -139,6 +142,9 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
         ToastUtils.showShort(s);
     }
 
+    public void glide(String url, ImageView imageView) {
+        Glide.with(imageView).load(url).apply(GlideRequestOptionsUtils.requestOptions()).into(imageView);
+    }
 
     /**
      * 关闭当前activity

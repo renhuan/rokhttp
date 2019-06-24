@@ -3,6 +3,23 @@ package com.example.okhttplib.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+
+/***
+ * 如果需要懒加载 使用方式
+ *
+ * 1.开启懒加载
+ *     @Override
+ *     protected boolean isUselazy() {
+ *         return true;
+ *     }
+ *
+ * 2.懒加载回调
+ *     @Override
+ *     public void fetchData() {
+ *
+ *     }
+ */
+
 public abstract class RLazyLoadFragment extends RBaseFragment {
     /**
      * 是否初始化过布局
@@ -18,38 +35,41 @@ public abstract class RLazyLoadFragment extends RBaseFragment {
     protected boolean isDataInitiated;
 
 
+    //默认不启用懒加载
+    protected boolean isUselazy() {
+        return false;
+    }
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        isViewInitiated = true;
-        prepareFetchData();
+        if (isUselazy()) {
+            isViewInitiated = true;
+            prepareFetchData();
+        }
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        this.isVisibleToUser = isVisibleToUser;
-        if (isVisibleToUser) {
-            prepareFetchData();
+        if (isUselazy()) {
+            this.isVisibleToUser = isVisibleToUser;
+            if (isVisibleToUser) {
+                prepareFetchData();
+            }
         }
     }
 
     /**
-     * 懒加载
+     * 懒加载 返回函数
      */
-    public abstract void fetchData();
+    protected void fetchData() {
 
-    public void prepareFetchData() {
-        prepareFetchData(false);
     }
 
-    /**
-     * 判断懒加载条件
-     *
-     * @param forceUpdate 强制更新，好像没什么用？
-     */
-    public void prepareFetchData(boolean forceUpdate) {
-        if (isVisibleToUser && isViewInitiated && (!isDataInitiated || forceUpdate)) {
+    public void prepareFetchData() {
+        if (isVisibleToUser && isViewInitiated && (!isDataInitiated)) {
             fetchData();
             isDataInitiated = true;
         }

@@ -13,8 +13,8 @@ public class GlideRequestOptionsUtils {
         if (options == null) {
             options = new RequestOptions()
                     .centerCrop()
-                    .placeholder(R.drawable.placehold)
-                    .error(R.drawable.placehold);
+                    .placeholder(R.drawable.loading)
+                    .error(R.drawable.loading);
         }
         return options;
     }

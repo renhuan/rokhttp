@@ -15,9 +15,11 @@ import com.billy.android.loading.Gloading;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
 import com.example.okhttplib.config.MyOkHttpImp;
 import com.example.okhttplib.eventbus.Event;
 import com.example.okhttplib.eventbus.EventBusUtil;
+import com.example.okhttplib.utils.GlideRequestOptionsUtils;
 import com.lzy.okgo.OkGo;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -31,6 +33,7 @@ import java.util.Map;
 
 public abstract class RBaseFragment extends Fragment implements MyOkHttpImp {
 
+
     public abstract int inflaterLayout();
 
     public abstract void init(View view);
@@ -40,6 +43,7 @@ public abstract class RBaseFragment extends Fragment implements MyOkHttpImp {
     protected void onLoadRetry() {
 
     }
+
 
     View view = null;
 
@@ -105,6 +109,10 @@ public abstract class RBaseFragment extends Fragment implements MyOkHttpImp {
      * .............................................
      *          activity的一些用于工具  start
      */
+    
+    public void glide(String url, ImageView imageView) {
+        Glide.with(imageView).load(url).apply(GlideRequestOptionsUtils.requestOptions()).into(imageView);
+    }
 
     public void checkNet() {
         if (!NetworkUtils.isConnected()) {
