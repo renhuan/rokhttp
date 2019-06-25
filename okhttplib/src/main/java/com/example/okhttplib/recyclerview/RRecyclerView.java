@@ -10,8 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.okhttplib.R;
+
+import java.util.Collection;
+import java.util.List;
 
 public class RRecyclerView extends RecyclerView {
 
@@ -126,7 +130,7 @@ public class RRecyclerView extends RecyclerView {
 
 
     /**
-     * 必须倒数第二个设置
+     * 创建adapter后  才能使用以下方法
      *
      * @param adapters
      * @return
@@ -143,44 +147,75 @@ public class RRecyclerView extends RecyclerView {
         return this;
     }
 
-    public void isUseEmpty(boolean isUseEmpty) {
+    public RRecyclerView setROpenLoadAnimation(int type) {
+        if (adapters != null) {
+            adapters.openLoadAnimation(type);
+        }
+        return this;
+    }
+
+    public RRecyclerView setROnLoadMoreListener(BaseQuickAdapter.RequestLoadMoreListener requestLoadMoreListener) {
+        if (adapters != null) {
+            adapters.setOnLoadMoreListener(requestLoadMoreListener, this);
+        }
+        return this;
+    }
+
+    /**
+     * 直接addData即可
+     *
+     * @param isUseEmpty
+     * @return
+     */
+    @Deprecated
+    public RRecyclerView isUseEmpty(boolean isUseEmpty) {
         if (adapters != null) {
             adapters.isUseEmpty(isUseEmpty);
         }
+        return this;
     }
 
 
-    /**
-     * 以下必须倒数第一个设置
-     *
-     * @param
-     * @return
-     */
-    public RRecyclerView setROnItemClickListener(BaseQuickAdapter.OnItemClickListener onItemClickListener) {
-        if (adapters == null) {
-            throw new NullPointerException("必须先setRAdapter()后，才能使用此方法");
+    public RRecyclerView addData(List newData) {
+        if (adapters != null) {
+            if (adapters.getData().size() == 0 && newData.size() == 0) {
+                adapters.isUseEmpty(true);
+            }
+            if (newData.size() == 0) {
+                adapters.loadMoreEnd();
+            } else {
+                adapters.loadMoreComplete();
+            }
+            adapters.addData(newData);
         }
-        adapters.setOnItemClickListener(onItemClickListener);
+        return this;
+    }
+
+    public RRecyclerView setNewData(List newData) {
+        if (adapters != null) {
+            adapters.setNewData(newData);
+        }
+        return this;
+    }
+
+    public RRecyclerView setROnItemClickListener(BaseQuickAdapter.OnItemClickListener onItemClickListener) {
+        if (adapters != null) {
+            adapters.setOnItemClickListener(onItemClickListener);
+        }
         return this;
     }
 
     public RRecyclerView setROnItemLongClickListener(BaseQuickAdapter.OnItemLongClickListener onItemClickListener) {
-        if (adapters == null) {
-            throw new NullPointerException("必须先setRAdapter()后，才能使用此方法");
+        if (adapters != null) {
+            adapters.setOnItemLongClickListener(onItemClickListener);
         }
-        adapters.setOnItemLongClickListener(onItemClickListener);
         return this;
     }
 
-    /**
-     * @param
-     * @return
-     */
     public RRecyclerView setROnItemChildClickListener(BaseQuickAdapter.OnItemChildClickListener onItemChildClickListener) {
-        if (adapters == null) {
-            throw new NullPointerException("必须先setRAdapter()后，才能使用此方法");
+        if (adapters != null) {
+            adapters.setOnItemChildClickListener(onItemChildClickListener);
         }
-        adapters.setOnItemChildClickListener(onItemChildClickListener);
         return this;
     }
 

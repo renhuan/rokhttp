@@ -109,7 +109,7 @@ public abstract class RBaseFragment extends Fragment implements MyOkHttpImp {
      * .............................................
      *          activity的一些用于工具  start
      */
-    
+
     public void glide(String url, ImageView imageView) {
         Glide.with(imageView).load(url).apply(GlideRequestOptionsUtils.requestOptions()).into(imageView);
     }
