@@ -34,7 +34,7 @@
       
  ## 说明
  
- 此库用到的第三方库，加上一些常用的封装，如eventBus等，crash等
+ 此库用到的第三方库，加上一些常用的封装，如eventBus，crash,RecyclerView等
  
      //okgo  okhttp
     api 'com.lzy.net:okgo:3.0.4'
