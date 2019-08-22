@@ -22,7 +22,7 @@
 2. 处理成功回调的全局状态，如code=1，表示请求成功，开始成功回调，否则，失败回调处理
 3. 显示隐藏全局Loading等
 
-三、API调用[demo](https://github.com/renhuan2015/MyOkHttp/blob/master/app/src/main/java/com/example/administrator/myokhttp/config/Api.java)
+三、API调用 [demo](https://github.com/renhuan2015/MyOkHttp/blob/master/app/src/main/java/com/example/administrator/myokhttp/config/Api.java)
 
       
         HashMap<String, String> hashMap = new HashMap<>();
