@@ -275,6 +275,13 @@ public class LSettingItem extends RelativeLayout {
     }
 
     /**
+     * 更改左侧图片
+     */
+    public void setLeftIcon(int res) {
+        mIvLeftIcon.setImageResource(res);
+    }
+
+    /**
      * 更改右侧文字
      */
     public void setRightText(String info) {

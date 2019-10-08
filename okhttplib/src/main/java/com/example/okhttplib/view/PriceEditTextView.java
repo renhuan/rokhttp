@@ -71,9 +71,14 @@ public class PriceEditTextView extends AppCompatEditText implements TextWatcher 
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         try {
             if (Double.valueOf(s.toString()) > limit) {
-                setText("");
+                setText("0.00");
                 KeyboardUtils.hideSoftInput(this);
                 ToastUtils.showShort("超过当前最大数值");
+            }
+            if (Double.valueOf(s.toString()) < 0) {
+                setText("0.00");
+                KeyboardUtils.hideSoftInput(this);
+                ToastUtils.showShort("数量不能小于0");
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();

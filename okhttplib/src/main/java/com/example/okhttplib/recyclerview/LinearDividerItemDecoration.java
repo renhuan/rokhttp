@@ -64,7 +64,7 @@ public class LinearDividerItemDecoration extends RecyclerView.ItemDecoration {
         //分割线的右边界 = 子View的宽度 - 子View的右padding值
         int rectRight = parent.getWidth() - parent.getPaddingRight();
         int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount; i++) {
+        for (int i = 0; i < childCount - 1; i++) {
             View child = parent.getChildAt(i);
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
             // 分割线的top = 子View的底部 + 子View的margin值

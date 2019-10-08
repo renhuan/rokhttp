@@ -29,6 +29,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 
@@ -150,8 +151,10 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
      * 关闭当前activity
      */
     public void finishActivity() {
+        OkGo.getInstance().cancelTag(ActivityUtils.getTopActivity());
         ActivityUtils.finishActivity(this, true);
     }
+
 
     /**
      * 启动activity  无参数
@@ -309,10 +312,10 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
      */
     @Override
     protected void onDestroy() {
-        OkGo.getInstance().cancelTag(this);
         if (isRegisterEventBus()) {
             EventBusUtil.unregister(this);
         }
         super.onDestroy();
+
     }
 }

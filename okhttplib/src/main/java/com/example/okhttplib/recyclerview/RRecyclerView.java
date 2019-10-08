@@ -13,6 +13,7 @@ import android.view.View;
 import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.okhttplib.R;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.Collection;
 import java.util.List;
@@ -41,6 +42,7 @@ public class RRecyclerView extends RecyclerView {
     public RRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
+        setOverScrollMode(View.OVER_SCROLL_NEVER);
         setRLinearLayoutManager();
         addItemDecoration(itemDecoration = new LinearDividerItemDecoration(LinearDividerItemDecoration.VERTICAL_LIST, 1));
     }
@@ -114,6 +116,7 @@ public class RRecyclerView extends RecyclerView {
 
     /**
      * 设置空布局
+     * setadapter 之前才生效
      *
      * @param emptyView
      * @return
@@ -139,6 +142,7 @@ public class RRecyclerView extends RecyclerView {
 
     public RRecyclerView setRAdapter(BaseQuickAdapter adapters) {
         this.adapters = adapters;
+
         if (adapters.getData().size() == 0) {
             adapters.setEmptyView(emptyView, this);
         }
@@ -185,6 +189,30 @@ public class RRecyclerView extends RecyclerView {
                 adapters.loadMoreEnd();
             } else {
                 adapters.loadMoreComplete();
+            }
+            adapters.addData(newData);
+        }
+        return this;
+    }
+
+
+    /**
+     * 配合SmartRefresh
+     *
+     * @param newData
+     * @param refreshLayout
+     * @return
+     */
+    public RRecyclerView addData(List newData, SmartRefreshLayout refreshLayout) {
+        refreshLayout.finishRefresh();
+        if (adapters != null) {
+            if (adapters.getData().size() == 0 && newData.size() == 0) {
+                adapters.isUseEmpty(true);
+            }
+            if (newData.size() == 0) {
+                refreshLayout.finishLoadMoreWithNoMoreData();
+            } else {
+                refreshLayout.finishLoadMore();
             }
             adapters.addData(newData);
         }

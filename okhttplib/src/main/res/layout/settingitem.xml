@@ -63,6 +63,7 @@
         android:layout_height="match_parent"
         android:layout_toLeftOf="@id/rightlayout"
         android:gravity="center"
+        android:singleLine="true"
         android:text=""
         android:textColor="#999999"
         android:textSize="12sp"
