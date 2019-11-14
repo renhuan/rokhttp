@@ -1,5 +1,7 @@
 package com.example.administrator.myokhttp.config;
 
+import android.app.ProgressDialog;
+
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.example.administrator.myokhttp.base.BaseActivity;
@@ -19,19 +21,20 @@ public class BaseOkHttp extends RBaseOkHttp {
 
     @Override
     public void onRSuccess(com.lzy.okgo.model.Response<String> response, OkhttpImp imp) {
-        try {
-            JSONObject jsonObject = new JSONObject(response.body());
-            int code = jsonObject.getInt("code");
-            LogUtils.i(response.body());
-            if (code == 1) {
-                imp.onSuccess(response);
-            } else {
-                String message = jsonObject.getString("message");
-                ((BaseActivity) ActivityUtils.getTopActivity()).toast(message);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        imp.onSuccess(response);
+//        try {
+//            JSONObject jsonObject = new JSONObject(response.body());
+//            int code = jsonObject.getInt("code");
+//            LogUtils.i(response.body());
+//            if (code == 1) {
+//                imp.onSuccess(response);
+//            } else {
+//                String message = jsonObject.getString("message");
+//                ((BaseActivity) ActivityUtils.getTopActivity()).toast(message);
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
@@ -39,16 +42,20 @@ public class BaseOkHttp extends RBaseOkHttp {
         return null;
     }
 
-
     @Override
-    public void showLoading(String tag) {
-//        xPopup = XPopup.get(ActivityUtils.getTopActivity()).asLoading();
-//        xPopup.show(tag);
+    public void showLoading() {
+        dialog = new ProgressDialog(ActivityUtils.getTopActivity());
+        dialog.setMessage("正在加载中");
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
     }
 
     @Override
-    public void hideLoading(String tag) {
-//        if (xPopup != null)
-//            xPopup.dismiss(tag);
+    public void hideLoading() {
+        if (dialog != null)
+            dialog.dismiss();
     }
+
+    ProgressDialog dialog;
+
 }

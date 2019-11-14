@@ -4,16 +4,22 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.SwitchCompat;
+import android.view.MotionEvent;
+
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.SwitchCompat;
+
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.example.okhttplib.R;
 
 
@@ -288,8 +294,27 @@ public class LSettingItem extends RelativeLayout {
         mTvRightText.setText(info);
     }
 
+
+    public void setTextSize(int sp) {
+        mTvLeftText.setTextSize(sp);
+    }
+
     public interface OnLSettingItemClick {
         void click(boolean isChecked, View view);
     }
+
+
+    private boolean isClick = false;
+
+    //设置不能点击
+    public void setDisClick() {
+        this.isClick = true;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return isClick || super.onInterceptTouchEvent(ev);
+    }
+
 }
 

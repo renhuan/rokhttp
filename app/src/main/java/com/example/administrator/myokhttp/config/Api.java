@@ -22,11 +22,6 @@ public class Api {
     public static OkhttpImp getOkHttpImp(final MyOkHttpImp baseCall, final int tag) {
         return new OkhttpImp() {
             @Override
-            public void onStart(Request<String, ? extends Request> request) {
-                baseCall.onBefore(tag);
-            }
-
-            @Override
             public void onSuccess(Response<String> response) {
                 baseCall.onSuccess(response.body(), tag);
             }
@@ -45,6 +40,13 @@ public class Api {
     public static void getDemo(MyOkHttpImp baseCall) {
         new BaseOkHttp()
                 .setUrl(ROOT_URL + "index.php/index/index")
+                .setOkhttpImp(getOkHttpImp(baseCall))
+                .get();
+    }
+
+    public static void getRequest(String result, MyOkHttpImp baseCall) {
+        new BaseOkHttp()
+                .setUrl("https://192.168.0.100:4782/hardware/data/query?hardware_code=" + result)
                 .setOkhttpImp(getOkHttpImp(baseCall))
                 .get();
     }

@@ -2,24 +2,24 @@ package com.example.okhttplib.recyclerview;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.okhttplib.R;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.util.Collection;
 import java.util.List;
 
 public class RRecyclerView extends RecyclerView {
-
 
     private final LinearDividerItemDecoration itemDecoration;
     /**
@@ -33,7 +33,7 @@ public class RRecyclerView extends RecyclerView {
     private Context context;
     //默认空布局
     public int emptyView = R.layout.r_empty_view;
-    private BaseQuickAdapter adapters;
+    public BaseQuickAdapter adapters;
 
     public RRecyclerView(@NonNull Context context) {
         this(context, null);
@@ -142,10 +142,7 @@ public class RRecyclerView extends RecyclerView {
 
     public RRecyclerView setRAdapter(BaseQuickAdapter adapters) {
         this.adapters = adapters;
-
-        if (adapters.getData().size() == 0) {
-            adapters.setEmptyView(emptyView, this);
-        }
+        adapters.setEmptyView(emptyView, this);
         adapters.isUseEmpty(false);
         setAdapter(adapters);
         return this;
@@ -203,16 +200,11 @@ public class RRecyclerView extends RecyclerView {
      * @param refreshLayout
      * @return
      */
-    public RRecyclerView addData(List newData, SmartRefreshLayout refreshLayout) {
-        refreshLayout.finishRefresh();
+    public RRecyclerView addData(List newData, SwipeRefreshLayout refreshLayout) {
+        refreshLayout.setRefreshing(false);
         if (adapters != null) {
             if (adapters.getData().size() == 0 && newData.size() == 0) {
                 adapters.isUseEmpty(true);
-            }
-            if (newData.size() == 0) {
-                refreshLayout.finishLoadMoreWithNoMoreData();
-            } else {
-                refreshLayout.finishLoadMore();
             }
             adapters.addData(newData);
         }
@@ -246,5 +238,4 @@ public class RRecyclerView extends RecyclerView {
         }
         return this;
     }
-
 }

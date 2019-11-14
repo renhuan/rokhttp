@@ -1,19 +1,15 @@
 package com.example.okhttplib.base;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.billy.android.loading.Gloading;
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.example.okhttplib.config.MyOkHttpImp;
@@ -29,13 +25,11 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 
 public abstract class RBaseActivity extends AppCompatActivity implements MyOkHttpImp {
 
-    private Gloading.Holder holder;
 
     public abstract int inflaterLayout();
 
@@ -57,78 +51,9 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
             EventBusUtil.register(this);
         }
 
-
         //初始化数据
         init(savedInstanceState);
-
-        initHolder();
     }
-
-    protected void onLoadRetry() {
-
-    }
-
-    /**
-     * 子类重写 给哪个view设置holder
-     *
-     * @return
-     */
-    protected View setHolder() {
-        return findViewById(android.R.id.content);
-    }
-
-    private void initHolder() {
-        if (holder == null) {
-            holder = Gloading.getDefault().wrap(setHolder()).withRetry(new Runnable() {
-                @Override
-                public void run() {
-                    onLoadRetry();
-                }
-            });
-        }
-    }
-
-
-    public void showLoading() {
-        holder.showLoading();
-    }
-
-    public void showLoadSuccess() {
-        holder.showLoadSuccess();
-    }
-
-    public void showLoadFailed() {
-        holder.showLoadFailed();
-    }
-
-    public void showEmpty() {
-        holder.showEmpty();
-    }
-
-
-    /***
-     *                    _ooOoo_
-     *                   o8888888o
-     *                   88" . "88
-     *                   (| -_- |)
-     *                    O\ = /O
-     *                ____/`---'\____
-     *              .   ' \\| |// `.
-     *               / \\||| : |||// \
-     *             / _||||| -:- |||||- \
-     *               | | \\\ - /// | |
-     *             | \_| ''\---/'' | |
-     *              \ .-\__ `-` ___/-. /
-     *           ___`. .' /--.--\ `. . __
-     *        ."" '< `.___\_<|>_/___.' >'"".
-     *       | | : `- \`.;`\ _ /`;.`/ - ` : | |
-     *         \ \ `-. \_ __\ /__ _/ .-` / /
-     * ======`-.____`-.___\_____/___.-`____.-'======
-     *                    `=---='
-     *
-     * .............................................
-     *          activity的一些用于工具  start
-     */
 
 
     public String getText(TextView textView) {
@@ -207,52 +132,7 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
         }
         ActivityUtils.startActivity(intent);
     }
-    /***
-     * _ooOoo_
-     * o8888888o
-     * 88" . "88
-     * (| -_- |)
-     *  O\ = /O
-     * ___/`---'\____
-     * .   ' \\| |// `.
-     * / \\||| : |||// \
-     * / _||||| -:- |||||- \
-     * | | \\\ - /// | |
-     * | \_| ''\---/'' | |
-     * \ .-\__ `-` ___/-. /
-     * ___`. .' /--.--\ `. . __
-     * ."" '< `.___\_<|>_/___.' >'"".
-     * | | : `- \`.;`\ _ /`;.`/ - ` : | |
-     * \ \ `-. \_ __\ /__ _/ .-` / /
-     * ======`-.____`-.___\_____/___.-`____.-'======
-     * `=---='
-     * ............................................
-     *           activity的一些用于工具  end
-     */
 
-    /***
-     *                    _ooOoo_
-     *                   o8888888o
-     *                   88" . "88
-     *                   (| -_- |)
-     *                    O\ = /O
-     *                ____/`---'\____
-     *              .   ' \\| |// `.
-     *               / \\||| : |||// \
-     *             / _||||| -:- |||||- \
-     *               | | \\\ - /// | |
-     *             | \_| ''\---/'' | |
-     *              \ .-\__ `-` ___/-. /
-     *           ___`. .' /--.--\ `. . __
-     *        ."" '< `.___\_<|>_/___.' >'"".
-     *       | | : `- \`.;`\ _ /`;.`/ - ` : | |
-     *         \ \ `-. \_ __\ /__ _/ .-` / /
-     * ======`-.____`-.___\_____/___.-`____.-'======
-     *                    `=---='
-     *
-     * .............................................
-     *          eventbus  start
-     */
     /**
      * 是否注册事件分发
      *
@@ -288,34 +168,11 @@ public abstract class RBaseActivity extends AppCompatActivity implements MyOkHtt
         }
     }
 
-    /***
-     * _ooOoo_
-     * o8888888o
-     * 88" . "88
-     * (| -_- |)
-     *  O\ = /O
-     * ___/`---'\____
-     * .   ' \\| |// `.
-     * / \\||| : |||// \
-     * / _||||| -:- |||||- \
-     * | | \\\ - /// | |
-     * | \_| ''\---/'' | |
-     * \ .-\__ `-` ___/-. /
-     * ___`. .' /--.--\ `. . __
-     * ."" '< `.___\_<|>_/___.' >'"".
-     * | | : `- \`.;`\ _ /`;.`/ - ` : | |
-     * \ \ `-. \_ __\ /__ _/ .-` / /
-     * ======`-.____`-.___\_____/___.-`____.-'======
-     * `=---='
-     * ............................................
-     *           eventbus  end
-     */
     @Override
     protected void onDestroy() {
         if (isRegisterEventBus()) {
             EventBusUtil.unregister(this);
         }
         super.onDestroy();
-
     }
 }

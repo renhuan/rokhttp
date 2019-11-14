@@ -2,25 +2,14 @@ package com.example.okhttplib;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.content.Context;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
 
-import com.billy.android.loading.Gloading;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
-import com.example.okhttplib.adapter.GlobalAdapter;
 import com.lzy.okgo.OkGo;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.lzy.okgo.cache.CacheEntity;
+import com.lzy.okgo.cache.CacheMode;
 
 import java.util.ArrayList;
 
@@ -33,13 +22,11 @@ public abstract class RApp extends Application {
     public void onCreate() {
         super.onCreate();
         Utils.init(this);
-        initRefresh();
         initLog();
         initOkGO();
         if (isCrash()) {
             initCrash();
         }
-        Gloading.initDefault(new GlobalAdapter());
         init();
     }
 
@@ -52,9 +39,6 @@ public abstract class RApp extends Application {
         return true;
     }
 
-    protected int setPrimaryColorsId() {
-        return Color.parseColor("#eeeeed");
-    }
 
     @SuppressLint("MissingPermission")
     private void initCrash() {
@@ -67,27 +51,9 @@ public abstract class RApp extends Application {
     }
 
     private void initOkGO() {
-        OkGo.getInstance().init(this);//必须调用初始化
+        OkGo.getInstance().init(this);
     }
 
-    private void initRefresh() {
-        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
-            @NonNull
-            @Override
-            public RefreshHeader createRefreshHeader(@NonNull Context context, @NonNull RefreshLayout layout) {
-                layout.setPrimaryColorsId(setPrimaryColorsId());//全局设置主题颜色
-                return new ClassicsHeader(context).setDrawableSize(16).setTextSizeTitle(13);
-            }
-        });
-
-        SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
-            @NonNull
-            @Override
-            public RefreshFooter createRefreshFooter(@NonNull Context context, @NonNull RefreshLayout layout) {
-                return new ClassicsFooter(context).setDrawableSize(16).setTextSizeTitle(13);
-            }
-        });
-    }
 
     private void initLog() {
         final LogUtils.Config config = LogUtils.getConfig()

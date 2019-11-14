@@ -2,16 +2,17 @@ package com.example.okhttplib.base;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.billy.android.loading.Gloading;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -38,13 +39,6 @@ public abstract class RBaseFragment extends Fragment implements MyOkHttpImp {
 
     public abstract void init(View view);
 
-    private Gloading.Holder holder;
-
-    protected void onLoadRetry() {
-
-    }
-
-
     View view = null;
 
     @Nullable
@@ -54,61 +48,14 @@ public abstract class RBaseFragment extends Fragment implements MyOkHttpImp {
         if (isRegisterEventBus()) {
             EventBusUtil.register(this);
         }
-        initHolder();
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         init(view);
-        return holder.getWrapper();
     }
-
-    private void initHolder() {
-        if (holder == null) {
-            holder = Gloading.getDefault().wrap(view).withRetry(new Runnable() {
-                @Override
-                public void run() {
-                    onLoadRetry();
-                }
-            });
-        }
-    }
-
-    public void showLoading() {
-        holder.showLoading();
-    }
-
-    public void showLoadSuccess() {
-        holder.showLoadSuccess();
-    }
-
-    public void showLoadFailed() {
-        holder.showLoadFailed();
-    }
-
-    public void showEmpty() {
-        holder.showEmpty();
-    }
-
-    /***
-     *                    _ooOoo_
-     *                   o8888888o
-     *                   88" . "88
-     *                   (| -_- |)
-     *                    O\ = /O
-     *                ____/`---'\____
-     *              .   ' \\| |// `.
-     *               / \\||| : |||// \
-     *             / _||||| -:- |||||- \
-     *               | | \\\ - /// | |
-     *             | \_| ''\---/'' | |
-     *              \ .-\__ `-` ___/-. /
-     *           ___`. .' /--.--\ `. . __
-     *        ."" '< `.___\_<|>_/___.' >'"".
-     *       | | : `- \`.;`\ _ /`;.`/ - ` : | |
-     *         \ \ `-. \_ __\ /__ _/ .-` / /
-     * ======`-.____`-.___\_____/___.-`____.-'======
-     *                    `=---='
-     *
-     * .............................................
-     *          activity的一些用于工具  start
-     */
 
     public void glide(String url, ImageView imageView) {
         Glide.with(imageView).load(url).apply(GlideRequestOptionsUtils.requestOptions()).into(imageView);
@@ -180,52 +127,7 @@ public abstract class RBaseFragment extends Fragment implements MyOkHttpImp {
         }
         ActivityUtils.startActivity(intent);
     }
-    /***
-     * _ooOoo_
-     * o8888888o
-     * 88" . "88
-     * (| -_- |)
-     *  O\ = /O
-     * ___/`---'\____
-     * .   ' \\| |// `.
-     * / \\||| : |||// \
-     * / _||||| -:- |||||- \
-     * | | \\\ - /// | |
-     * | \_| ''\---/'' | |
-     * \ .-\__ `-` ___/-. /
-     * ___`. .' /--.--\ `. . __
-     * ."" '< `.___\_<|>_/___.' >'"".
-     * | | : `- \`.;`\ _ /`;.`/ - ` : | |
-     * \ \ `-. \_ __\ /__ _/ .-` / /
-     * ======`-.____`-.___\_____/___.-`____.-'======
-     * `=---='
-     * ............................................
-     *           activity的一些用于工具  end
-     */
 
-    /***
-     *                    _ooOoo_
-     *                   o8888888o
-     *                   88" . "88
-     *                   (| -_- |)
-     *                    O\ = /O
-     *                ____/`---'\____
-     *              .   ' \\| |// `.
-     *               / \\||| : |||// \
-     *             / _||||| -:- |||||- \
-     *               | | \\\ - /// | |
-     *             | \_| ''\---/'' | |
-     *              \ .-\__ `-` ___/-. /
-     *           ___`. .' /--.--\ `. . __
-     *        ."" '< `.___\_<|>_/___.' >'"".
-     *       | | : `- \`.;`\ _ /`;.`/ - ` : | |
-     *         \ \ `-. \_ __\ /__ _/ .-` / /
-     * ======`-.____`-.___\_____/___.-`____.-'======
-     *                    `=---='
-     *
-     * .............................................
-     *          eventbus  start
-     */
     /**
      * 是否注册事件分发
      *
@@ -261,28 +163,6 @@ public abstract class RBaseFragment extends Fragment implements MyOkHttpImp {
         }
     }
 
-    /***
-     * _ooOoo_
-     * o8888888o
-     * 88" . "88
-     * (| -_- |)
-     *  O\ = /O
-     * ___/`---'\____
-     * .   ' \\| |// `.
-     * / \\||| : |||// \
-     * / _||||| -:- |||||- \
-     * | | \\\ - /// | |
-     * | \_| ''\---/'' | |
-     * \ .-\__ `-` ___/-. /
-     * ___`. .' /--.--\ `. . __
-     * ."" '< `.___\_<|>_/___.' >'"".
-     * | | : `- \`.;`\ _ /`;.`/ - ` : | |
-     * \ \ `-. \_ __\ /__ _/ .-` / /
-     * ======`-.____`-.___\_____/___.-`____.-'======
-     * `=---='
-     * ............................................
-     *           eventbus  end
-     */
     @Override
     public void onDestroyView() {
         OkGo.getInstance().cancelTag(getActivity());

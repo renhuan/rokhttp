@@ -15,7 +15,7 @@ import java.util.TimerTask;
  */
 
 @SuppressLint("DefaultLocale")
-public class CountDownView extends android.support.v7.widget.AppCompatButton {
+public class CountDownView extends androidx.appcompat.widget.AppCompatButton {
 
     private Timer timer;
     private int second = 60;

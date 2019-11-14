@@ -9,6 +9,7 @@ import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.NoBodyRequest;
 import com.lzy.okgo.request.base.Request;
 
 import org.json.JSONObject;
@@ -16,8 +17,6 @@ import org.json.JSONObject;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
-
-import okhttp3.MediaType;
 
 
 /**
@@ -33,7 +32,6 @@ public abstract class RBaseOkHttp {
     private HashMap<String, String> hashMap = new HashMap<>();//网络请求参数
     private CacheMode cacheMode = CacheMode.DEFAULT;//网络请求缓存模式
     private OkhttpImp okhttpImp;
-    private boolean isHttpHeanJson = false;
 
     public RBaseOkHttp isShowLoading(boolean isShowLoading) {
         this.isShowLoading = isShowLoading;
@@ -70,38 +68,64 @@ public abstract class RBaseOkHttp {
         return this;
     }
 
-    public RBaseOkHttp get() {
-        OkGo.<String>get(url).params(hashMap).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(new HttpHeaders())).tag(ActivityUtils.getTopActivity()).execute(getStringCallback());
+    public static final int GET = 0x120000;
+    public static final int POST = 0x121000;
+    public static final int DELETE = 0x122000;
+    public static final int PUT = 0x123000;
+
+    public RBaseOkHttp request(int tag) {
+        getRequest(tag).params(hashMap).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(new HttpHeaders())).tag(ActivityUtils.getTopActivity()).execute(getStringCallback());
         return this;
     }
 
-    public RBaseOkHttp post() {
-        OkGo.<String>post(url).params(hashMap).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(new HttpHeaders())).tag(ActivityUtils.getTopActivity()).execute(getStringCallback());
-        return this;
+    private <T extends Request> T getRequest(int tag) {
+        if (tag == GET) {
+            return (T) OkGo.<String>get(url);
+        } else if (tag == POST) {
+            return (T) OkGo.<String>post(url);
+        } else if (tag == DELETE) {
+            return (T) OkGo.<String>delete(url);
+        } else if (tag == PUT) {
+            return (T) OkGo.<String>put(url);
+        }
+        return null;
     }
 
-    public RBaseOkHttp post_json() {
+
+    public void get() {
+        request(GET);
+    }
+
+    public void post() {
+        request(POST);
+    }
+
+    public void delete() {
+        request(DELETE);
+    }
+
+    public void put() {
+        request(PUT);
+    }
+
+    public void post_json() {
         OkGo.<String>post(url).upJson(new JSONObject(hashMap)).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(new HttpHeaders())).tag(ActivityUtils.getTopActivity()).execute(getStringCallback());
-        return this;
     }
 
-    public RBaseOkHttp delete() {
-        OkGo.<String>delete(url).params(hashMap).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(new HttpHeaders())).tag(ActivityUtils.getTopActivity()).execute(getStringCallback());
-        return this;
+    public void delete_json() {
+        OkGo.<String>delete(url).upJson(new JSONObject(hashMap)).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(new HttpHeaders())).tag(ActivityUtils.getTopActivity()).execute(getStringCallback());
     }
 
-    public RBaseOkHttp put() {
-        OkGo.<String>put(url).params(hashMap).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(new HttpHeaders())).tag(ActivityUtils.getTopActivity()).execute(getStringCallback());
-        return this;
+    public void put_json() {
+        OkGo.<String>put(url).upJson(new JSONObject(hashMap)).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(new HttpHeaders())).tag(ActivityUtils.getTopActivity()).execute(getStringCallback());
     }
 
     private StringCallback getStringCallback() {
-        final String tag = String.valueOf(System.currentTimeMillis());
         return new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (isShowLoading) {
-                    hideLoading(tag);
+                    hideLoading();
                 }
                 onRSuccess(response, okhttpImp);
             }
@@ -109,7 +133,7 @@ public abstract class RBaseOkHttp {
             @Override
             public void onError(Response<String> response) {
                 if (isShowLoading) {
-                    hideLoading(tag);
+                    hideLoading();
                 }
                 doException(response);
                 okhttpImp.onError(response);
@@ -124,16 +148,15 @@ public abstract class RBaseOkHttp {
                     return;
                 }
                 //然后隐藏软键盘
-                KeyboardUtils.hideSoftInput(ActivityUtils.getTopActivity());
-
+                if (ActivityUtils.getTopActivity() != null)
+                    KeyboardUtils.hideSoftInput(ActivityUtils.getTopActivity());
                 if (isShowLoading) {
                     if (CacheMode.FIRST_CACHE_THEN_REQUEST.equals(cacheMode)
                             || CacheMode.DEFAULT.equals(cacheMode)
                             || CacheMode.NO_CACHE.equals(cacheMode)) {
-                        showLoading(tag);
+                        showLoading();
                     }
                 }
-                okhttpImp.onStart(request);
             }
 
             @Override
@@ -161,15 +184,13 @@ public abstract class RBaseOkHttp {
 
     /***
      * 显示loading  给子类去重写
-     * @param tag
      */
-    public abstract void showLoading(String tag);
+    public abstract void showLoading();
 
     /***
      * 隐藏loading  给子类去重写
-     * @param tag
      */
-    public abstract void hideLoading(String tag);
+    public abstract void hideLoading();
 
     /**
      * 异常处理

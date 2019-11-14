@@ -11,8 +11,8 @@
         android:layout_weight="2" />
 
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="52dp"
+        android:layout_width="115dp"
+        android:layout_height="75dp"
         android:layout_gravity="center"
         android:src="@drawable/icon_empty" />
 
@@ -20,11 +20,11 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:gravity="center_horizontal"
-        android:text="O(∩暂无数据∩)O"
-        android:textColor="#FFE6E6E6"
-        android:textSize="12sp" />
+        android:text="暂无数据"
+        android:textColor="#D5D5D5"
+        android:textSize="17sp" />
 
     <View
         android:layout_width="match_parent"

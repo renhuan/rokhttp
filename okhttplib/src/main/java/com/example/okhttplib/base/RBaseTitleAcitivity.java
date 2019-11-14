@@ -1,7 +1,9 @@
 package com.example.okhttplib.base;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,7 @@ public abstract class RBaseTitleAcitivity extends RBaseActivity {
     protected TextView tvTitle;
 
 
-    //重写  设置toolbar
+    //重写 设置toolbar
     protected int setToolbar() {
         return R.layout.title;
     }
@@ -32,19 +34,15 @@ public abstract class RBaseTitleAcitivity extends RBaseActivity {
     @Override
     public void init(Bundle savedInstanceState) {
         if (isToolbar()) {
-            try {
-                FrameLayout contentView = findViewById(android.R.id.content);
-                ViewGroup childAt = (ViewGroup) contentView.getChildAt(0);
-                if (childAt instanceof LinearLayout) {
-                    View inflate = LayoutInflater.from(this).inflate(setToolbar(), null);
-                    toolbar = inflate.findViewById(R.id.toolbar);
-                    tvTitle = inflate.findViewById(R.id.tv_title);
-                    childAt.addView(inflate, 0);
-                } else {
-                    throw new IllegalArgumentException("规定根布局为LinearLayout");
-                }
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+            FrameLayout contentView = findViewById(android.R.id.content);
+            ViewGroup childAt = (ViewGroup) contentView.getChildAt(0);
+            if (childAt instanceof LinearLayout) {
+                View inflate = LayoutInflater.from(this).inflate(setToolbar(), null);
+                toolbar = inflate.findViewById(R.id.toolbar);
+                tvTitle = inflate.findViewById(R.id.tv_title);
+                childAt.addView(inflate, 0);
+            } else {
+                throw new IllegalArgumentException("规定根布局为LinearLayout");
             }
         }
     }
