@@ -25,12 +25,16 @@
 三、API调用 [demo](https://github.com/renhuan2015/MyOkHttp/blob/master/app/src/main/java/com/example/administrator/myokhttp/config/Api.kt)
 
       
-        HashMap<String, String> hashMap = new HashMap<>();
-        new BaseOkHttp()
-            .setUrl(BuildConfig.BASE_URL + "address/list")
-            .setOkhttpImp(okhttpIml)
-            .setParameter(hashMap)
-            .get();
+        fun sendRegisterVerify(phone: String, baseCall: RBaseOkHttpImp) {
+        BaseOkHttp.newInstance()
+                .setUrl(BuildConfig.BASE_URL + "/app/user/register/verify")
+                .setCallBack(baseCall, Constants.GET_REGISTERVERIFY)
+                .setParameter(hashMapOf(
+                        "country" to "86",
+                        "phone" to phone
+                ))
+                .postAsJson()
+    }
       
  ## 说明
  
