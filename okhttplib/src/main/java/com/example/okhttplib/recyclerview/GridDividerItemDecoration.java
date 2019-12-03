@@ -4,10 +4,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+
 import androidx.annotation.ColorInt;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import android.view.View;
 
 /**
@@ -111,7 +113,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
             }
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             int orientation = ((StaggeredGridLayoutManager) layoutManager)
-                .getOrientation();
+                    .getOrientation();
             if (orientation == StaggeredGridLayoutManager.VERTICAL) {
                 if ((pos + 1) % spanCount == 0)// 如果是最后一列，则不需要绘制右边
                 {
@@ -134,7 +136,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
             return lines == pos / spanCount + 1;
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             int orientation = ((StaggeredGridLayoutManager) layoutManager)
-                .getOrientation();
+                    .getOrientation();
             // StaggeredGridLayoutManager 且纵向滚动
             if (orientation == StaggeredGridLayoutManager.VERTICAL) {
                 childCount = childCount - childCount % spanCount;
@@ -162,7 +164,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
             }
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             int orientation = ((StaggeredGridLayoutManager) layoutManager)
-                .getOrientation();
+                    .getOrientation();
             // StaggeredGridLayoutManager 且纵向滚动
             if (orientation == StaggeredGridLayoutManager.VERTICAL) {
                 childCount = childCount - childCount % spanCount;
@@ -188,7 +190,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
             spanCount = ((GridLayoutManager) layoutManager).getSpanCount();
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             spanCount = ((StaggeredGridLayoutManager) layoutManager)
-                .getSpanCount();
+                    .getSpanCount();
         }
         return spanCount;
     }
