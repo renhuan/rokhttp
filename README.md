@@ -11,7 +11,7 @@
 	}
   
 	dependencies {
-	        implementation 'com.github.renhuan2015:MyOkHttp:2.2.0'
+	        implementation 'com.github.renhuan2015:MyOkHttp:2.0.0'
 	}
 	
 
@@ -36,24 +36,32 @@
  
  此库用到的第三方库，加上一些常用的封装，如eventBus，crash,RecyclerView等
  
-     //okgo  okhttp
+    api 'androidx.appcompat:appcompat:1.1.0'
+    api 'com.google.android.material:material:1.0.0'
+    //okgo
     api 'com.lzy.net:okgo:3.0.4'
     //按钮shape
-    api 'com.noober.background:core:1.4.0'
+    api 'com.noober.background:core:1.6.0'
     //eventBus
     api 'org.greenrobot:eventbus:3.1.1'
     //utils
-    api 'com.blankj:utilcode:1.22.0'
+    api 'com.blankj:utilcodex:1.25.9'
     //baseadapter
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
     //圆形头像
-    api 'de.hdodenhof:circleimageview:2.2.0'
-
-    api 'com.alibaba:fastjson:1.2.57'
-    api 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    api 'de.hdodenhof:circleimageview:3.0.1'
+    //glide
+    api 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    //布局适配
     api 'me.jessyan:autosize:1.1.2'
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-26'
+    //相册选择
+    api 'com.zhihu.android:matisse:0.5.3-beta1'
+    //相册选择后裁剪
+    api 'com.github.yalantis:ucrop:2.2.3'
+    //gson
+    api 'com.google.code.gson:gson:2.8.6'
 
-    api 'com.billy.android:gloading:1.0.1'
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    api 'com.wuyr:activitymessenger:1.0.3'
