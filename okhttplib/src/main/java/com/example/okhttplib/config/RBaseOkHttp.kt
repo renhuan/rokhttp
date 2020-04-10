@@ -5,6 +5,7 @@ import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.example.okhttplib.base.RBaseActivity
 import com.example.okhttplib.utils.ActivityManager
+import com.example.okhttplib.utils.toast
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cache.CacheMode
 import com.lzy.okgo.callback.StringCallback
@@ -22,7 +23,6 @@ import kotlin.collections.HashMap
 /**
  * http请求Base类
  * 第一种 build模式
- * 第二种 构造方法
  */
 
 abstract class RBaseOkHttp {
@@ -53,17 +53,16 @@ abstract class RBaseOkHttp {
             }
 
             override fun onStart(request: Request<String, out Request<*, *>>?) {
+                val currentActivity = ActivityManager.getInstance().currentActivity()
                 if (!NetworkUtils.isConnected()) {
-                    (ActivityManager.getInstance().currentActivity() as RBaseActivity).toast("当前无网络连接，请检查网络")
-                    OkGo.getInstance().cancelTag(ActivityManager.getInstance().currentActivity())
+                    toast("当前无网络连接，请检查网络")
+                    OkGo.getInstance().cancelTag(currentActivity)
                     return
                 }
-                ActivityManager.getInstance().currentActivity()?.let { KeyboardUtils.hideSoftInput(it) }
+                currentActivity?.let { KeyboardUtils.hideSoftInput(it) }
                 if (isShowLoading) {
-                    if (CacheMode.FIRST_CACHE_THEN_REQUEST == cacheMode
-                            || CacheMode.DEFAULT == cacheMode
-                            || CacheMode.NO_CACHE == cacheMode) {
-                        showLoading()
+                    when (cacheMode) {
+                        CacheMode.FIRST_CACHE_THEN_REQUEST, CacheMode.DEFAULT, CacheMode.NO_CACHE -> showLoading()
                     }
                 }
             }
@@ -161,15 +160,14 @@ abstract class RBaseOkHttp {
      * @param response
      */
     private fun doException(response: Response<String>) {
-        val baseActivity = ActivityManager.getInstance().currentActivity() as RBaseActivity
         when (response.code()) {
-            404 -> baseActivity.toast("404链接错误")
-            500 -> baseActivity.toast("500服务器错误")
-            502 -> baseActivity.toast("502服务器错误")
+            404 -> toast("404链接错误")
+            500 -> toast("500服务器错误")
+            502 -> toast("502服务器错误")
         }
         when (response.exception) {
-            is SocketTimeoutException -> baseActivity.toast("请求超时")
-            is SocketException -> baseActivity.toast("服务器异常")
+            is SocketTimeoutException -> toast("请求超时")
+            is SocketException -> toast("服务器异常")
         }
     }
 }

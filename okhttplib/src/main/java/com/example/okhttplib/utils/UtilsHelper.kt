@@ -26,60 +26,13 @@ object UtilsHelper {
     //记录用户首次点击返回键的时间
     private var firstTime: Long = 0
 
-
-    /**
-     * 给数组或者List添加分隔符
-     *
-     * @param iterator  数组或者list
-     * @param separator 分隔符
-     * @return 字符串
-     */
-    fun join(iterator: Iterator<*>?, separator: String?): String? {
-        if (iterator == null) {
-            return null
-        } else if (!iterator.hasNext()) {
-            return ""
-        } else {
-            val first = iterator.next()
-            if (!iterator.hasNext()) {
-                return Objects.toString(first, "")
-            } else {
-                val buf = StringBuilder(256)
-                if (first != null) {
-                    buf.append(first)
-                }
-                while (iterator.hasNext()) {
-                    if (separator != null) {
-                        buf.append(separator)
-                    }
-                    val obj = iterator.next()
-                    if (obj != null) {
-                        buf.append(obj)
-                    }
-                }
-                return buf.toString()
-            }
-        }
-    }
-
-    /**
-     * 保留两位小数
-     *
-     * @param str 数字
-     * @return 字符串
-     */
-    fun keepTwo(str: Float): String {
-        return DecimalFormat("0.00").format(BigDecimal(str.toDouble()))
-    }
-
-
     /**
      * 读取assets本地json
      *
      * @param fileName 文件名
      * @return 字符串
      */
-    fun getLocalJson(fileName: String): String {
+    fun loadLocalJson(fileName: String): String {
         val rBaseActivity = ActivityManager.getInstance().currentActivity() as RBaseActivity
         val stringBuilder = StringBuilder()
         try {
@@ -108,7 +61,7 @@ object UtilsHelper {
         val rBaseActivity = ActivityManager.getInstance().currentActivity() as RBaseActivity
         val clipboardManager = rBaseActivity.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         clipboardManager.primaryClip = ClipData.newPlainText("label", string)
-        rBaseActivity.toast("已复制：$string")
+        toast("已复制：$string")
     }
 
 
@@ -168,14 +121,13 @@ object UtilsHelper {
      * }
      */
     fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        val rBaseActivity = ActivityManager.getInstance().currentActivity() as RBaseActivity
         if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
-            if (System.currentTimeMillis() - firstTime > 1000) {
-                rBaseActivity.toast("再按一次退出")
+            return if (System.currentTimeMillis() - firstTime > 1000) {
+                toast("再按一次退出")
                 firstTime = System.currentTimeMillis()
-                return true
+                true
             } else {
-                return false
+                false
             }
         }
         return true

@@ -60,7 +60,7 @@ abstract class RLazyLoadFragment : RBaseFragment() {
     /**
      * 懒加载 返回函数
      */
-    protected open fun fetchData() {
+    open fun fetchData() {
 
     }
 

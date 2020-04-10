@@ -1,44 +1,21 @@
 package com.example.okhttplib.base
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.NetworkUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.bumptech.glide.Glide
+import androidx.fragment.app.Fragment
 import com.example.okhttplib.config.RBaseOkHttpImp
 import com.example.okhttplib.eventbus.Event
 import com.example.okhttplib.eventbus.EventBusUtil
-import com.example.okhttplib.utils.GlideRequestOptionsUtils
 import com.lzy.okgo.OkGo
-
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-
-import java.io.Serializable
-import java.util.HashMap
 
 
 abstract class RBaseFragment : Fragment(), RBaseOkHttpImp {
 
     internal var view: View? = null
-
-    /**
-     * 是否注册事件分发
-     *
-     * @return true绑定EventBus事件分发，默认不绑定，子类需要绑定的话复写此方法返回true.
-     */
-    open val isRegisterEventBus: Boolean
-        get() = false
-
 
     abstract fun inflaterLayout(): Int
 
@@ -57,23 +34,14 @@ abstract class RBaseFragment : Fragment(), RBaseOkHttpImp {
         init(view)
     }
 
-    /**
-     * textview的值
-     */
-    fun TextView.text(): String {
-        return this.text.toString().trim()
-    }
 
     /**
-     * 加载图片
+     * 是否注册事件分发
+     *
+     * @return true绑定EventBus事件分发，默认不绑定，子类需要绑定的话复写此方法返回true.
      */
-    fun ImageView.loadUrl(url: String) {
-        Glide.with(this).load(url).apply(GlideRequestOptionsUtils.requestOptions()).into(this)
-    }
-
-    fun toast(s: String) {
-        ToastUtils.showShort(s)
-    }
+    open val isRegisterEventBus: Boolean
+        get() = false
 
     /**
      * 子类重写接收到分发到事件
@@ -83,20 +51,16 @@ abstract class RBaseFragment : Fragment(), RBaseOkHttpImp {
     /**
      * 子类重写接受到分发的粘性事件
      */
-    protected fun receiveStickyEvent(event: Event<*>) {}
+    open fun receiveStickyEvent(event: Event<*>) {}
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventBusCome(event: Event<*>?) {
-        if (event != null) {
-            receiveEvent(event)
-        }
+        event?.let { receiveEvent(it) }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onStickyEventBusCome(event: Event<*>?) {
-        if (event != null) {
-            receiveStickyEvent(event)
-        }
+        event?.let { receiveStickyEvent(it) }
     }
 
     override fun onDestroyView() {

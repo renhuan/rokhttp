@@ -8,25 +8,20 @@ import okhttp3.internal.Internal.instance
 import kotlin.system.exitProcess
 
 class ActivityManager {
+    private var activityStack: Stack<Activity> = Stack()
 
-    /**
-     * 单例模式实例
-     */
     /**
      * 添加Activity到堆栈
      */
     fun addActivity(activity: Activity) {
-        if (activityStack == null) {
-            activityStack = Stack()
-        }
-        activityStack?.add(activity)
+        activityStack.add(activity)
     }
 
     /**
      * 结束当前Activity（堆栈中最后一个压入的）
      */
     fun finishActivity() {
-        activityStack?.lastElement()?.finish()
+        activityStack.lastElement()?.finish()
     }
 
     /**
@@ -34,7 +29,7 @@ class ActivityManager {
      */
 
     fun currentActivity(): Activity? {
-        return activityStack?.lastElement()
+        return activityStack.lastElement()
     }
 
     /**
@@ -42,7 +37,7 @@ class ActivityManager {
      */
     fun finishActivity(activity: Activity?) {
         activity?.let {
-            activityStack?.remove(it)
+            activityStack.remove(it)
             it.finish()
         }
     }
@@ -51,35 +46,22 @@ class ActivityManager {
      * 结束指定类名的Activity
      */
     fun finishActivity(cls: Class<*>) {
-        activityStack?.forEach {
-            if (it.javaClass == cls) {
-                finishActivity(it)
-            }
-        }
+        activityStack
+                .filter { it.javaClass == cls }
+                .forEach { finishActivity(it) }
     }
 
     /**
      * 结束所有Activity
      */
     fun finishAllActivity() {
-        activityStack?.forEach {
+        activityStack.forEach {
             finishActivity(it)
         }
-        activityStack?.clear()
-    }
-
-    /**
-     * 退出应用程序
-     */
-    fun AppExit(context: Context) {
-        finishAllActivity()
-        val activityMgr = context.getSystemService(ACTIVITY_SERVICE) as android.app.ActivityManager
-        activityMgr.restartPackage(context.packageName)
-        exitProcess(0)
+        activityStack.clear()
     }
 
     companion object {
-        private var activityStack: Stack<Activity>? = null
         private var instance: ActivityManager? = null
         fun getInstance(): ActivityManager {
             if (instance == null) {
