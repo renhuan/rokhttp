@@ -18,16 +18,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-    }
-
-    //@Parcelize 是一个实验室功能，所以还需要在 Gradle 中，增加 experimental 配置。
-    //用于实例化Parcelize
-    androidExtensions {
-        experimental = true
-    }
 }
 
 dependencies {

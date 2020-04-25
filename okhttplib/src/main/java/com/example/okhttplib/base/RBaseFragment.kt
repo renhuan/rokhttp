@@ -15,11 +15,18 @@ import org.greenrobot.eventbus.ThreadMode
 
 abstract class RBaseFragment : Fragment(), RBaseOkHttpImp {
 
+    /**
+     * 判断是否已经懒加载
+     */
+    private var isLoaded = false
+
     internal var view: View? = null
 
     abstract fun inflaterLayout(): Int
 
     abstract fun init(view: View)
+
+    abstract fun lazyLoad()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         view = inflater.inflate(inflaterLayout(), container, false)
@@ -27,6 +34,17 @@ abstract class RBaseFragment : Fragment(), RBaseOkHttpImp {
             EventBusUtil.register(this)
         }
         return view
+    }
+
+    /***
+     * FragmentPagerAdapter 要设置BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+     */
+    override fun onResume() {
+        super.onResume()
+        if (!isLoaded) {
+            isLoaded = true
+            lazyLoad()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">okHttpLib</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="digits">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    <string name="str_none" />
-    <string name="empty">暂无数据</string>
-    <string name="load_failed_no_network">无网络链接，点击重试</string>
-</resources>

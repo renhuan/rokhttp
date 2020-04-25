@@ -3,10 +3,8 @@ package com.example.okhttplib
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.CrashUtils
-import com.blankj.utilcode.util.Utils
 import com.example.okhttplib.utils.ActivityManager
 import com.lzy.okgo.OkGo
 import com.tencent.mmkv.MMKV
@@ -34,6 +32,7 @@ abstract class RApp : Application(), Application.ActivityLifecycleCallbacks {
         }
         init()
     }
+
 
     private fun initCrash() {
         CrashUtils.init { _, _ -> AppUtils.relaunchApp() }

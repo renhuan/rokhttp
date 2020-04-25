@@ -6,7 +6,6 @@ import com.example.okhttplib.config.RBaseOkHttpImp
 import com.example.okhttplib.eventbus.Event
 import com.example.okhttplib.eventbus.EventBusUtil
 import com.lzy.okgo.OkGo
-import com.noober.background.BackgroundLibrary
 import com.tencent.mmkv.MMKV
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -21,7 +20,6 @@ abstract class RBaseActivity : AppCompatActivity(), RBaseOkHttpImp {
     abstract fun init(savedInstanceState: Bundle?)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        BackgroundLibrary.inject(this)
         super.onCreate(savedInstanceState)
 
         //加载布局

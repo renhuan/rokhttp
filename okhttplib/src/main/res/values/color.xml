@@ -22,12 +22,4 @@
     <color name="blueGrey">#607d8b</color>
 
 
-    <!-- Google Apps Color -->
-    <color name="app_blue">#4285F4</color>
-    <color name="app_blue_dark">#3367D6</color>
-    <color name="app_green">#05b962</color>
-    <color name="app_green_dark">#0B8043</color>
-    <color name="app_yellow">#F4B400</color>
-    <color name="app_yellow_dark">#F09300</color>
-    <color name="app_red">#DB4437</color>
 </resources>
