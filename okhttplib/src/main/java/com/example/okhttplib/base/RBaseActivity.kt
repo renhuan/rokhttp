@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.okhttplib.config.RBaseOkHttpImp
 import com.example.okhttplib.eventbus.Event
 import com.example.okhttplib.eventbus.EventBusUtil
+import com.example.okhttplib.utils.Renhuan
 import com.lzy.okgo.OkGo
 import com.tencent.mmkv.MMKV
 import org.greenrobot.eventbus.Subscribe
@@ -63,7 +64,7 @@ abstract class RBaseActivity : AppCompatActivity(), RBaseOkHttpImp {
     }
 
     override fun onDestroy() {
-        OkGo.getInstance().cancelTag(this)
+        Renhuan.cancelHttp(this)
         if (isRegisterEventBus) {
             EventBusUtil.unregister(this)
         }

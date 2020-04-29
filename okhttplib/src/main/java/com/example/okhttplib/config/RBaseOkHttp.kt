@@ -1,23 +1,18 @@
 package com.example.okhttplib.config
 
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.NetworkUtils
-import com.example.okhttplib.base.RBaseActivity
-import com.example.okhttplib.utils.ActivityManager
-import com.example.okhttplib.utils.toast
+import com.example.okhttplib.utils.RActivityUtils
+import com.example.okhttplib.utils.Renhuan
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cache.CacheMode
 import com.lzy.okgo.callback.StringCallback
 import com.lzy.okgo.model.HttpHeaders
 import com.lzy.okgo.model.Response
 import com.lzy.okgo.request.base.Request
-
 import org.json.JSONObject
-
 import java.net.SocketException
 import java.net.SocketTimeoutException
-import kotlin.collections.HashMap
 
 
 /**
@@ -29,7 +24,7 @@ abstract class RBaseOkHttp {
 
     private var isShowLoading = true//网络请求是否显示loading
     private var url: String? = null //网络请求的地址
-    private var hashMap = HashMap<String, String?>()//网络请求参数
+    private var hashMap = hashMapOf<String, String>()//网络请求参数
     private var cacheMode = CacheMode.DEFAULT//网络请求缓存模式
     private var rBaseOkHttpImp: RBaseOkHttpImp? = null
     private var requestCode: Int = 0 //请求识别码（用于一个页面多个请求）
@@ -53,16 +48,18 @@ abstract class RBaseOkHttp {
             }
 
             override fun onStart(request: Request<String, out Request<*, *>>?) {
-                val currentActivity = ActivityManager.getInstance().currentActivity()
+                KeyboardUtils.hideSoftInput(RActivityUtils.getInstance().currentActivity()!!)
                 if (!NetworkUtils.isConnected()) {
-                    toast("当前无网络连接，请检查网络")
-                    OkGo.getInstance().cancelTag(currentActivity)
+                    Renhuan.toast("当前无网络连接，请检查网络")
+                    Renhuan.cancelHttp(RActivityUtils.getInstance().currentActivity())
                     return
                 }
-                currentActivity?.let { KeyboardUtils.hideSoftInput(it) }
+
                 if (isShowLoading) {
                     when (cacheMode) {
                         CacheMode.FIRST_CACHE_THEN_REQUEST, CacheMode.DEFAULT, CacheMode.NO_CACHE -> showLoading()
+                        else -> {
+                        }
                     }
                 }
             }
@@ -82,7 +79,7 @@ abstract class RBaseOkHttp {
         return this
     }
 
-    open fun setParameter(hashMap: HashMap<String, String?>): RBaseOkHttp {
+    open fun setParameter(hashMap: HashMap<String, String>): RBaseOkHttp {
         this.hashMap = hashMap
         return this
     }
@@ -109,23 +106,41 @@ abstract class RBaseOkHttp {
     }
 
     fun get() {
-        OkGo.get<String>(url).params(hashMap).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(HttpHeaders())).tag(ActivityManager.getInstance().currentActivity()).execute(stringCallback)
+        OkGo.get<String>(url)
+            .params(hashMap)
+            .cacheKey(url)
+            .cacheMode(cacheMode)
+            .headers(setHttpHead(HttpHeaders()))
+            .tag(RActivityUtils.getInstance().currentActivity())
+            .execute(stringCallback)
     }
 
     fun post() {
-        OkGo.post<String>(url).params(hashMap).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(HttpHeaders())).tag(ActivityManager.getInstance().currentActivity()).execute(stringCallback)
+        OkGo.post<String>(url)
+            .params(hashMap)
+            .cacheKey(url)
+            .cacheMode(cacheMode)
+            .headers(setHttpHead(HttpHeaders()))
+            .tag(RActivityUtils.getInstance().currentActivity())
+            .execute(stringCallback)
     }
 
-    fun postAsJson() {
-        OkGo.post<String>(url).upJson(JSONObject(hashMap)).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(HttpHeaders())).tag(ActivityManager.getInstance().currentActivity()).execute(stringCallback)
-    }
-
-    fun deleteAsJson() {
-        OkGo.delete<String>(url).upJson(JSONObject(hashMap)).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(HttpHeaders())).tag(ActivityManager.getInstance().currentActivity()).execute(stringCallback)
-    }
-
-    fun putAsJson() {
-        OkGo.put<String>(url).upJson(JSONObject(hashMap)).cacheKey(url).cacheMode(cacheMode).headers(setHttpHead(HttpHeaders())).tag(ActivityManager.getInstance().currentActivity()).execute(stringCallback)
+    /**
+     * 异常处理
+     *
+     * @param response
+     */
+    private fun doException(response: Response<String>) {
+        when (response.code()) {
+            404 -> Renhuan.toast("404链接错误")
+            500 -> Renhuan.toast("500服务器错误")
+            502 -> Renhuan.toast("502服务器错误")
+            else -> Renhuan.toast("服务器错误")
+        }
+        when (response.exception) {
+            is SocketTimeoutException -> Renhuan.toast("请求超时")
+            is SocketException -> Renhuan.toast("服务器异常")
+        }
     }
 
     /**
@@ -154,20 +169,4 @@ abstract class RBaseOkHttp {
      */
     abstract fun hideLoading()
 
-    /**
-     * 异常处理
-     *
-     * @param response
-     */
-    private fun doException(response: Response<String>) {
-        when (response.code()) {
-            404 -> toast("404链接错误")
-            500 -> toast("500服务器错误")
-            502 -> toast("502服务器错误")
-        }
-        when (response.exception) {
-            is SocketTimeoutException -> toast("请求超时")
-            is SocketException -> toast("服务器异常")
-        }
-    }
 }

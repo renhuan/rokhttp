@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.okhttplib.config.RBaseOkHttpImp
 import com.example.okhttplib.eventbus.Event
 import com.example.okhttplib.eventbus.EventBusUtil
+import com.example.okhttplib.utils.Renhuan
 import com.lzy.okgo.OkGo
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -82,7 +83,7 @@ abstract class RBaseFragment : Fragment(), RBaseOkHttpImp {
     }
 
     override fun onDestroyView() {
-        OkGo.getInstance().cancelTag(activity)
+        Renhuan.cancelHttp(activity)
         if (isRegisterEventBus) {
             EventBusUtil.unregister(this)
         }

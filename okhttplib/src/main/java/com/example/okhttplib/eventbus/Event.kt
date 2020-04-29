@@ -17,4 +17,8 @@ class Event<T> {
         this.code = code
         this.data = data
     }
+
+    constructor(data: T) {
+        this.data = data
+    }
 }

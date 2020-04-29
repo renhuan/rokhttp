@@ -1,14 +1,22 @@
 package com.example.okhttplib.utils
 
 import android.app.Activity
-import android.content.Context
 import java.util.*
-import android.content.Context.ACTIVITY_SERVICE
-import okhttp3.internal.Internal.instance
-import kotlin.system.exitProcess
 
-class ActivityManager {
+/**
+ * created by renhuan
+ * time : 2020/4/26 13:41
+ * describe :  Activity的管理
+ */
+class RActivityUtils {
     private var activityStack: Stack<Activity> = Stack()
+
+    companion object {
+        private var instance = RActivityUtils()
+        fun getInstance(): RActivityUtils {
+            return instance
+        }
+    }
 
     /**
      * 添加Activity到堆栈
@@ -36,10 +44,7 @@ class ActivityManager {
      * 结束指定的Activity
      */
     fun finishActivity(activity: Activity?) {
-        activity?.let {
-            activityStack.remove(it)
-            it.finish()
-        }
+        activity?.let { activityStack.remove(it) }
     }
 
     /**
@@ -47,30 +52,17 @@ class ActivityManager {
      */
     fun finishActivity(cls: Class<*>) {
         activityStack
-                .filter { it.javaClass == cls }
-                .forEach { finishActivity(it) }
+            .filter { it.javaClass == cls }
+            .forEach { finishActivity(it) }
     }
 
     /**
      * 结束所有Activity
      */
     fun finishAllActivity() {
-        activityStack.forEach {
-            finishActivity(it)
-        }
+        activityStack.forEach { finishActivity(it) }
         activityStack.clear()
     }
 
-    companion object {
-        private var instance: ActivityManager? = null
-        fun getInstance(): ActivityManager {
-            if (instance == null) {
-                instance = ActivityManager()
-            }
-            return instance as ActivityManager
-        }
-
-
-    }
 
 }
