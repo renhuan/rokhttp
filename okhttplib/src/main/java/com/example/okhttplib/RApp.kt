@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import androidx.multidex.MultiDex
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.CrashUtils
 import com.example.okhttplib.utils.RActivityUtils
@@ -23,6 +24,7 @@ abstract class RApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        MultiDex.install(this);
         OkGo.getInstance().init(this)
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         MMKV.initialize(this)

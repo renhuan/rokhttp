@@ -36,11 +36,11 @@ class BaseOkHttp : RBaseOkHttp() {
         return httpHeaders
     }
 
-    override fun setParameter(hashMap: HashMap<String, String?>): RBaseOkHttp {
+//    override fun setParameter(hashMap: HashMap<String, String?>): RBaseOkHttp {
 //        hashMap["ts"] = System.currentTimeMillis().toString()
 //        hashMap["sign"] = EncryptUtils.encryptMD5ToString(getSign(hashMap) + Constants.KEY)
-        return super.setParameter(hashMap)
-    }
+//        return super.setParameter(hashMap)
+//    }
 
     override fun showLoading() {
 //        if (xPopup == null) {

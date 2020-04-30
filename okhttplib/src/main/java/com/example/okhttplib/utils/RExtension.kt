@@ -1,6 +1,7 @@
 package com.example.okhttplib.utils
 
 import android.os.Handler
+import android.view.View
 import android.widget.TextView
 
 /**  获取 Textview 的值   */
@@ -26,7 +27,7 @@ fun TextView.checkEmpty(message: String): String? {
  *  1--- period==0的时候 就只延迟功能(默认)
  *  2--- period!=0的时候 就定时器的功能
  * */
-fun Handler.postDelayed(delayMillis: Long, period: Long = 0L, action: () -> Unit): Runnable {
+inline fun Handler.postDelayed(delayMillis: Long, period: Long = 0L, crossinline action: () -> Unit): Runnable {
     return object : Runnable {
         override fun run() {
             action()
@@ -35,4 +36,20 @@ fun Handler.postDelayed(delayMillis: Long, period: Long = 0L, action: () -> Unit
             }
         }
     }.apply<Runnable> { postDelayed(this, delayMillis) }
+}
+
+/**
+ * 安全点击
+ */
+
+inline fun View.setOnSafeClickListener(crossinline action: () -> Unit) {
+    var lastClick = 0L
+    setOnClickListener {
+        val gap = System.currentTimeMillis() - lastClick
+        lastClick = System.currentTimeMillis()
+        Renhuan.loge(gap.toString())
+        if (gap < 1500) return@setOnClickListener
+        action()
+    }
+
 }
