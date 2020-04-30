@@ -1,8 +1,10 @@
 package com.example.okhttplib.adapter
 
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.PagerAdapter
 import com.example.okhttplib.base.RBaseFragment
 
 class MyFragmentPagerAdapter<T : RBaseFragment>(
@@ -25,6 +27,13 @@ class MyFragmentPagerAdapter<T : RBaseFragment>(
 
     override fun getCount(): Int {
         return mFragmentList.size
+    }
+
+    override fun getItemPosition(`object`: Any): Int {
+        return PagerAdapter.POSITION_NONE
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
     }
 
 }

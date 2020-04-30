@@ -9,7 +9,6 @@ import com.example.okhttplib.config.RBaseOkHttpImp
 import com.example.okhttplib.eventbus.Event
 import com.example.okhttplib.eventbus.EventBusUtil
 import com.example.okhttplib.utils.Renhuan
-import com.lzy.okgo.OkGo
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -21,7 +20,7 @@ abstract class RBaseFragment : Fragment(), RBaseOkHttpImp {
      */
     private var isLoaded = false
 
-    internal var view: View? = null
+    private val mView by lazy { View.inflate(Renhuan.getContext(), inflaterLayout(), null) }
 
     abstract fun inflaterLayout(): Int
 
@@ -30,11 +29,7 @@ abstract class RBaseFragment : Fragment(), RBaseOkHttpImp {
     abstract fun lazyLoad()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        view = inflater.inflate(inflaterLayout(), container, false)
-        if (isRegisterEventBus) {
-            EventBusUtil.register(this)
-        }
-        return view
+        return mView
     }
 
     /***
@@ -48,9 +43,12 @@ abstract class RBaseFragment : Fragment(), RBaseOkHttpImp {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        init(view)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (isRegisterEventBus) {
+            EventBusUtil.register(this)
+        }
+        init(mView)
     }
 
 
