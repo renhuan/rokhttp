@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.okhttplib.RApp
 import com.example.okhttplib.config.RBaseOkHttpImp
 import com.example.okhttplib.eventbus.Event
 import com.example.okhttplib.eventbus.EventBusUtil
@@ -81,7 +82,7 @@ abstract class RBaseFragment : Fragment(), RBaseOkHttpImp {
     }
 
     override fun onDestroyView() {
-        Renhuan.cancelHttp(activity)
+        RApp.cancelHttp(activity)
         if (isRegisterEventBus) {
             EventBusUtil.unregister(this)
         }

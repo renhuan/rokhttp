@@ -88,21 +88,20 @@ object Renhuan {
     /**  复制到剪切板   */
     fun copy(string: String) {
         val clipboardManager =
-            context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         clipboardManager.primaryClip = ClipData.newPlainText("label", string)
         toast("已复制：$string")
     }
 
     /**  读取assets本地json   */
     fun readJsonFromAssets(fileName: String): String {
-        val rBaseActivity = RActivityUtils.getInstance().currentActivity() as RBaseActivity
         val stringBuilder = StringBuilder()
         try {
-            val assetManager = rBaseActivity.assets
+            val assetManager = getCurrentActivity()?.assets
             val bf = BufferedReader(
-                InputStreamReader(
-                    assetManager.open(fileName)
-                )
+                    InputStreamReader(
+                            assetManager?.open(fileName)
+                    )
             )
             var line: String
             while (bf.readLine() != null) {
@@ -113,7 +112,6 @@ object Renhuan {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
         return stringBuilder.toString()
     }
 
@@ -133,9 +131,9 @@ object Renhuan {
                 return 0
             }
             val version1Array = versionLocal.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
-                .toTypedArray()//转义
+                    .toTypedArray()//转义
             val version2Array =
-                versionNet.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    versionNet.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             var index = 0
             // 获取最小长度值
             val minLen = version1Array.size.coerceAtMost(version2Array.size)
@@ -143,7 +141,7 @@ object Renhuan {
             // 循环判断每位的大小
             while (index < minLen) {
                 diff =
-                    Integer.parseInt(version1Array[index]) - Integer.parseInt(version2Array[index])
+                        Integer.parseInt(version1Array[index]) - Integer.parseInt(version2Array[index])
                 if (diff == 0)
                     index++
             }
@@ -193,33 +191,38 @@ object Renhuan {
 
 
     /**
-     * 取消网络请求
-     */
-    fun cancelHttp(activity: Activity?) {
-        OkGo.getInstance().cancelTag(activity)
-    }
-
-
-    /**
      * 图片加载
      */
     fun glide(view: ImageView, url: String) {
         Glide
-            .with(getContext())
-            .load(url)
-            .apply(RequestOptions().apply {
-                placeholder(R.drawable.loading)
-                error(R.drawable.loading)
-            })
-            .into(view)
+                .with(getContext())
+                .load(url)
+                .apply(RequestOptions().apply {
+                    placeholder(R.drawable.loading)
+                    error(R.drawable.loading)
+                })
+                .into(view)
     }
 
 
+    /**
+     * 日志 info
+     */
     fun logi(s: String) {
         LogUtils.i(s)
     }
 
+    /**
+     * 日志 error
+     */
     fun loge(s: String) {
         LogUtils.e(s)
+    }
+
+    /**
+     * 获取当前activity
+     */
+    fun getCurrentActivity(): Activity? {
+        return RActivityUtils.getInstance().currentActivity()
     }
 }

@@ -64,4 +64,14 @@ abstract class RApp : Application() {
             RActivityUtils.getInstance().addActivity(activity!!)
         }
     }
+
+
+    /**
+     * 取消网络请求
+     */
+    companion object {
+        fun cancelHttp(activity: Activity?) {
+            OkGo.getInstance().cancelTag(activity)
+        }
+    }
 }

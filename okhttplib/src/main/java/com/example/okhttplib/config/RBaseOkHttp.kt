@@ -2,6 +2,7 @@ package com.example.okhttplib.config
 
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.NetworkUtils
+import com.example.okhttplib.RApp
 import com.example.okhttplib.utils.RActivityUtils
 import com.example.okhttplib.utils.Renhuan
 import com.lzy.okgo.OkGo
@@ -48,10 +49,12 @@ abstract class RBaseOkHttp {
             }
 
             override fun onStart(request: Request<String, out Request<*, *>>?) {
-                KeyboardUtils.hideSoftInput(RActivityUtils.getInstance().currentActivity()!!)
+                if (KeyboardUtils.isSoftInputVisible(Renhuan.getCurrentActivity()!!)) {
+                    KeyboardUtils.hideSoftInput(Renhuan.getCurrentActivity()!!)
+                }
                 if (!NetworkUtils.isConnected()) {
                     Renhuan.toast("当前无网络连接，请检查网络")
-                    Renhuan.cancelHttp(RActivityUtils.getInstance().currentActivity())
+                    RApp.cancelHttp(Renhuan.getCurrentActivity())
                     return
                 }
 
@@ -107,22 +110,22 @@ abstract class RBaseOkHttp {
 
     fun get() {
         OkGo.get<String>(url)
-            .params(hashMap)
-            .cacheKey(url)
-            .cacheMode(cacheMode)
-            .headers(setHttpHead(HttpHeaders()))
-            .tag(RActivityUtils.getInstance().currentActivity())
-            .execute(stringCallback)
+                .params(hashMap)
+                .cacheKey(url)
+                .cacheMode(cacheMode)
+                .headers(setHttpHead(HttpHeaders()))
+                .tag(Renhuan.getCurrentActivity())
+                .execute(stringCallback)
     }
 
     fun post() {
         OkGo.post<String>(url)
-            .params(hashMap)
-            .cacheKey(url)
-            .cacheMode(cacheMode)
-            .headers(setHttpHead(HttpHeaders()))
-            .tag(RActivityUtils.getInstance().currentActivity())
-            .execute(stringCallback)
+                .params(hashMap)
+                .cacheKey(url)
+                .cacheMode(cacheMode)
+                .headers(setHttpHead(HttpHeaders()))
+                .tag(Renhuan.getCurrentActivity())
+                .execute(stringCallback)
     }
 
     /**

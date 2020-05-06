@@ -2,6 +2,7 @@ package com.example.okhttplib.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.okhttplib.RApp
 import com.example.okhttplib.config.RBaseOkHttpImp
 import com.example.okhttplib.eventbus.Event
 import com.example.okhttplib.eventbus.EventBusUtil
@@ -64,7 +65,7 @@ abstract class RBaseActivity : AppCompatActivity(), RBaseOkHttpImp {
     }
 
     override fun onDestroy() {
-        Renhuan.cancelHttp(this)
+        RApp.cancelHttp(this)
         if (isRegisterEventBus) {
             EventBusUtil.unregister(this)
         }
