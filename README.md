@@ -38,34 +38,31 @@
       
  ## 说明
  
- 此库用到的第三方库，加上一些常用的封装，如eventBus，crash,RecyclerView等
+ 此库用到的第三方库，加上一些常用的封装，如eventBus，crash等
  
     api 'androidx.appcompat:appcompat:1.1.0'
-    api 'com.google.android.material:material:1.0.0'
-    //okgo
+    api 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    api 'com.google.android.material:material:1.1.0'
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72"
+    api 'androidx.multidex:multidex:2.0.1'
+    /*** 网络请求 */
     api 'com.lzy.net:okgo:3.0.4'
-    //按钮shape
-    api 'com.noober.background:core:1.6.0'
-    //eventBus
+    /*** 组件通信 */
     api 'org.greenrobot:eventbus:3.1.1'
-    //utils
-    api 'com.blankj:utilcodex:1.25.9'
-    //baseadapter
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
-    //圆形头像
+    /*** 工具类 */
+    api 'com.blankj:utilcodex:1.27.5'
+    /*** ByRecyclerView */
+    api 'com.github.youlookwhat:ByRecyclerView:1.0.18'
+    /*** 圆形头像 */
     api 'de.hdodenhof:circleimageview:3.0.1'
-    //glide
+    /*** glide图片加载 */
     api 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
-    //布局适配
-    api 'me.jessyan:autosize:1.1.2'
-    //相册选择
-    api 'com.zhihu.android:matisse:0.5.3-beta1'
-    //相册选择后裁剪
-    api 'com.github.yalantis:ucrop:2.2.3'
-    //gson
-    api 'com.google.code.gson:gson:2.8.6'
-
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    api 'com.wuyr:activitymessenger:1.0.3'
+    /*** json数据解析 */
+    api 'com.alibaba:fastjson:1.2.57'
+    /*** 跳转页面startActivity */
+    api 'com.wuyr:activitymessenger:1.1.1'
+    /*** 信息持久化存储 */
+    api 'com.tencent:mmkv:1.0.24'
+    /*** 各种弹窗 */
+    api 'com.lxj:xpopup:1.8.17'
