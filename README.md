@@ -36,6 +36,8 @@
                 .postAsJson()
     }
       
+ 四、一些常用的工具[Renhuan](https://github.com/renhuan2015/MyOkHttp/blob/master/okhttplib/src/main/java/com/example/okhttplib/utils/Renhuan.kt)和一些扩展函数[RExtension](https://github.com/renhuan2015/MyOkHttp/blob/master/okhttplib/src/main/java/com/example/okhttplib/utils/RExtension.kt)
+ 
  ## 说明
  
  此库用到的第三方库，加上一些常用的封装，如eventBus，crash等
