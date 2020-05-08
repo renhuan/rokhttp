@@ -1,4 +1,4 @@
-package com.example.okhttplib.view
+package com.renhuan.okhttplib.view
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -23,7 +23,7 @@ class CountDownView @JvmOverloads constructor(context: Context, attrs: Attribute
     private val handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             if (msg.what == 1) {
-                setText(String.format("%d秒", second))
+                text = String.format("%d秒", second)
                 second--
                 if (second == 0) {
                     timer!!.cancel()
@@ -41,7 +41,7 @@ class CountDownView @JvmOverloads constructor(context: Context, attrs: Attribute
      */
     fun countDown() {
         isClickable = false
-        setText(String.format("%d", second))
+        text = String.format("%d", second)
         timer = Timer()
         timer!!.schedule(object : TimerTask() {
             override fun run() {

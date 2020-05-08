@@ -1,17 +1,15 @@
-package com.example.okhttplib.config
+package com.renhuan.okhttplib.config
 
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.NetworkUtils
-import com.example.okhttplib.RApp
-import com.example.okhttplib.utils.RActivityUtils
-import com.example.okhttplib.utils.Renhuan
+import com.renhuan.okhttplib.RApp
+import com.renhuan.okhttplib.utils.Renhuan
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cache.CacheMode
 import com.lzy.okgo.callback.StringCallback
 import com.lzy.okgo.model.HttpHeaders
 import com.lzy.okgo.model.Response
 import com.lzy.okgo.request.base.Request
-import org.json.JSONObject
 import java.net.SocketException
 import java.net.SocketTimeoutException
 
@@ -87,7 +85,7 @@ abstract class RBaseOkHttp {
         return this
     }
 
-    fun setCallBack(rBaseOkHttpImp: RBaseOkHttpImp, code: Int): RBaseOkHttp {
+    fun setCallBack(rBaseOkHttpImp: RBaseOkHttpImp, code: Int = 0): RBaseOkHttp {
         this.rBaseOkHttpImp = rBaseOkHttpImp
         this.requestCode = code
         return this

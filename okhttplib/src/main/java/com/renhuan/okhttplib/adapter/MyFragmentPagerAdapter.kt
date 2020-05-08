@@ -1,11 +1,11 @@
-package com.example.okhttplib.adapter
+package com.renhuan.okhttplib.adapter
 
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.PagerAdapter
-import com.example.okhttplib.base.RBaseFragment
+import com.renhuan.okhttplib.base.RBaseFragment
 
 class MyFragmentPagerAdapter<T : RBaseFragment>(
     fm: FragmentManager,

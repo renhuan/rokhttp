@@ -1,13 +1,11 @@
-package com.example.okhttplib.base
+package com.renhuan.okhttplib.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.okhttplib.RApp
-import com.example.okhttplib.config.RBaseOkHttpImp
-import com.example.okhttplib.eventbus.Event
-import com.example.okhttplib.eventbus.EventBusUtil
-import com.example.okhttplib.utils.Renhuan
-import com.lzy.okgo.OkGo
+import com.renhuan.okhttplib.RApp
+import com.renhuan.okhttplib.config.RBaseOkHttpImp
+import com.renhuan.okhttplib.eventbus.Event
+import com.renhuan.okhttplib.eventbus.EventBusUtil
 import com.tencent.mmkv.MMKV
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

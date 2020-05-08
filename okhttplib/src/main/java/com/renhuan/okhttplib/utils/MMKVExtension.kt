@@ -1,4 +1,4 @@
-package com.example.okhttplib.utils
+package com.renhuan.okhttplib.utils
 
 import android.os.Parcelable
 import com.tencent.mmkv.MMKV

@@ -1,4 +1,4 @@
-package com.example.okhttplib.utils
+package com.renhuan.okhttplib.utils
 
 import android.app.Activity
 import android.content.ClipData
@@ -14,9 +14,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.okhttplib.R
-import com.example.okhttplib.base.RBaseActivity
-import com.lzy.okgo.OkGo
+import com.renhuan.okhttplib.R
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader

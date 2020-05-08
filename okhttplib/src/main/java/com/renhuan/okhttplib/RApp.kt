@@ -1,14 +1,13 @@
-package com.example.okhttplib
+package com.renhuan.okhttplib
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import androidx.multidex.MultiDex
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.CrashUtils
-import com.example.okhttplib.utils.RActivityUtils
-import com.example.okhttplib.utils.Renhuan
+import com.renhuan.okhttplib.utils.RActivityUtils
+import com.renhuan.okhttplib.utils.Renhuan
 import com.lzy.okgo.OkGo
 import com.tencent.mmkv.MMKV
 

@@ -1,4 +1,4 @@
-package com.example.okhttplib.utils
+package com.renhuan.okhttplib.utils
 
 import android.os.Handler
 import android.view.View
@@ -39,7 +39,7 @@ inline fun Handler.postDelayed(delayMillis: Long, period: Long = 0L, crossinline
 }
 
 /**
- * 安全点击
+ * 安全点击 防止多次点击
  */
 
 inline fun View.setOnSafeClickListener(crossinline action: () -> Unit) {
@@ -47,7 +47,6 @@ inline fun View.setOnSafeClickListener(crossinline action: () -> Unit) {
     setOnClickListener {
         val gap = System.currentTimeMillis() - lastClick
         lastClick = System.currentTimeMillis()
-        Renhuan.loge(gap.toString())
         if (gap < 1500) return@setOnClickListener
         action()
     }

@@ -1,4 +1,4 @@
-package com.example.okhttplib.eventbus
+package com.renhuan.okhttplib.eventbus
 
 import org.greenrobot.eventbus.EventBus
 

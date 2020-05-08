@@ -1,15 +1,15 @@
-package com.example.okhttplib.base
+package com.renhuan.okhttplib.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.okhttplib.RApp
-import com.example.okhttplib.config.RBaseOkHttpImp
-import com.example.okhttplib.eventbus.Event
-import com.example.okhttplib.eventbus.EventBusUtil
-import com.example.okhttplib.utils.Renhuan
+import com.renhuan.okhttplib.RApp
+import com.renhuan.okhttplib.config.RBaseOkHttpImp
+import com.renhuan.okhttplib.eventbus.Event
+import com.renhuan.okhttplib.eventbus.EventBusUtil
+import com.renhuan.okhttplib.utils.Renhuan
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 

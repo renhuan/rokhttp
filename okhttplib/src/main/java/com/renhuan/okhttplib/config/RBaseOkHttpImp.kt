@@ -1,8 +1,4 @@
-package com.example.okhttplib.config
-
-import com.lzy.okgo.model.Response
-
-import org.json.JSONException
+package com.renhuan.okhttplib.config
 
 interface RBaseOkHttpImp {
 
