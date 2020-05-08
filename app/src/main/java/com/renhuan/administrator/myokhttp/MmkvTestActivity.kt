@@ -1,15 +1,13 @@
-package com.example.administrator.myokhttp
+package com.renhuan.administrator.myokhttp
 
 import android.os.Bundle
 import android.util.Log
-import com.blankj.utilcode.util.ToastUtils
-import com.example.okhttplib.base.RBaseActivity
-import com.example.okhttplib.utils.*
-import com.tencent.mmkv.MMKV
+import com.renhuan.okhttplib.base.RBaseActivity
+import com.renhuan.okhttplib.utils.*
 
 class MmkvTestActivity : RBaseActivity() {
 
-    private var boolean by mmkv.boolean(key = "boolean", defaultValue = false)
+    private var boolean by MMKVHelper.isLogin()
     private var int by mmkv.int(key = "int", defaultValue = 0)
     private var long by mmkv.long("long", 0L)
     private var float by mmkv.float(key = "float", defaultValue = 0.0F)
@@ -25,26 +23,28 @@ class MmkvTestActivity : RBaseActivity() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
-        ToastUtils.showLong("你大爷")
         boolean = true
-        int = 100
-        long = 100L
-        float = 100F
-        double = 100.0
-        byteArray = ByteArray(100).apply {
-            for (i in 0 until 100) {
-                set(i, i.toByte())
-            }
-        }
-        string = "谭嘉俊"
-        stringSet = HashSet<String>().apply {
-            for (i in 0 until 100) {
-                add("第($i)个")
-            }
-        }
-        parcelable = UserData(age = 0, name = "谭嘉俊", gender = "男").apply {
-
-        }
+//        int = 100
+//        long = 100L
+//        float = 100F
+//        double = 100.0
+//        byteArray = ByteArray(100).apply {
+//            for (i in 0 until 100) {
+//                set(i, i.toByte())
+//            }
+//        }
+//        string = "谭嘉俊"
+//        stringSet = HashSet<String>().apply {
+//            for (i in 0 until 100) {
+//                add("第($i)个")
+//            }
+//        }
+//
+//        Log.i(TAG, "parcelable:${parcelable}")
+//
+//        parcelable = UserData(age = 0, name = "任欢huanann", gender = "男").apply {
+//
+//        }
         Log.i(TAG, "boolean:$boolean")
         Log.i(TAG, "int:$int")
         Log.i(TAG, "long:$long")

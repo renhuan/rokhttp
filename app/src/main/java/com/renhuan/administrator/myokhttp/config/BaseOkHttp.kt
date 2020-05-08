@@ -1,6 +1,8 @@
+package com.renhuan.administrator.myokhttp.config
+
 import android.text.TextUtils
-import com.example.okhttplib.config.RBaseOkHttp
-import com.example.okhttplib.config.RBaseOkHttpImp
+import com.renhuan.okhttplib.config.RBaseOkHttp
+import com.renhuan.okhttplib.config.RBaseOkHttpImp
 import com.lzy.okgo.model.HttpHeaders
 import com.lzy.okgo.model.Response
 import java.util.*

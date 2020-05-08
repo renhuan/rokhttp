@@ -1,4 +1,4 @@
-package com.example.administrator.myokhttp
+package com.renhuan.administrator.myokhttp
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
