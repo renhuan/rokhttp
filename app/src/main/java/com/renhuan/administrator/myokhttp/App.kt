@@ -6,9 +6,6 @@ import me.jessyan.autosize.unit.Subunits
 
 class App : RApp() {
     override fun init() {
-        AutoSizeConfig.getInstance()
-                .unitsManager
-                .setSupportDP(false)
-                .supportSubunits = Subunits.MM
+
     }
 }

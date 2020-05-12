@@ -6,10 +6,12 @@ import android.os.Bundle
 import androidx.multidex.MultiDex
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.CrashUtils
+import com.lzy.okgo.OkGo
 import com.renhuan.okhttplib.utils.RActivityUtils
 import com.renhuan.okhttplib.utils.Renhuan
-import com.lzy.okgo.OkGo
 import com.tencent.mmkv.MMKV
+import me.jessyan.autosize.AutoSizeConfig
+import me.jessyan.autosize.unit.Subunits
 
 abstract class RApp : Application() {
 
@@ -23,15 +25,28 @@ abstract class RApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        setTheme(applicationInfo.theme)
         MultiDex.install(this);
         OkGo.getInstance().init(this)
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         MMKV.initialize(this)
         Renhuan.initialize(this)
+        initAutoSize()
         if (isCrash) {
             initCrash()
         }
         init()
+    }
+
+    /**
+     * 布局使用MM单位
+     */
+    private fun initAutoSize() {
+        AutoSizeConfig.getInstance()
+            .unitsManager
+            .setSupportDP(false)
+            .setSupportSP(false)
+            .supportSubunits = Subunits.MM
     }
 
 

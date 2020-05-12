@@ -30,10 +30,10 @@ fun TextView.checkEmpty(message: String): String? {
 inline fun Handler.postDelayed(delayMillis: Long, period: Long = 0L, crossinline action: () -> Unit): Runnable {
     return object : Runnable {
         override fun run() {
-            action()
             if (period != 0L) {
                 postDelayed(this, period)
             }
+            action()
         }
     }.apply<Runnable> { postDelayed(this, delayMillis) }
 }

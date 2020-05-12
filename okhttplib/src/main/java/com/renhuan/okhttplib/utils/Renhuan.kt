@@ -58,6 +58,13 @@ object Renhuan {
     }
 
     /**
+     * 获取资源文件中定义的尺寸。
+     */
+    fun getDimension(colorId: Int): Float {
+        return context.resources.getDimension(colorId)
+    }
+
+    /**
      * 获取资源文件中定义的颜色。
      */
     fun getColor(colorResId: Int): Int {
@@ -69,6 +76,13 @@ object Renhuan {
      */
     fun getDp2px(dp: Float): Float {
         return SizeUtils.dp2px(dp).toFloat()
+    }
+
+    /**
+     * sp 转 px
+     */
+    fun getSp2px(sp: Float): Float {
+        return SizeUtils.sp2px(sp).toFloat()
     }
 
     /**  吐司toast   */
@@ -86,7 +100,7 @@ object Renhuan {
     /**  复制到剪切板   */
     fun copy(string: String) {
         val clipboardManager =
-                context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         clipboardManager.primaryClip = ClipData.newPlainText("label", string)
         toast("已复制：$string")
     }
@@ -97,9 +111,9 @@ object Renhuan {
         try {
             val assetManager = getCurrentActivity()?.assets
             val bf = BufferedReader(
-                    InputStreamReader(
-                            assetManager?.open(fileName)
-                    )
+                InputStreamReader(
+                    assetManager?.open(fileName)
+                )
             )
             var line: String
             while (bf.readLine() != null) {
@@ -129,9 +143,9 @@ object Renhuan {
                 return 0
             }
             val version1Array = versionLocal.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
-                    .toTypedArray()//转义
+                .toTypedArray()//转义
             val version2Array =
-                    versionNet.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                versionNet.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             var index = 0
             // 获取最小长度值
             val minLen = version1Array.size.coerceAtMost(version2Array.size)
@@ -139,7 +153,7 @@ object Renhuan {
             // 循环判断每位的大小
             while (index < minLen) {
                 diff =
-                        Integer.parseInt(version1Array[index]) - Integer.parseInt(version2Array[index])
+                    Integer.parseInt(version1Array[index]) - Integer.parseInt(version2Array[index])
                 if (diff == 0)
                     index++
             }
@@ -193,13 +207,13 @@ object Renhuan {
      */
     fun glide(view: ImageView, url: String) {
         Glide
-                .with(getContext())
-                .load(url)
-                .apply(RequestOptions().apply {
-                    placeholder(R.drawable.loading)
-                    error(R.drawable.loading)
-                })
-                .into(view)
+            .with(getContext())
+            .load(url)
+            .apply(RequestOptions().apply {
+                placeholder(R.drawable.loading)
+                error(R.drawable.loading)
+            })
+            .into(view)
     }
 
 

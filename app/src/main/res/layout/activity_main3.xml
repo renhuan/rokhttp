@@ -10,12 +10,9 @@
     <com.hjq.bar.TitleBar
         android:layout_width="match_parent"
         android:layout_height="88mm"
+        app:backButton="false"
+        app:barStyle="transparent"
         app:title="总收益"
-        app:titleSize="40mm" />
+        app:titleSize="36mm" />
 
-    <ImageView
-        android:layout_width="100mm"
-        android:layout_height="100mm"
-        android:src="@android:drawable/ic_menu_revert"
-        android:textSize="20mm" />
 </androidx.constraintlayout.widget.ConstraintLayout>

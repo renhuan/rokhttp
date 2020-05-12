@@ -5,20 +5,4 @@ package com.renhuan.okhttplib.eventbus
  *
  * @param <T>
 </T></T> */
-class Event<T> {
-    private var code: Int = 0
-    private var data: T? = null
-
-    constructor(code: Int) {
-        this.code = code
-    }
-
-    constructor(code: Int, data: T) {
-        this.code = code
-        this.data = data
-    }
-
-    constructor(data: T) {
-        this.data = data
-    }
-}
+class Event<T>(var code: Int, var data: T? = null)

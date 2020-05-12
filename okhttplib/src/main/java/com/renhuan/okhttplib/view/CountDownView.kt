@@ -1,52 +1,39 @@
 package com.renhuan.okhttplib.view
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Handler
-import android.os.Message
 import android.util.AttributeSet
-
-import java.util.Timer
-import java.util.TimerTask
+import androidx.appcompat.widget.AppCompatButton
+import com.renhuan.okhttplib.utils.Renhuan
+import com.renhuan.okhttplib.utils.postDelayed
 
 /**
- * Created by renhuan on
- * 倒计时控件 button
+ * created by renhuan
+ * time : 2020/5/9 13:07
+ * describe : 倒计时控件
  */
 
-@SuppressLint("DefaultLocale")
-class CountDownView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : androidx.appcompat.widget.AppCompatButton(context, attrs) {
+class CountDownView(context: Context, attrs: AttributeSet? = null) : AppCompatButton(context, attrs) {
 
-    private var timer: Timer? = null
-    private var second = 60
-    @SuppressLint("HandlerLeak")
-    private val handler = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            if (msg.what == 1) {
-                text = String.format("%d秒", second)
-                second--
-                if (second == 0) {
-                    timer!!.cancel()
-                    timer = null
-                    isClickable = true
-                    text = "重新获取"
-                    second = 60
-                }
-            }
-        }
-    }
+    /**
+     * 倒计时最大值
+     */
+    private val maxTime = 60
+    private var second = maxTime
+    private var runnable: Runnable? = null
 
     /***
      * 开始计时
      */
-    fun countDown() {
+    fun startCountDown() {
         isClickable = false
-        text = String.format("%d", second)
-        timer = Timer()
-        timer!!.schedule(object : TimerTask() {
-            override fun run() {
-                handler.sendEmptyMessage(1)
+        runnable = Renhuan.getHandler().postDelayed(0, 1000) {
+            text = second.toString()
+            if (second-- == 0) {
+                isClickable = true
+                text = "重新获取"
+                second = maxTime
+                Renhuan.getHandler().removeCallbacks(runnable)
             }
-        }, 0, 1000)
+        }
     }
 }
