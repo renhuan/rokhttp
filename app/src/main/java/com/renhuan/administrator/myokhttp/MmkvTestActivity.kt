@@ -67,10 +67,7 @@ class MmkvTestActivity : RBaseActivity() {
          */
     }
 
-    override fun onSuccess(json: String?, requestCode: Int?) {
-    }
-
-    override fun onError(json: String?, requestCode: Int?) {
+    override fun <T> onSuccess(data: T) {
     }
 
 

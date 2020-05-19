@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.renhuan.okhttplib.RApp
-import com.renhuan.okhttplib.config.RBaseOkHttpImp
+import com.renhuan.okhttplib.http.RBaseOkHttpImp
 import com.renhuan.okhttplib.eventbus.Event
 import com.renhuan.okhttplib.eventbus.EventBusUtil
 import com.renhuan.okhttplib.utils.Renhuan

@@ -3,6 +3,7 @@ package com.renhuan.okhttplib.utils
 import android.os.Handler
 import android.view.View
 import android.widget.TextView
+import com.alibaba.fastjson.JSON
 
 /**  获取 Textview 的值   */
 fun TextView.text(): String {
@@ -50,5 +51,11 @@ inline fun View.setOnSafeClickListener(crossinline action: () -> Unit) {
         if (gap < 1000) return@setOnClickListener
         action()
     }
+}
 
+/**
+ * fastjson 解析parseObject
+ */
+fun <T> Class<T>.parseObject(json: String?): T {
+    return JSON.parseObject(json, this)
 }

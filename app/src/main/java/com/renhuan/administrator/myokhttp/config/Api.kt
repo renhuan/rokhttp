@@ -2,14 +2,20 @@ package com.renhuan.administrator.myokhttp.config
 
 object Api {
 
-//    fun sendRegisterVerify(phone: String, baseCall: RBaseOkHttpImp) {
-//        BaseOkHttp.newInstance()
-//                .setUrl(BuildConfig.BASE_URL + "/app/user/register/verify")
-//                .setCallBack(baseCall, Constants.GET_REGISTERVERIFY)
-//                .setParameter(hashMapOf(
-//                        "country" to "86",
-//                        "phone" to phone
-//                ))
-//                .postAsJson()
+    /**
+     * 版本更新
+     */
+//    fun requestVersion(baseCall: RBaseOkHttpImp) {
+//        object : BaseOkHttp<VersionModel>() {}
+//                .setUrl("${getBaseUrl()}/system/check_app_upgrade")
+//                .setParameter(
+//                        hashMapOf(
+//                                "sdk_type" to "android",
+//                                "sdk_version" to AppUtils.getAppVersionCode().toString()
+//                        )
+//                )
+//                .isShowLoading(false)
+//                .setCallBack(baseCall)
+//                .post()
 //    }
 }

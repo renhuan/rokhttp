@@ -52,8 +52,8 @@ class RActivityUtils {
      */
     fun finishActivity(cls: Class<*>) {
         activityStack
-                .filter { it.javaClass == cls }
-                .forEach { finishActivity(it) }
+            .filter { it.javaClass == cls }
+            .forEach { finishActivity(it) }
     }
 
     /**

@@ -1,79 +1,70 @@
 package com.renhuan.administrator.myokhttp.config
 
 import android.text.TextUtils
-import com.renhuan.okhttplib.config.RBaseOkHttp
-import com.renhuan.okhttplib.config.RBaseOkHttpImp
+import com.alibaba.fastjson.JSON
+import com.alibaba.fastjson.JSONObject
+import com.lxj.xpopup.XPopup
 import com.lzy.okgo.model.HttpHeaders
 import com.lzy.okgo.model.Response
+import com.renhuan.administrator.myokhttp.R
+import com.renhuan.okhttplib.http.RBaseOkHttp
+import com.renhuan.okhttplib.http.RBaseOkHttpImp
+import com.renhuan.okhttplib.utils.Renhuan
+import java.lang.reflect.ParameterizedType
 import java.util.*
 
 /**
  * http请求Base类
  */
+open class BaseOkHttp<T> : RBaseOkHttp<T>() {
 
-class BaseOkHttp : RBaseOkHttp() {
+    private var code: Int = 0
 
-    override fun onRSuccess(response: Response<String>?, rBaseOkHttpImp: RBaseOkHttpImp?, requestCode: Int) {
-//        val topActivity = ActivityManager.getInstance().currentActivity() as BaseActivity
-//        response?.body()?.let {
-//            val jsonObject = JSONObject(it)
-//            val code = jsonObject.getInt("code")
-//            if (code == 200) {
-//                rBaseOkHttpImp?.onSuccess(it, requestCode)
-//            } else {
-//                val msg = jsonObject.getString("message")
-//                topActivity.toast(msg)
-//                rBaseOkHttpImp?.onError(it, requestCode)
-//            }
-//        }
-
+    companion object {
+        const val ANY_CLASS = "java.lang.Object"
     }
 
-//    private var xPopup: LoadingPopupView? = null
+    /**
+     * {@link com.android.pool.http.BaseCode}
+     */
+    fun setCode(code: Int): RBaseOkHttp<T> {
+        this.code = code
+        return this
+    }
 
-    override fun setHttpHead(httpHeaders: HttpHeaders): HttpHeaders {
-//        httpHeaders.put(Constants.HEAD, App.token)
-//        httpHeaders.put(Constants.IMEI, DeviceUtils.getAndroidID())
-//        httpHeaders.put(Constants.MAC, DeviceUtils.getMacAddress())
+    private val loading by lazy {
+        XPopup.Builder(Renhuan.getCurrentActivity())
+                .hasShadowBg(false)
+                .dismissOnTouchOutside(false)
+                .asLoading()
+    }
+
+
+    override fun onRSuccess(response: Response<String>?, rBaseOkHttpImp: RBaseOkHttpImp?) {
+        response?.body()?.let {
+//            val obj = JSON.parseObject(it, BaseResponse<T>()::class.java)
+//            when (obj?.errcode) {
+//                Cons.Api.SUCCESS -> {
+//                    val cls = (javaClass.genericSuperclass as ParameterizedType?)?.actualTypeArguments?.get(0) as Class<*>
+//                    if (cls.name == ANY_CLASS) {
+//                        rBaseOkHttpImp?.onSuccess(BaseCode(code))
+//                    } else {
+//                        rBaseOkHttpImp?.onSuccess(JSON.toJavaObject(obj.data as JSONObject, cls))
+//                    }
+//                }
+//                else -> Renhuan.toast(obj.errmsg)
+        }
+    }
+
+    override fun setHttpHead(httpHeaders: HttpHeaders): HttpHeaders? {
         return httpHeaders
     }
 
-//    override fun setParameter(hashMap: HashMap<String, String?>): RBaseOkHttp {
-//        hashMap["ts"] = System.currentTimeMillis().toString()
-//        hashMap["sign"] = EncryptUtils.encryptMD5ToString(getSign(hashMap) + Constants.KEY)
-//        return super.setParameter(hashMap)
-//    }
-
     override fun showLoading() {
-//        if (xPopup == null) {
-//            xPopup = XPopup.Builder(ActivityUtils.getTopActivity())
-//                    .dismissOnTouchOutside(false)
-//                    .hasShadowBg(false)
-//                    .asLoading()
-//                    .bindLayout(R.layout.loading_lottie)
-//        }
-//        xPopup?.show()
+        loading.show()
     }
 
     override fun hideLoading() {
-//        xPopup?.dismiss()
-    }
-
-    companion object {
-        fun newInstance(): BaseOkHttp {
-            return BaseOkHttp()
-        }
-
-        fun getSign(hashMap: HashMap<String, String?>): String {
-            val map = TreeMap<String, String?> { obj1, obj2 -> obj1.compareTo(obj2) }
-            map.putAll(hashMap)
-            val url = StringBuilder()
-            for ((key, value) in map) {
-                if (!TextUtils.isEmpty(value)) {
-                    url.append(key).append("=").append(value).append("&")
-                }
-            }
-            return url.substring(0, url.length - 1)
-        }
+        loading.dismiss()
     }
 }

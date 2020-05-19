@@ -86,7 +86,7 @@ object Renhuan {
     }
 
     /**  吐司toast   */
-    fun toast(s: String) {
+    fun toast(s: String?) {
         ToastUtils.showShort(s)
     }
 

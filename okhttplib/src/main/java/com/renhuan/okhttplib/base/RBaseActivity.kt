@@ -3,7 +3,7 @@ package com.renhuan.okhttplib.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.renhuan.okhttplib.RApp
-import com.renhuan.okhttplib.config.RBaseOkHttpImp
+import com.renhuan.okhttplib.http.RBaseOkHttpImp
 import com.renhuan.okhttplib.eventbus.Event
 import com.renhuan.okhttplib.eventbus.EventBusUtil
 import com.tencent.mmkv.MMKV
