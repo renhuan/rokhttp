@@ -4,10 +4,11 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import androidx.multidex.MultiDex
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.CrashUtils
+import com.blankj.utilcode.util.Utils
 import com.lzy.okgo.OkGo
-import com.renhuan.okhttplib.utils.RActivityUtils
 import com.renhuan.okhttplib.utils.Renhuan
 import com.tencent.mmkv.MMKV
 import me.jessyan.autosize.AutoSizeConfig
@@ -65,7 +66,7 @@ abstract class RApp : Application() {
         }
 
         override fun onActivityDestroyed(activity: Activity?) {
-            RActivityUtils.getInstance().finishActivity(activity)
+            ActivityUtils.removeActivityLifecycleCallbacks(activity!!)
         }
 
         override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
@@ -75,7 +76,7 @@ abstract class RApp : Application() {
         }
 
         override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-            RActivityUtils.getInstance().addActivity(activity!!)
+            ActivityUtils.addActivityLifecycleCallbacks(activity!!, object : Utils.ActivityLifecycleCallbacks() {})
         }
     }
 

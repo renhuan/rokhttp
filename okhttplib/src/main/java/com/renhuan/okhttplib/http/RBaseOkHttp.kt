@@ -39,6 +39,7 @@ abstract class RBaseOkHttp<T> {
                 if (isShowLoading) {
                     hideLoading()
                 }
+                onRError(rBaseOkHttpImp)
                 Renhuan.toast("请求失败,code=${response.code()}\nmessage=${response.exception.message}")
             }
 
@@ -132,6 +133,8 @@ abstract class RBaseOkHttp<T> {
      * @param code
      */
     abstract fun onRSuccess(response: Response<String>?, rBaseOkHttpImp: RBaseOkHttpImp?)
+
+    abstract fun onRError(rBaseOkHttpImp: RBaseOkHttpImp?)
 
     /**
      * 定义httphead  给子类去重写

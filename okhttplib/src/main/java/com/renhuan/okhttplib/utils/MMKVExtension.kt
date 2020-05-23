@@ -74,12 +74,12 @@ fun MMKV.stringSet(
 inline fun <reified T : Parcelable> MMKV.parcelable(
     key: String? = null,
     defaultValue: T? = null
-): ReadWriteProperty<Any, T> =
-    object : ReadWriteProperty<Any, T> {
-        override fun getValue(thisRef: Any, property: KProperty<*>): T =
+): ReadWriteProperty<Any, T?> =
+    object : ReadWriteProperty<Any, T?> {
+        override fun getValue(thisRef: Any, property: KProperty<*>): T? =
             decodeParcelable(key ?: property.name, T::class.java, defaultValue)
 
-        override fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
+        override fun setValue(thisRef: Any, property: KProperty<*>, value: T?) {
             encode(key ?: property.name, value)
         }
     }

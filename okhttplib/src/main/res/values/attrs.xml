@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--SettingView-->
-    <declare-styleable name="SettingItemView">
-        <attr name="rh_leftText" format="string" />
-        <attr name="rh_leftIcon" format="integer" />
-        <attr name="rh_rightStyle" format="enum">
-            <enum name="showNothing" value="0" />
-            <enum name="showIcon" value="1" />
-            <enum name="showCheck" value="2" />
-            <enum name="showSwitch" value="3" />
-        </attr>
-        <attr name="rh_rightText" format="string" />
-    </declare-styleable>
+
 
 
     <!-- 圆角布局-->

@@ -1,14 +1,13 @@
 package com.renhuan.okhttplib.utils
 
 import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.view.KeyEvent
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -99,9 +98,7 @@ object Renhuan {
 
     /**  复制到剪切板   */
     fun copy(string: String) {
-        val clipboardManager =
-            context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        clipboardManager.primaryClip = ClipData.newPlainText("label", string)
+        ClipboardUtils.copyText(string)
         toast("已复制：$string")
     }
 
@@ -176,7 +173,6 @@ object Renhuan {
         } catch (e: Exception) {
             return 0
         }
-
     }
 
     /**
@@ -235,6 +231,6 @@ object Renhuan {
      * 获取当前activity
      */
     fun getCurrentActivity(): Activity? {
-        return RActivityUtils.getInstance().currentActivity()
+        return ActivityUtils.getTopActivity()
     }
 }

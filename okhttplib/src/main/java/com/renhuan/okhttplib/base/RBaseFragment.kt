@@ -6,15 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.renhuan.okhttplib.RApp
-import com.renhuan.okhttplib.http.RBaseOkHttpImp
 import com.renhuan.okhttplib.eventbus.Event
 import com.renhuan.okhttplib.eventbus.EventBusUtil
+import com.renhuan.okhttplib.http.RBaseOkHttpImp
 import com.renhuan.okhttplib.utils.Renhuan
+import com.tencent.mmkv.MMKV
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 
 abstract class RBaseFragment : Fragment(), RBaseOkHttpImp {
+    val mmkv: MMKV by lazy { MMKV.defaultMMKV() }
 
     /**
      * 判断是否已经懒加载
