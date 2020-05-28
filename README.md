@@ -14,7 +14,7 @@
 	        implementation 'com.github.renhuan2015:rokhttp:latestVersion'
 	}
 	
- latestVersion:[![latestVersion](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#renhuan2015/rokhttp)
+ latestVersion:[![latestVersion](https://jitpack.io/v/renhuan2015/rokhttp.svg)](https://jitpack.io/#renhuan2015/rokhttp)
  
 二、首先你需要在你的项目中新建一个[BaseOkHttp](https://github.com/renhuan2015/MyOkHttp/blob/master/app/src/main/java/com/example/administrator/myokhttp/config/BaseOkHttp.kt)
 类继承RBaseOkHttp类。
