@@ -46,11 +46,11 @@ dependencies {
     /*** json数据解析 */
     api 'com.google.code.gson:gson:2.8.6'
     /*** 跳转页面startActivity */
-    api 'com.wuyr:activitymessenger:1.1.1'
+    api 'com.wuyr:activitymessenger:1.2.0'
     /*** 信息持久化存储 */
     api 'com.tencent:mmkv:1.0.24'
     /*** 各种弹窗 */
-    api 'com.lxj:xpopup:1.8.17'
+    api 'com.lxj:xpopup:1.9.0'
     /*** 布局适配 */
     api 'me.jessyan:autosize:1.2.1'
     /*** 上拉刷新 */

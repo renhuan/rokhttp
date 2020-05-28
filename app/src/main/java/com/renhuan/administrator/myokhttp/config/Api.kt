@@ -1,20 +1,23 @@
 package com.renhuan.administrator.myokhttp.config
 
+import com.renhuan.okhttplib.http.RBaseOkHttpImp
+
 object Api {
 
     /**
-     * 版本更新
+     * 短信验证码发送
+     * scene ： 场景：register、getpassword
      */
-//    fun requestVersion(baseCall: RBaseOkHttpImp) {
-//        object : BaseOkHttp<VersionModel>() {}
-//                .setUrl("${getBaseUrl()}/system/check_app_upgrade")
+//    fun requestSendCodeWithRegister(mobile: String, baseCall: RBaseOkHttpImp) {
+//        object : BaseOkHttp<Any>() {}
+//                .setUrl("${getBaseUrl()}/send_sms_vcode")
 //                .setParameter(
 //                        hashMapOf(
-//                                "sdk_type" to "android",
-//                                "sdk_version" to AppUtils.getAppVersionCode().toString()
+//                                "mobile" to mobile,
+//                                "scene" to "register",
+//                                "type" to "mobile"
 //                        )
 //                )
-//                .isShowLoading(false)
 //                .setCallBack(baseCall)
 //                .post()
 //    }

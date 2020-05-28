@@ -7,7 +7,7 @@ import com.renhuan.okhttplib.utils.*
 
 class MmkvTestActivity : RBaseActivity() {
 
-    private var boolean by MMKVHelper.isLogin()
+    private var boolean by mmkv.boolean("boolean")
     private var int by mmkv.int(key = "int", defaultValue = 0)
     private var long by mmkv.long("long", 0L)
     private var float by mmkv.float(key = "float", defaultValue = 0.0F)
@@ -68,6 +68,10 @@ class MmkvTestActivity : RBaseActivity() {
     }
 
     override fun <T> onSuccess(data: T) {
+    }
+
+    override fun onError() {
+        TODO("Not yet implemented")
     }
 
 

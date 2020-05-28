@@ -2,6 +2,7 @@ package com.renhuan.okhttplib.utils
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
 import android.view.KeyEvent
@@ -68,6 +69,10 @@ object Renhuan {
      */
     fun getColor(colorResId: Int): Int {
         return ContextCompat.getColor(Renhuan.context, colorResId)
+    }
+
+    fun getDrawable(resId: Int): Drawable? {
+        return ContextCompat.getDrawable(Renhuan.context, resId)
     }
 
     /**

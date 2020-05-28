@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.ThreadMode
 
 
 abstract class RBaseFragment : Fragment(), RBaseOkHttpImp {
+
     val mmkv: MMKV by lazy { MMKV.defaultMMKV() }
 
     /**

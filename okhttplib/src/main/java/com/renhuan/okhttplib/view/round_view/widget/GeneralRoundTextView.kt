@@ -4,12 +4,13 @@ import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import com.renhuan.okhttplib.R
 import com.renhuan.okhttplib.view.round_view.abs.GeneralRoundViewImpl
 import com.renhuan.okhttplib.view.round_view.abs.IRoundView
 
-class GeneralRoundTextView : AppCompatTextView, IRoundView {
+class GeneralRoundTextView : TextView, IRoundView {
     private lateinit var generalRoundViewImpl: GeneralRoundViewImpl
 
     constructor(context: Context) : this(context, null)

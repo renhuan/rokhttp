@@ -80,7 +80,7 @@ inline fun <reified T : Parcelable> MMKV.parcelable(
             decodeParcelable(key ?: property.name, T::class.java, defaultValue)
 
         override fun setValue(thisRef: Any, property: KProperty<*>, value: T?) {
-            encode(key ?: property.name, value)
+            value?.let { encode(key ?: property.name, it) }
         }
     }
 
