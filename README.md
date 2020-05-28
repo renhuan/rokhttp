@@ -11,10 +11,11 @@
 	}
   
 	dependencies {
-	        implementation 'com.github.renhuan2015:MyOkHttp:2.0.0'
+	        implementation 'com.github.renhuan2015:rokhttp:latestVersion'
 	}
 	
-
+ latestVersion:[![latestVersion](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
+ 
 二、首先你需要在你的项目中新建一个[BaseOkHttp](https://github.com/renhuan2015/MyOkHttp/blob/master/app/src/main/java/com/example/administrator/myokhttp/config/BaseOkHttp.kt)
 类继承RBaseOkHttp类。
 作用是：
