@@ -17,7 +17,7 @@
  latestVersion = [![latestVersion](https://jitpack.io/v/renhuan2015/rokhttp.svg)](https://jitpack.io/#renhuan2015/rokhttp)
  
 二、首先你需要在你的项目中新建一个[BaseOkHttp](https://github.com/renhuan2015/rokhttp/blob/master/app/src/main/java/com/renhuan/administrator/myokhttp/config/BaseOkHttp.kt)
-类继承RBaseOkHttp类。
+类继承[RBaseOkHttp](https://github.com/renhuan2015/rokhttp/blob/master/okhttplib/src/main/java/com/renhuan/okhttplib/http/RBaseOkHttp.kt)类。
 作用是：
 1. 配置全局的请求头部或者全局公共上传参数
 2. 处理成功回调的全局状态，如code=1，表示请求成功，开始成功回调，否则，失败回调处理
