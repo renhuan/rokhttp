@@ -5,37 +5,43 @@ import android.app.Application
 import android.os.Bundle
 import androidx.multidex.MultiDex
 import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.CrashUtils
 import com.blankj.utilcode.util.Utils
 import com.lzy.okgo.OkGo
+import com.lzy.okgo.interceptor.HttpLoggingInterceptor
+import com.readystatesoftware.chuck.ChuckInterceptor
 import com.renhuan.okhttplib.utils.Renhuan
+import com.simple.spiderman.SpiderMan
 import com.tencent.mmkv.MMKV
 import me.jessyan.autosize.AutoSizeConfig
 import me.jessyan.autosize.unit.Subunits
+import okhttp3.OkHttpClient
+import java.util.logging.Level
 
 abstract class RApp : Application() {
 
-    /**
-     * 是否crash 重启  默认true
-     */
-    open val isCrash: Boolean
-        get() = true
-
     abstract fun init()
+
+    /**
+     * 设置崩溃页面的主题
+     */
+    abstract fun getSpiderTheme(): Int
 
     override fun onCreate() {
         super.onCreate()
         setTheme(applicationInfo.theme)
-        MultiDex.install(this);
-        OkGo.getInstance().init(this)
+        SpiderMan.init(this).setTheme(if (getSpiderTheme() == 0) R.style.SpiderManTheme_Dark else getSpiderTheme())
+        OkGo.getInstance().init(this).okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(ChuckInterceptor(this))
+            .addInterceptor(HttpLoggingInterceptor("okgo").apply {
+                setPrintLevel(HttpLoggingInterceptor.Level.BODY)
+                setColorLevel(Level.INFO)
+            })
+            .build()
+        MultiDex.install(this)
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         MMKV.initialize(this)
         Renhuan.initialize(this)
         initAutoSize()
-        if (isCrash) {
-            initCrash()
-        }
         init()
     }
 
@@ -50,10 +56,6 @@ abstract class RApp : Application() {
             .supportSubunits = Subunits.MM
     }
 
-
-    private fun initCrash() {
-        CrashUtils.init { _, _ -> AppUtils.relaunchApp() }
-    }
 
     private val activityLifecycleCallbacks = object : ActivityLifecycleCallbacks {
         override fun onActivityPaused(activity: Activity?) {

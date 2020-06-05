@@ -95,38 +95,10 @@ object Renhuan {
     }
 
 
-    /**  保留几位小数   */
-    fun keepDecimal(str: Double, length: Int): String {
-        return String.format("%.${length}f", BigDecimal(str))
-    }
-
-
     /**  复制到剪切板   */
     fun copy(string: String) {
         ClipboardUtils.copyText(string)
         toast("已复制：$string")
-    }
-
-    /**  读取assets本地json   */
-    fun readJsonFromAssets(fileName: String): String {
-        val stringBuilder = StringBuilder()
-        try {
-            val assetManager = getCurrentActivity()?.assets
-            val bf = BufferedReader(
-                InputStreamReader(
-                    assetManager?.open(fileName)
-                )
-            )
-            var line: String
-            while (bf.readLine() != null) {
-                line = bf.readLine()
-                stringBuilder.append(line)
-            }
-            bf.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return stringBuilder.toString()
     }
 
 

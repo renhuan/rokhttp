@@ -35,7 +35,7 @@ dependencies {
     /*** 组件通信 */
     api 'org.greenrobot:eventbus:3.1.1'
     /*** 工具类 */
-    api 'com.blankj:utilcodex:1.27.5'
+    api 'com.blankj:utilcodex:1.29.0'
     /*** ByRecyclerView */
     api 'com.github.youlookwhat:ByRecyclerView:1.0.18'
     /*** 圆形头像 */
@@ -57,4 +57,13 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
     /*** toolbar */
     api 'com.hjq:titlebar:6.0'
+
+
+    /**
+     * 测试专用
+     */
+    debugImplementation "com.simple:spiderman:1.1.5"
+    releaseImplementation "com.simple:spiderman-no-op:1.1.4"
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 }
