@@ -2,9 +2,9 @@
 <resources>
 
 
-
     <!-- 圆角布局-->
     <declare-styleable name="GeneralRoundView">
         <attr name="corner_radius" format="dimension" />
     </declare-styleable>
+
 </resources>
