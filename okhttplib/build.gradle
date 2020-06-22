@@ -50,7 +50,7 @@ dependencies {
     /*** 信息持久化存储 */
     api 'com.tencent:mmkv:1.0.24'
     /*** 各种弹窗 */
-    api 'com.lxj:xpopup:1.9.4'
+    api 'com.lxj:xpopup:1.9.5'
     /*** 布局适配 */
     api 'me.jessyan:autosize:1.2.1'
     /*** 上拉刷新 */
