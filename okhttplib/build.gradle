@@ -43,8 +43,6 @@ dependencies {
     /*** glide图片加载 */
     api 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
-    /*** json数据解析 */
-    api 'com.google.code.gson:gson:2.8.6'
     /*** 跳转页面startActivity */
     api 'com.wuyr:activitymessenger:1.2.0'
     /*** 信息持久化存储 */
