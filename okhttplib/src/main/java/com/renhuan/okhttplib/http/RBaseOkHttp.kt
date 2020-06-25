@@ -10,6 +10,7 @@ import com.lzy.okgo.model.Response
 import com.lzy.okgo.request.base.Request
 import com.renhuan.okhttplib.RApp
 import com.renhuan.okhttplib.utils.Renhuan
+import java.lang.reflect.ParameterizedType
 
 
 /**
@@ -32,7 +33,7 @@ abstract class RBaseOkHttp<T> {
                 if (isShowLoading) {
                     hideLoading()
                 }
-                onRSuccess(response, rBaseOkHttpImp)
+                onRSuccess(getCls(), response, rBaseOkHttpImp)
             }
 
             override fun onError(response: Response<String>) {
@@ -54,20 +55,21 @@ abstract class RBaseOkHttp<T> {
                     RApp.cancelHttp(Renhuan.getCurrentActivity())
                     return
                 }
-
                 if (isShowLoading) {
                     when (cacheMode) {
                         CacheMode.FIRST_CACHE_THEN_REQUEST, CacheMode.DEFAULT, CacheMode.NO_CACHE -> showLoading()
-                        else -> {
-                        }
                     }
                 }
             }
 
             override fun onCacheSuccess(response: Response<String>?) {
-                onRSuccess(response, rBaseOkHttpImp)
+                onRSuccess(getCls(), response, rBaseOkHttpImp)
             }
         }
+
+    private fun getCls(): Class<*> {
+        return (javaClass.genericSuperclass as ParameterizedType?)?.actualTypeArguments?.get(0) as Class<*>
+    }
 
     fun isShowLoading(isShowLoading: Boolean): RBaseOkHttp<T> {
         this.isShowLoading = isShowLoading
@@ -79,16 +81,11 @@ abstract class RBaseOkHttp<T> {
         return this
     }
 
-    open fun setParameter(hashMap: HashMap<String, String>): RBaseOkHttp<T> {
-        this.hashMap = hashMap
-        return this
-    }
 
     fun setCallBack(rBaseOkHttpImp: RBaseOkHttpImp): RBaseOkHttp<T> {
         this.rBaseOkHttpImp = rBaseOkHttpImp
         return this
     }
-
 
     /**
      * NO_CACHE：                 不使用缓存，该模式下cacheKey、cacheTime 参数均无效
@@ -124,22 +121,27 @@ abstract class RBaseOkHttp<T> {
             .execute(stringCallback)
     }
 
+    /**
+     * 用于设置公共上传参数  给子类去重写
+     */
+    open fun setParameter(hashMap: HashMap<String, String>): RBaseOkHttp<T> {
+        this.hashMap = hashMap
+        return this
+    }
 
     /**
-     * 数据处理的方法给子类去重写
-     *
-     * @param response
-     * @param myOkHttpImp
-     * @param code
+     * 请求成功  给子类去重写
      */
-    abstract fun onRSuccess(response: Response<String>?, rBaseOkHttpImp: RBaseOkHttpImp?)
+    abstract fun onRSuccess(
+        cls: Class<*>,
+        response: Response<String>?,
+        rBaseOkHttpImp: RBaseOkHttpImp?
+    )
 
     abstract fun onRError(rBaseOkHttpImp: RBaseOkHttpImp?)
 
     /**
-     * 定义httphead  给子类去重写
-     *
-     * @return
+     * 定义公共头部  给子类去重写
      */
     abstract fun setHttpHead(httpHeaders: HttpHeaders): HttpHeaders?
 
