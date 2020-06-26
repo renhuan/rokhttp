@@ -184,7 +184,7 @@ object Renhuan {
             .load(url)
             .apply(RequestOptions().apply {
                 placeholder(R.drawable.loading)
-                error(R.drawable.loading)
+                error(R.drawable.empty)
             })
             .into(view)
     }
