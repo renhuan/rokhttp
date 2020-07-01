@@ -4,6 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import com.renhuan.okhttplib.base.RBaseActivity
 import com.renhuan.okhttplib.utils.*
+import kotlinx.android.synthetic.main.activity_main.*
+import rxhttp.startDelay
+import rxhttp.toClass
+import rxhttp.toParser
+import rxhttp.tryAwait
+import rxhttp.wrapper.param.RxHttp
+import rxhttp.wrapper.param.toResponse
+import rxhttp.wrapper.param.toResponseList
 
 class MmkvTestActivity : RBaseActivity() {
 
@@ -19,10 +27,12 @@ class MmkvTestActivity : RBaseActivity() {
 
 
     override fun inflaterLayout(): Int? {
-        return null
+        return R.layout.activity_main
     }
 
-    override fun init(savedInstanceState: Bundle?) {
+
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
         boolean = true
 //        int = 100
 //        long = 100L
@@ -65,15 +75,19 @@ class MmkvTestActivity : RBaseActivity() {
         stringSet:[第(96)个, 第(12)个, 第(35)个, 第(54)个, 第(77)个, ...
         parcelable:UserData(name='谭嘉俊', gender='男', age=0)
          */
+
+        rxScope {
+            val student = requestMeizi()
+
+            tv.append(student.toString())
+        }
     }
 
-    override fun <T> onSuccess(data: T) {
+    private suspend fun requestMeizi(): List<MeiziModel>? {
+        return RxHttp.get("https://gank.io/api/v2/data/category/Girl/type/Girl/page/1/count/10")
+                .toResponseList<MeiziModel>()
+                .tryAwait()
     }
-
-    override fun onError() {
-        TODO("Not yet implemented")
-    }
-
 
     private companion object {
         const val TAG = "TanJiaJun"

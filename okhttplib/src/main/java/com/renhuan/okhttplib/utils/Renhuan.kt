@@ -207,7 +207,7 @@ object Renhuan {
     /**
      * 获取当前activity
      */
-    fun getCurrentActivity(): Activity? {
+    fun getCurrentActivity(): Activity {
         return ActivityUtils.getTopActivity()
     }
 }

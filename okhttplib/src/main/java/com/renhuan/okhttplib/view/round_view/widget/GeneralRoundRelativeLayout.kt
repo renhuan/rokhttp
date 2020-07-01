@@ -41,8 +41,8 @@ class GeneralRoundRelativeLayout : RelativeLayout, IRoundView {
             view,
             context,
             attributeSet,
-            R.styleable.GeneralRoundView,
-            R.styleable.GeneralRoundView_corner_radius
+            R.styleable.GeneralRoundRelativeLayout,
+            R.styleable.GeneralRoundRelativeLayout_rl_corner_radius
         )
     }
 

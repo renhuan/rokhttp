@@ -2,22 +2,23 @@ package com.renhuan.okhttplib.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.renhuan.okhttplib.RApp
-import com.renhuan.okhttplib.http.RBaseOkHttpImp
-import com.renhuan.okhttplib.eventbus.Event
-import com.renhuan.okhttplib.eventbus.EventBusUtil
+import androidx.lifecycle.rxLifeScope
+import com.lxj.xpopup.XPopup
+import com.renhuan.okhttplib.eventbus.REventBus
+import com.renhuan.okhttplib.utils.Renhuan
 import com.tencent.mmkv.MMKV
+import kotlinx.coroutines.CoroutineScope
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 
-abstract class RBaseActivity : AppCompatActivity(), RBaseOkHttpImp {
+abstract class RBaseActivity : AppCompatActivity() {
 
-    val mmkv: MMKV by lazy { MMKV.defaultMMKV() }
+    protected val mmkv: MMKV by lazy { MMKV.defaultMMKV() }
 
-    abstract fun inflaterLayout(): Int?
+    private val loading by lazy { XPopup.Builder(this).dismissOnTouchOutside(false).asLoading() }
 
-    abstract fun init(savedInstanceState: Bundle?)
+    protected abstract fun inflaterLayout(): Int?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,45 +28,77 @@ abstract class RBaseActivity : AppCompatActivity(), RBaseOkHttpImp {
 
         //注册eventbus
         if (isRegisterEventBus) {
-            EventBusUtil.register(this)
+            REventBus.register(this)
         }
 
         //初始化数据
-        init(savedInstanceState)
+        initView(savedInstanceState)
+        initData()
+        initListener()
+        initRequest()
     }
 
     /**
-     * 是否注册事件分发
-     *
-     * @return true绑定EventBus事件分发，默认不绑定，子类需要绑定的话复写此方法返回true.
+     * base协程  处理loading 和 弹出异常message
      */
-    open val isRegisterEventBus: Boolean
+    protected fun rxScope(isShowLoading: Boolean = true, action: suspend (CoroutineScope) -> Unit) {
+        rxLifeScope.launch(
+                { action(this) },
+                { Renhuan.toast(it.message) },
+                { if (isShowLoading) loading.show() },
+                { if (isShowLoading) loading.dismiss() }
+        )
+    }
+
+    /**
+     * 子类重写initView()
+     */
+    protected open fun initView(savedInstanceState: Bundle?) {}
+
+    /**
+     * 子类重写initData()
+     */
+    protected open fun initData() {}
+
+    /**
+     * 子类重写initListener()
+     */
+    protected open fun initListener() {}
+
+    /**
+     * 子类重写initRequest()
+     */
+    protected open fun initRequest() {}
+
+    /**
+     * 子类重写是否注册事件分发
+     */
+    protected open val isRegisterEventBus: Boolean
         get() = false
 
     /**
      * 子类重写接收到分发到事件
      */
-    open fun receiveEvent(event: Event<*>) {}
+    protected open fun receiveEvent(event: Any) {}
 
     /**
      * 子类重写接受到分发的粘性事件
      */
-    open fun receiveStickyEvent(event: Event<*>) {}
+    protected open fun receiveStickyEvent(event: Any) {}
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEventBusCome(event: Event<*>?) {
+    private fun onEventBus(event: Any?) {
         event?.let { receiveEvent(it) }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onStickyEventBusCome(event: Event<*>?) {
+    private fun onStickyEventBus(event: Any?) {
         event?.let { receiveStickyEvent(it) }
     }
 
     override fun onDestroy() {
-        RApp.cancelHttp(this)
         if (isRegisterEventBus) {
-            EventBusUtil.unregister(this)
+            REventBus.unregister(this)
         }
         super.onDestroy()
     }

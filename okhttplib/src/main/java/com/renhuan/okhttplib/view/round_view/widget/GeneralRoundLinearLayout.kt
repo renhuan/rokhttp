@@ -38,11 +38,11 @@ class GeneralRoundLinearLayout : LinearLayout, IRoundView {
 
     private fun init(view: View, context: Context, attributeSet: AttributeSet?) {
         generalRoundViewImpl = GeneralRoundViewImpl(
-            view,
-            context,
-            attributeSet,
-            R.styleable.GeneralRoundView,
-            R.styleable.GeneralRoundView_corner_radius
+                view,
+                context,
+                attributeSet,
+                R.styleable.GeneralRoundLinearLayout,
+                R.styleable.GeneralRoundLinearLayout_ll_corner_radius
         )
     }
 
