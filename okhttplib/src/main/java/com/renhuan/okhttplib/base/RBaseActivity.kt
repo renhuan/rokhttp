@@ -46,7 +46,7 @@ abstract class RBaseActivity : AppCompatActivity() {
                 { action(this) },
                 {
                     Renhuan.toast(it.message)
-                    (onError!!)(it)
+                    onError?.let { its -> its(it) }
                 },
                 { if (isShowLoading) loading.show() },
                 { if (isShowLoading) loading.smartDismiss() }

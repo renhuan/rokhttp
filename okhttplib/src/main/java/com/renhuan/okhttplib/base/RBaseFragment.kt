@@ -66,7 +66,7 @@ abstract class RBaseFragment : Fragment() {
                 { action(this) },
                 {
                     Renhuan.toast(it.message)
-                    (onError!!)(it)
+                    onError?.let { its -> its(it) }
                 },
                 { if (isShowLoading) loading.show() },
                 { if (isShowLoading) loading.smartDismiss() }
