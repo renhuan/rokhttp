@@ -61,12 +61,15 @@ abstract class RBaseFragment : Fragment() {
     /**
      * base协程  处理loading 和 弹出异常message
      */
-    protected fun rxScope(isShowLoading: Boolean = true, action: suspend (CoroutineScope) -> Unit) {
+    protected fun rxScope(isShowLoading: Boolean = true, onError: ((Throwable) -> Unit)? = null, action: suspend (CoroutineScope) -> Unit) {
         rxLifeScope.launch(
                 { action(this) },
-                { Renhuan.toast(it.message) },
+                {
+                    Renhuan.toast(it.message)
+                    (onError!!)(it)
+                },
                 { if (isShowLoading) loading.show() },
-                { if (isShowLoading) loading.dismiss() }
+                { if (isShowLoading) loading.smartDismiss() }
         )
     }
 

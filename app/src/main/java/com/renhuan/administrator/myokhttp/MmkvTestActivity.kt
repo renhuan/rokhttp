@@ -5,11 +5,8 @@ import android.util.Log
 import com.renhuan.okhttplib.base.RBaseActivity
 import com.renhuan.okhttplib.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
-import rxhttp.toClass
-import rxhttp.toParser
 import rxhttp.tryAwait
 import rxhttp.wrapper.param.RxHttp
-import rxhttp.wrapper.param.toResponse
 import rxhttp.wrapper.param.toResponseList
 
 class MmkvTestActivity : RBaseActivity() {
@@ -75,12 +72,18 @@ class MmkvTestActivity : RBaseActivity() {
         parcelable:UserData(name='谭嘉俊', gender='男', age=0)
          */
 
-        rxScope {
-            val student = RxHttp.get("https://gank.io/api/v2/data/category/Girl/type/Girl/page/1/count/10")
-                    .toResponseList<MeiziModel>()
-                    .tryAwait()
-            tv.append(student.toString())
-        }
+
+        rxScope(
+                action = {
+                    val student = RxHttp.get("https://gank.io/api/v2/data/category/Girl/type/Girl/page/1/count/10")
+                            .toResponseList<MeiziModel>()
+                            .await()
+                    tv.append(student.toString())
+                },
+                onError = {
+                    tv.append(it.message)
+                }
+        )
     }
 
 
