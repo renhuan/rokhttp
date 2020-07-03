@@ -73,18 +73,18 @@ abstract class RBaseActivity : AppCompatActivity() {
     /**
      * 子类重写是否注册事件分发
      */
-    protected open val isRegisterEventBus: Boolean
+    open val isRegisterEventBus: Boolean
         get() = false
 
     /**
      * 子类重写接收到分发到事件
      */
-    protected open fun receiveEvent(event: Any) {}
+    open fun receiveEvent(event: Any) {}
 
     /**
      * 子类重写接受到分发的粘性事件
      */
-    protected open fun receiveStickyEvent(event: Any) {}
+    open fun receiveStickyEvent(event: Any) {}
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventBus(event: Any?) {
