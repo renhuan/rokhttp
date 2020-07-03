@@ -107,12 +107,12 @@ abstract class RBaseFragment : Fragment() {
     open fun receiveStickyEvent(event: Any) {}
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    private fun onEventBus(event: Any?) {
+    fun onEventBus(event: Any?) {
         event?.let { receiveEvent(it) }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    private fun onStickyEventBus(event: Any?) {
+    fun onStickyEventBus(event: Any?) {
         event?.let { receiveStickyEvent(it) }
     }
 
