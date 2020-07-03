@@ -45,7 +45,9 @@ abstract class RBaseActivity : AppCompatActivity() {
         rxLifeScope.launch(
                 { action(this) },
                 {
-                    Renhuan.toast(it.message)
+                    if (it.message != "Job was cancelled") {
+                        Renhuan.toast(it.message)
+                    }
                     onError?.let { its -> its(it) }
                 },
                 { if (isShowLoading) loading.show() },
