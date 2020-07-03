@@ -5,7 +5,6 @@ import android.util.Log
 import com.renhuan.okhttplib.base.RBaseActivity
 import com.renhuan.okhttplib.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
-import rxhttp.startDelay
 import rxhttp.toClass
 import rxhttp.toParser
 import rxhttp.tryAwait
@@ -77,17 +76,13 @@ class MmkvTestActivity : RBaseActivity() {
          */
 
         rxScope {
-            val student = requestMeizi()
-
+            val student = RxHttp.get("https://gank.io/api/v2/data/category/Girl/type/Girl/page/1/count/10")
+                    .toResponseList<MeiziModel>()
+                    .tryAwait()
             tv.append(student.toString())
         }
     }
 
-    private suspend fun requestMeizi(): List<MeiziModel>? {
-        return RxHttp.get("https://gank.io/api/v2/data/category/Girl/type/Girl/page/1/count/10")
-                .toResponseList<MeiziModel>()
-                .tryAwait()
-    }
 
     private companion object {
         const val TAG = "TanJiaJun"
