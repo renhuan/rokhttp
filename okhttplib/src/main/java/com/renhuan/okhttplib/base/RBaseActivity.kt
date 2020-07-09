@@ -6,10 +6,12 @@ import androidx.lifecycle.rxLifeScope
 import com.lxj.xpopup.XPopup
 import com.renhuan.okhttplib.eventbus.REventBus
 import com.renhuan.okhttplib.utils.Renhuan
+import com.renhuan.okhttplib.utils.msg
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import rxhttp.wrapper.exception.ParseException
 
 
 abstract class RBaseActivity : AppCompatActivity() {
@@ -45,9 +47,7 @@ abstract class RBaseActivity : AppCompatActivity() {
         rxLifeScope.launch(
                 { action(this) },
                 {
-                    if (it.message != "Job was cancelled") {
-                        Renhuan.toast(it.message)
-                    }
+                    Renhuan.toast(it.msg)
                     onError?.let { its -> its(it) }
                 },
                 { if (isShowLoading) loading.show() },

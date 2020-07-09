@@ -5,7 +5,7 @@ import android.util.Log
 import com.renhuan.okhttplib.base.RBaseActivity
 import com.renhuan.okhttplib.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
-import rxhttp.tryAwait
+import rxhttp.wrapper.cahce.CacheMode
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponseList
 
@@ -27,9 +27,16 @@ class MmkvTestActivity : RBaseActivity() {
     }
 
 
+    override fun initListener() {
+        super.initListener()
+
+        btn.setOnSafeClickListener { Renhuan.toast("点击事件") }
+    }
+
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         boolean = true
+
 //        int = 100
 //        long = 100L
 //        float = 100F

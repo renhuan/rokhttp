@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,4 +8,15 @@
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <com.renhuan.administrator.myokhttp.ScaleButton
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_margin="10dp"
+        android:background="@color/purple"
+        android:elevation="10dp"
+        android:foreground="?selectableItemBackground"
+        android:text="点击"
+        android:textColor="@color/white" />
 </FrameLayout>
