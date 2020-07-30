@@ -1,4 +1,4 @@
-
+# [具体使用请看Demo](https://github.com/renhuan/ganhuo/blob/master/app/src/main/java/com/android/ganhuo/http/Api.kt)
 ## 使用（3.0.0以后已废弃，已废弃，已废弃）
 
 一、引入
