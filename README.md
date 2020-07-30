@@ -11,7 +11,7 @@
 	}
   
 	dependencies {
-	        implementation 'com.github.renhuan2015:rokhttp:latestVersion'
+	        implementation 'com.github.renhuan:rokhttp:latestVersion'
 	}
 	
  latestVersion = [![latestVersion](https://jitpack.io/v/renhuan2015/rokhttp.svg)](https://jitpack.io/#renhuan2015/rokhttp)
