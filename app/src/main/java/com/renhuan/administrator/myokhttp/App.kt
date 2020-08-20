@@ -1,14 +1,12 @@
 package com.renhuan.administrator.myokhttp
 
 import com.renhuan.okhttplib.RApp
-import me.jessyan.autosize.AutoSizeConfig
-import me.jessyan.autosize.unit.Subunits
+import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.qualifiers.ApplicationContext
 
+@HiltAndroidApp
 class App : RApp() {
     override fun init() {
     }
 
-    override fun getSpiderTheme(): Int {
-        return 0
-    }
 }

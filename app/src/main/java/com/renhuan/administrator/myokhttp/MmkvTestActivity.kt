@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import com.renhuan.okhttplib.base.RBaseActivity
 import com.renhuan.okhttplib.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import rxhttp.wrapper.cahce.CacheMode
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponseList
+import javax.inject.Inject
+
 
 class MmkvTestActivity : RBaseActivity() {
-
     private var boolean by mmkv.boolean("boolean")
     private var int by mmkv.int(key = "int", defaultValue = 0)
     private var long by mmkv.long("long", 0L)
@@ -30,7 +32,10 @@ class MmkvTestActivity : RBaseActivity() {
     override fun initListener() {
         super.initListener()
 
-        btn.setOnSafeClickListener { Renhuan.toast("点击事件") }
+        btn.setOnSafeClickListener {
+//            MainActivity.startAction(this)
+        }
+        btn.addClickScale()
     }
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -79,7 +84,6 @@ class MmkvTestActivity : RBaseActivity() {
         parcelable:UserData(name='谭嘉俊', gender='男', age=0)
          */
 
-
         rxScope(
                 action = {
                     val student = RxHttp.get("https://gank.io/api/v2/data/category/Girl/type/Girl/page/1/count/10")
@@ -91,6 +95,7 @@ class MmkvTestActivity : RBaseActivity() {
                     tv.append(it.message)
                 }
         )
+
     }
 
 

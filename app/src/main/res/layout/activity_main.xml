@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="@dimen/dp_250"
+            android:layout_height="?actionBarSize"
+            android:background="@color/purple"
+            android:elevation="10dp"
+            android:text="点击"
+            android:textColor="@color/white" />
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorAccent"
+            android:elevation="10dp"
+            android:text="点击"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.renhuan.administrator.myokhttp.ScaleButton
-        android:id="@+id/btn"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:layout_margin="10dp"
-        android:background="@color/purple"
-        android:elevation="10dp"
-        android:foreground="?selectableItemBackground"
-        android:text="点击"
-        android:textColor="@color/white" />
-</FrameLayout>
+</LinearLayout>

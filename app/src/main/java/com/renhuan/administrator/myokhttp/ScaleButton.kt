@@ -8,6 +8,7 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.widget.AppCompatButton
 import com.renhuan.okhttplib.utils.Renhuan
+import javax.inject.Inject
 
 /**
  * created by renhuan
@@ -38,4 +39,5 @@ class ScaleButton(context: Context, attributeSet: AttributeSet) : AppCompatButto
         }
         return super.onTouchEvent(event)
     }
+
 }
