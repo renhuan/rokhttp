@@ -11,8 +11,6 @@ import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import rxhttp.wrapper.exception.ParseException
-
 
 abstract class RBaseActivity : AppCompatActivity() {
 
@@ -28,10 +26,6 @@ abstract class RBaseActivity : AppCompatActivity() {
         //加载布局
         inflaterLayout()?.let { setContentView(it) }
 
-        //注册eventbus
-        if (isRegisterEventBus) {
-            REventBus.register(this)
-        }
 
         //初始化数据
         initView(savedInstanceState)
@@ -40,40 +34,63 @@ abstract class RBaseActivity : AppCompatActivity() {
         initRequest()
     }
 
+    override fun onStart() {
+        super.onStart()
+        //注册eventbus
+        if (isRegisterEventBus) {
+            REventBus.register(this)
+        }
+    }
+
+
+    override fun onStop() {
+        if (isRegisterEventBus) {
+            REventBus.unregister(this)
+        }
+        super.onStop()
+    }
+
     /**
      * base协程  处理loading 和 弹出异常message
      */
-    protected fun rxScope(isShowLoading: Boolean = true, onError: ((Throwable) -> Unit)? = null, action: suspend (CoroutineScope) -> Unit) {
+    protected fun rxScope(
+        isShowLoading: Boolean = true,
+        onError: ((Throwable) -> Unit)? = null,
+        action: suspend (CoroutineScope) -> Unit
+    ) {
         rxLifeScope.launch(
-                { action(this) },
-                {
+            { action(this) },
+            {
+                if (!it.msg.isBlank()) {
                     Renhuan.toast(it.msg)
-                    onError?.let { its -> its(it) }
-                },
-                { if (isShowLoading) loading.show() },
-                { if (isShowLoading) loading.smartDismiss() }
+                }
+                onError?.let { its -> its(it) }
+                it.printStackTrace()
+            },
+            { if (isShowLoading) loading.show() },
+            { if (isShowLoading) loading.smartDismiss() }
         )
     }
 
     /**
      * 子类重写initView()
      */
-    protected open fun initView(savedInstanceState: Bundle?) {}
+    abstract fun initView(savedInstanceState: Bundle?)
 
     /**
      * 子类重写initData()
      */
-    protected open fun initData() {}
+    abstract fun initData()
 
     /**
      * 子类重写initListener()
      */
-    protected open fun initListener() {}
+    abstract fun initListener()
 
     /**
      * 子类重写initRequest()
      */
-    protected open fun initRequest() {}
+    abstract fun initRequest()
 
     /**
      * 子类重写是否注册事件分发
@@ -101,10 +118,4 @@ abstract class RBaseActivity : AppCompatActivity() {
         event?.let { receiveStickyEvent(it) }
     }
 
-    override fun onDestroy() {
-        if (isRegisterEventBus) {
-            REventBus.unregister(this)
-        }
-        super.onDestroy()
-    }
 }

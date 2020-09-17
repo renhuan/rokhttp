@@ -27,11 +27,6 @@ class GeneralRoundView21Policy(
     override fun beforeDispatchDraw(canvas: Canvas?) {
         //Android L版本以上，采用ViewOutlineProvider来裁剪view
         mContainer.clipToOutline = true
-        if (mContainer is AppCompatButton) {
-            mContainer.elevation = 20f
-        } else {
-            mContainer.elevation = 1f
-        }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

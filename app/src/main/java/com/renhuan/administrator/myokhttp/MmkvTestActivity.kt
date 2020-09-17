@@ -2,14 +2,12 @@ package com.renhuan.administrator.myokhttp
 
 import android.os.Bundle
 import android.util.Log
+import com.lxj.xpopup.XPopup
 import com.renhuan.okhttplib.base.RBaseActivity
 import com.renhuan.okhttplib.utils.*
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import rxhttp.wrapper.cahce.CacheMode
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponseList
-import javax.inject.Inject
 
 
 class MmkvTestActivity : RBaseActivity() {
@@ -34,8 +32,16 @@ class MmkvTestActivity : RBaseActivity() {
 
         btn.setOnSafeClickListener {
 //            MainActivity.startAction(this)
+            XPopup.Builder(this)
+                    .hasBlurBg(true)
+                    .dismissOnTouchOutside(false)
+                    .isClickThrough(true)
+                    .asConfirm("提示", "内容", null)
+                    .show()
         }
         btn.addClickScale()
+
+        tv.setOnSafeClickListener { Renhuan.toast("点击了穿透TV") }
     }
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -96,11 +102,12 @@ class MmkvTestActivity : RBaseActivity() {
                 }
         )
 
+
     }
 
 
     private companion object {
-        const val TAG = "TanJiaJun"
+        const val TAG = "renhuan"
     }
 
 

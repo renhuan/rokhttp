@@ -1,59 +1,38 @@
 package com.renhuan.okhttplib.base
 
-import android.os.Bundle
-import android.view.LayoutInflater
+import android.content.Context
+import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.rxLifeScope
+import android.widget.FrameLayout
 import com.lxj.xpopup.XPopup
 import com.renhuan.okhttplib.eventbus.REventBus
 import com.renhuan.okhttplib.utils.Renhuan
 import com.renhuan.okhttplib.utils.msg
+import com.rxlife.coroutine.RxLifeScope
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * created by renhuan
+ * time : 2020/9/10 17:57
+ * describe :
+ */
 
-abstract class RBaseFragment : Fragment() {
+abstract class RBaseView(context: Context, attributeSet: AttributeSet?) : FrameLayout(context, attributeSet) {
 
     protected val mmkv: MMKV by lazy { MMKV.defaultMMKV() }
 
-    private val loading by lazy { XPopup.Builder(activity).asLoading() }
+    private val loading by lazy { XPopup.Builder(context).dismissOnTouchOutside(false).asLoading() }
 
-    /**
-     * 判断是否已经懒加载
-     */
-    private var isLoaded = false
+    protected abstract fun inflaterLayout(): Int?
 
-    private val mView by lazy { View.inflate(Renhuan.getContext(), inflaterLayout(), null) }
+    private val mView by lazy { inflaterLayout()?.let { View.inflate(context, it, this) } }
 
-    protected abstract fun inflaterLayout(): Int
-
-    protected abstract fun lazyLoad()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return mView
-    }
-
-    /***
-     * FragmentPagerAdapter 要设置BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-     */
-    override fun onResume() {
-        super.onResume()
-        if (!isLoaded) {
-            isLoaded = true
-            lazyLoad()
-        }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    init {
+        //初始化数据
         initView(mView)
         initData()
         initListener()
@@ -63,12 +42,13 @@ abstract class RBaseFragment : Fragment() {
     /**
      * base协程  处理loading 和 弹出异常message
      */
+    private var job: Job? = null
     protected fun rxScope(
         isShowLoading: Boolean = true,
         onError: ((Throwable) -> Unit)? = null,
         action: suspend (CoroutineScope) -> Unit
     ) {
-        rxLifeScope.launch(
+        job = RxLifeScope().launch(
             { action(this) },
             {
                 if (!it.msg.isBlank()) {
@@ -85,7 +65,7 @@ abstract class RBaseFragment : Fragment() {
     /**
      * 子类重写initView()
      */
-    abstract fun initView(view: View)
+    abstract fun initView(view: View?)
 
     /**
      * 子类重写initData()
@@ -128,19 +108,30 @@ abstract class RBaseFragment : Fragment() {
         event?.let { receiveStickyEvent(it) }
     }
 
-    override fun onStart() {
-        super.onStart()
-        //注册eventbus
+    /**
+     * 停止EventBus
+     */
+    fun onStop() {
+        if (isRegisterEventBus) {
+            REventBus.unregister(this)
+        }
+    }
+
+    /**
+     * 启动EventBus
+     */
+    fun onStart() {
         if (isRegisterEventBus) {
             REventBus.register(this)
         }
     }
 
-
-    override fun onStop() {
-        if (isRegisterEventBus) {
-            REventBus.unregister(this)
+    /**
+     * 取消网络请求
+     */
+    fun onDestroy() {
+        job?.let {
+            it.cancel()
         }
-        super.onStop()
     }
 }

@@ -10,7 +10,7 @@ import com.renhuan.okhttplib.R
 import com.renhuan.okhttplib.view.round_view.abs.GeneralRoundViewImpl
 import com.renhuan.okhttplib.view.round_view.abs.IRoundView
 
-class GeneralRoundTextView : TextView, IRoundView {
+open class GeneralRoundTextView : AppCompatTextView, IRoundView {
     private lateinit var generalRoundViewImpl: GeneralRoundViewImpl
 
     constructor(context: Context) : this(context, null)
@@ -32,11 +32,11 @@ class GeneralRoundTextView : TextView, IRoundView {
 
     private fun init(view: View, context: Context, attributeSet: AttributeSet?) {
         generalRoundViewImpl = GeneralRoundViewImpl(
-                view,
-                context,
-                attributeSet,
-                R.styleable.GeneralRoundTextView,
-                R.styleable.GeneralRoundTextView_tv_corner_radius
+            view,
+            context,
+            attributeSet,
+            R.styleable.GeneralRoundTextView,
+            R.styleable.GeneralRoundTextView_tv_corner_radius
         )
     }
 

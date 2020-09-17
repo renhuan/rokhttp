@@ -194,14 +194,14 @@ object Renhuan {
      * 日志 info
      */
     fun logi(s: String) {
-        LogUtils.i(s)
+        LogUtils.i("renhuan", s)
     }
 
     /**
      * 日志 error
      */
     fun loge(s: String) {
-        LogUtils.e(s)
+        LogUtils.e("renhuan", s)
     }
 
     /**

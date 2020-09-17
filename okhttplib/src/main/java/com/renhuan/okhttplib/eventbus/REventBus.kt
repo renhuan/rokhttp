@@ -19,4 +19,8 @@ object REventBus {
     fun sendStickyEvent(event: Any) {
         EventBus.getDefault().postSticky(event)
     }
+
+    fun isRegistered(subscriber: Any): Boolean {
+        return EventBus.getDefault().isRegistered(subscriber)
+    }
 }

@@ -6,15 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.florent37.expansionpanel.ExpansionLayout
 import com.github.florent37.expansionpanel.viewgroup.ExpansionLayoutCollection
-import com.renhuan.okhttplib.utils.Renhuan
 import com.wuyr.activitymessenger.ActivityMessenger
 import kotlinx.android.synthetic.main.activity_main2.*
-import me.jingbin.library.adapter.BaseByViewHolder
-import me.jingbin.library.adapter.BaseRecyclerAdapter
 
 
 class MainActivity : AppCompatActivity() {
