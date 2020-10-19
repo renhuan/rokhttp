@@ -4,6 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.lxj.xpopup.XPopup
 import com.renhuan.okhttplib.eventbus.REventBus
 import com.renhuan.okhttplib.utils.Renhuan
@@ -19,9 +22,11 @@ import org.greenrobot.eventbus.ThreadMode
  * created by renhuan
  * time : 2020/9/10 17:57
  * describe :
+ *  想要具备生命周期,必须监听view
+ *  lifecycle.addObserver(view)
  */
 
-abstract class RBaseView(context: Context, attributeSet: AttributeSet?) : FrameLayout(context, attributeSet) {
+abstract class RBaseView(context: Context, attributeSet: AttributeSet?) : FrameLayout(context, attributeSet), LifecycleObserver {
 
     protected val mmkv: MMKV by lazy { MMKV.defaultMMKV() }
 
@@ -108,30 +113,35 @@ abstract class RBaseView(context: Context, attributeSet: AttributeSet?) : FrameL
         event?.let { receiveStickyEvent(it) }
     }
 
-    /**
-     * 停止EventBus
-     */
-    fun onStop() {
-        if (isRegisterEventBus) {
-            REventBus.unregister(this)
-        }
-    }
 
     /**
-     * 启动EventBus
+     * 具有生命周期
      */
-    fun onStart() {
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    open fun onStart() {
         if (isRegisterEventBus) {
             REventBus.register(this)
         }
     }
 
-    /**
-     * 取消网络请求
-     */
-    fun onDestroy() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    open fun onStop() {
+        if (isRegisterEventBus) {
+            REventBus.unregister(this)
+        }
+    }
+
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    open fun onDestroy() {
         job?.let {
             it.cancel()
         }
     }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    open fun onPause() {
+    }
+
 }

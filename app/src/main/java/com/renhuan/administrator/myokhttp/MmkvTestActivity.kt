@@ -28,8 +28,6 @@ class MmkvTestActivity : RBaseActivity() {
 
 
     override fun initListener() {
-        super.initListener()
-
         btn.setOnSafeClickListener {
 //            MainActivity.startAction(this)
             XPopup.Builder(this)
@@ -44,8 +42,10 @@ class MmkvTestActivity : RBaseActivity() {
         tv.setOnSafeClickListener { Renhuan.toast("点击了穿透TV") }
     }
 
+    override fun initRequest() {
+    }
+
     override fun initView(savedInstanceState: Bundle?) {
-        super.initView(savedInstanceState)
         boolean = true
 
 //        int = 100
@@ -105,10 +105,12 @@ class MmkvTestActivity : RBaseActivity() {
 
     }
 
+    override fun initData() {
+    }
+
 
     private companion object {
         const val TAG = "renhuan"
     }
-
 
 }

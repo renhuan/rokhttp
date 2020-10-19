@@ -35,6 +35,7 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.3.72"
     api "org.jetbrains.kotlin:kotlin-reflect:1.3.72"
     api 'androidx.multidex:multidex:2.0.1'
+    api 'androidx.fragment:fragment-ktx:1.3.0-alpha08'
 
     /*** 网络请求 */
     api 'com.ljx.rxhttp:rxhttp:2.3.5'

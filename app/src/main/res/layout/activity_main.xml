@@ -32,9 +32,38 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
+    <com.renhuan.administrator.myokhttp.CircleView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:visibility="gone" />
+
+    <com.renhuan.administrator.myokhttp.EditTextWithClear
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rh_drawableRight="@drawable/ic_close" />
+
+    <com.renhuan.administrator.myokhttp.EditTextWithClear
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rh_drawableHeight="@dimen/dp_15"
+        app:rh_drawableRight="@drawable/ic_close"
+        app:rh_drawableWidth="@dimen/dp_15" />
+
+    <com.renhuan.administrator.myokhttp.DoubleImageView
+        android:id="@+id/image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/flag_us"
+        android:drawableRight="@drawable/flag_uk"
+        android:spacing="15dp"
+        android:text="5 - 5"
+        android:textColor="#FFF"
+        android:textSize="32sp" />
+
     <TextView
         android:id="@+id/tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 </LinearLayout>
