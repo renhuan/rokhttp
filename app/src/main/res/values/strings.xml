@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">扫硬件码</string>
+    <string name="app_name">SMS监听</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="behavior_sample_title">com.renhuan.administrator.myokhttp.SampleTitleBehavior</string>
 </resources>

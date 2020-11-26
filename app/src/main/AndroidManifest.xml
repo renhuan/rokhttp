@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
         android:name=".App"
@@ -19,8 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".MmkvTestActivity">
+        <activity android:name=".MainActivity3" />
+        <activity android:name=".MmkvTestActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".sms.MainActivity5">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
