@@ -71,9 +71,6 @@ dependencies {
     /*** toolbar */
     api 'com.hjq:titlebar:6.0'
 
-    /*** App Startup */
-    implementation "androidx.startup:startup-runtime:1.0.0-alpha03"
-
     /**
      * 测试专用
      */
