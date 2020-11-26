@@ -37,6 +37,7 @@ abstract class RApp : Application() {
         MMKV.initialize(this)
         Renhuan.initialize(this)
         init()
+
     }
 
     private val activityLifecycleCallbacks = object : ActivityLifecycleCallbacks {
