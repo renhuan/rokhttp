@@ -1,8 +1,5 @@
 package com.renhuan.administrator.myokhttp
 
-import javax.inject.Inject
-import javax.inject.Singleton
-
 data class MeiziModel(
         val _id: String = "",
         var author: String = "",

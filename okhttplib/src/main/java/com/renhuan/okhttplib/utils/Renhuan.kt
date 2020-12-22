@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.renhuan.okhttplib.R
 import java.io.BufferedReader
 import java.io.IOException
@@ -117,9 +118,9 @@ object Renhuan {
                 return 0
             }
             val version1Array = versionLocal.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
-                .toTypedArray()//转义
+                    .toTypedArray()//转义
             val version2Array =
-                versionNet.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    versionNet.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             var index = 0
             // 获取最小长度值
             val minLen = version1Array.size.coerceAtMost(version2Array.size)
@@ -127,7 +128,7 @@ object Renhuan {
             // 循环判断每位的大小
             while (index < minLen) {
                 diff =
-                    Integer.parseInt(version1Array[index]) - Integer.parseInt(version2Array[index])
+                        Integer.parseInt(version1Array[index]) - Integer.parseInt(version2Array[index])
                 if (diff == 0)
                     index++
             }
@@ -178,17 +179,17 @@ object Renhuan {
     /**
      * 图片加载
      */
-    fun glide(view: ImageView, url: String) {
+    fun glide(view: ImageView, url: String, isOriginal: Boolean = false) {
         Glide
-            .with(getContext())
-            .load(url)
-            .apply(RequestOptions().apply {
-                placeholder(R.drawable.loading)
-                error(R.drawable.empty)
-            })
-            .into(view)
+                .with(getContext())
+                .load(url)
+                .apply(RequestOptions().apply {
+                    placeholder(R.drawable.loading)
+                    error(R.drawable.empty)
+                    if (isOriginal) override(Target.SIZE_ORIGINAL)
+                })
+                .into(view)
     }
-
 
     /**
      * 日志 info

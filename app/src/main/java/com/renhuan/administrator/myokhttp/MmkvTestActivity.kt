@@ -1,13 +1,11 @@
 package com.renhuan.administrator.myokhttp
 
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import com.lxj.xpopup.XPopup
+import com.renhuan.okhttplib.adapter.MyFragmentPagerAdapter
 import com.renhuan.okhttplib.base.RBaseActivity
 import com.renhuan.okhttplib.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
-import rxhttp.wrapper.param.RxHttp
-import rxhttp.wrapper.param.toResponseList
 
 
 class MmkvTestActivity : RBaseActivity() {
@@ -28,25 +26,13 @@ class MmkvTestActivity : RBaseActivity() {
 
 
     override fun initListener() {
-        btn.setOnSafeClickListener {
-//            MainActivity.startAction(this)
-            XPopup.Builder(this)
-                    .hasBlurBg(true)
-                    .dismissOnTouchOutside(false)
-                    .isClickThrough(true)
-                    .asConfirm("提示", "内容", null)
-                    .show()
-        }
-        btn.addClickScale()
-
-        tv.setOnSafeClickListener { Renhuan.toast("点击了穿透TV") }
     }
 
     override fun initRequest() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        boolean = true
+//        boolean = true
 
 //        int = 100
 //        long = 100L
@@ -69,15 +55,15 @@ class MmkvTestActivity : RBaseActivity() {
 //        parcelable = UserData(age = 0, name = "任欢huanann", gender = "男").apply {
 //
 //        }
-        Log.i(TAG, "boolean:$boolean")
-        Log.i(TAG, "int:$int")
-        Log.i(TAG, "long:$long")
-        Log.i(TAG, "float:$float")
-        Log.i(TAG, "double:$double")
-        Log.i(TAG, "byteArray:$byteArray")
-        Log.i(TAG, "string:$string")
-        Log.i(TAG, "stringSet:$stringSet")
-        Log.i(TAG, "parcelable:${parcelable}")
+//        Log.i(TAG, "boolean:$boolean")
+//        Log.i(TAG, "int:$int")
+//        Log.i(TAG, "long:$long")
+//        Log.i(TAG, "float:$float")
+//        Log.i(TAG, "double:$double")
+//        Log.i(TAG, "byteArray:$byteArray")
+//        Log.i(TAG, "string:$string")
+//        Log.i(TAG, "stringSet:$stringSet")
+//        Log.i(TAG, "parcelable:${parcelable}")
 
         /**
          * int:100
@@ -90,19 +76,32 @@ class MmkvTestActivity : RBaseActivity() {
         parcelable:UserData(name='谭嘉俊', gender='男', age=0)
          */
 
-        rxScope(
-                action = {
-                    val student = RxHttp.get("https://gank.io/api/v2/data/category/Girl/type/Girl/page/1/count/10")
-                            .toResponseList<MeiziModel>()
-                            .await()
-                    tv.append(student.toString())
-                },
-                onError = {
-                    tv.append(it.message)
-                }
-        )
 
-
+        viewPager.adapter = MyFragmentPagerAdapter(
+                supportFragmentManager,
+                arrayListOf(
+                        BlankFragment.newInstance(),
+                        BlankFragment.newInstance(),
+                        BlankFragment.newInstance(),
+                        BlankFragment.newInstance(),
+                        BlankFragment.newInstance(),
+                        BlankFragment.newInstance(),
+                        BlankFragment.newInstance()
+                ),
+                arrayListOf("张三", "张三丰", "英雄联盟", "你味欢哥", "你猜", "英雄联盟", "英雄联盟"))
+        viewPager.offscreenPageLimit = 5
+        tablayout.setViewPager(viewPager)
+//        rxScope(
+//                action = {
+//                    val student = RxHttp.get("https://gank.io/api/v2/data/category/Girl/type/Girl/page/1/count/10")
+//                            .toResponseList<MeiziModel>()
+//                            .await()
+//                    tv.append(student.toString())
+//                },
+//                onError = {
+//                    tv.append(it.message)
+//                }
+//        )
     }
 
     override fun initData() {

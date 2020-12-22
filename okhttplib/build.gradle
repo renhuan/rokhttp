@@ -71,6 +71,9 @@ dependencies {
     /*** toolbar */
     api 'com.hjq:titlebar:6.0'
 
+    /*** 圆角TextView */
+    api 'com.flyco.roundview:FlycoRoundView_Lib:1.1.4@aar'
+
     /**
      * 测试专用
      */

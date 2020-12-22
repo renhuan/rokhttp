@@ -6,6 +6,7 @@ import rxhttp.wrapper.annotation.Parser
 import rxhttp.wrapper.entity.ParameterizedTypeImpl
 import rxhttp.wrapper.exception.ParseException
 import rxhttp.wrapper.parse.AbstractParser
+import rxhttp.wrapper.utils.convert
 import java.lang.reflect.Type
 
 /**
@@ -23,7 +24,7 @@ open class ResponseParserList<T> : AbstractParser<List<T>> {
     @Throws(IOException::class)
     override fun onParse(response: Response): List<T> {
         val type: Type = ParameterizedTypeImpl[BaseResponseModel::class.java, List::class.java, mType] //获取泛型类型
-        val data: BaseResponseModel<List<T>> = convert(response, type)   //获取Response对象
+        val data: BaseResponseModel<List<T>> = response.convert(type)  //获取Response对象
         if (data.status != 100) { //code不等于200，说明数据不正确，抛出异常
             throw ParseException(data.status.toString(), "status!=100", response)
         }

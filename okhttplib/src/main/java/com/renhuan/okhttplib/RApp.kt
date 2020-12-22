@@ -13,8 +13,11 @@ import com.tencent.mmkv.MMKV
 import okhttp3.OkHttpClient
 import rxhttp.RxHttpPlugins
 import rxhttp.wrapper.cahce.CacheMode
+import rxhttp.wrapper.callback.Function
+import rxhttp.wrapper.param.Param
 import rxhttp.wrapper.param.RxHttp
 import java.io.File
+
 
 abstract class RApp : Application() {
 
@@ -25,6 +28,7 @@ abstract class RApp : Application() {
         setTheme(applicationInfo.theme)
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         //设置日志拦截器
+        RxHttp.setDebug(true)
         RxHttp.init(
                 OkHttpClient.Builder()
                         .addInterceptor(ChuckInterceptor(this))
