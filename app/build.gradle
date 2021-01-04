@@ -40,5 +40,5 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation project(path: ':FlycoTabLayout_Lib')
     implementation project(path: ':ninegridview')
-    kapt 'com.ljx.rxhttp:rxhttp-compiler:2.2.7'
+    kapt 'com.ljx.rxhttp:rxhttp-compiler:2.5.2'
 }

@@ -22,15 +22,18 @@ import org.greenrobot.eventbus.ThreadMode
  * created by renhuan
  * time : 2020/9/10 17:57
  * describe :
- *  想要具备生命周期,必须监听view
- *  lifecycle.addObserver(view)
+ *  想要具备自动生命周期,必须在activity或者fragment中监听view
+ *  代码：lifecycle.addObserver(view)
  */
 
-abstract class RBaseView(context: Context, attributeSet: AttributeSet?) : FrameLayout(context, attributeSet), LifecycleObserver {
+abstract class RBaseView(context: Context, attributeSet: AttributeSet?) :
+    FrameLayout(context, attributeSet), LifecycleObserver {
 
     protected val mmkv: MMKV by lazy { MMKV.defaultMMKV() }
 
-    private val loading by lazy { XPopup.Builder(context).dismissOnTouchOutside(false).asLoading() }
+    abstract fun showLoading()
+
+    abstract fun dismissLoading()
 
     protected abstract fun inflaterLayout(): Int?
 
@@ -62,8 +65,8 @@ abstract class RBaseView(context: Context, attributeSet: AttributeSet?) : FrameL
                 onError?.let { its -> its(it) }
                 it.printStackTrace()
             },
-            { if (isShowLoading) loading.show() },
-            { if (isShowLoading) loading.smartDismiss() }
+            { if (isShowLoading) showLoading() },
+            { if (isShowLoading) dismissLoading() }
         )
     }
 

@@ -32,6 +32,12 @@ class BlankFragment : RBaseFragment() {
         fun newInstance() = BlankFragment()
     }
 
+    override fun showLoading() {
+    }
+
+    override fun dismissLoading() {
+    }
+
     override fun inflaterLayout(): Int {
         return R.layout.fragment_blank
     }

@@ -7,11 +7,11 @@ import android.os.Handler
 import android.os.Looper
 import android.view.KeyEvent
 import android.widget.ImageView
+import androidx.annotation.ArrayRes
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.SizeUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
@@ -68,27 +68,18 @@ object Renhuan {
     /**
      * 获取资源文件中定义的颜色。
      */
-    fun getColor(colorResId: Int): Int {
-        return ContextCompat.getColor(Renhuan.context, colorResId)
+    fun getColor(@ColorRes colorResId: Int): Int {
+        return ContextCompat.getColor(context, colorResId)
     }
 
-    fun getDrawable(resId: Int): Drawable? {
-        return ContextCompat.getDrawable(Renhuan.context, resId)
+    fun getDrawable(@DrawableRes resId: Int): Drawable? {
+        return ContextCompat.getDrawable(context, resId)
     }
 
-    /**
-     * dp 转 px
-     */
-    fun getDp2px(dp: Float): Float {
-        return SizeUtils.dp2px(dp).toFloat()
+    fun getIntArray(@ArrayRes resId: Int): IntArray {
+        return context.resources.getIntArray(resId)
     }
 
-    /**
-     * sp 转 px
-     */
-    fun getSp2px(sp: Float): Float {
-        return SizeUtils.sp2px(sp).toFloat()
-    }
 
     /**  吐司toast   */
     fun toast(s: String?) {
@@ -118,9 +109,9 @@ object Renhuan {
                 return 0
             }
             val version1Array = versionLocal.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
-                    .toTypedArray()//转义
+                .toTypedArray()//转义
             val version2Array =
-                    versionNet.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                versionNet.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             var index = 0
             // 获取最小长度值
             val minLen = version1Array.size.coerceAtMost(version2Array.size)
@@ -128,7 +119,7 @@ object Renhuan {
             // 循环判断每位的大小
             while (index < minLen) {
                 diff =
-                        Integer.parseInt(version1Array[index]) - Integer.parseInt(version2Array[index])
+                    Integer.parseInt(version1Array[index]) - Integer.parseInt(version2Array[index])
                 if (diff == 0)
                     index++
             }
@@ -157,7 +148,7 @@ object Renhuan {
      * 按两次返回桌面
      * 用法：
      * public boolean onKeyDown(int keyCode, KeyEvent event) {
-     * return UtilsHelper.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
+     * return Renhuan.onKeyDown(keyCode, event)
      * }
      */
     //记录用户首次点击返回键的时间
@@ -169,6 +160,7 @@ object Renhuan {
                 firstTime = System.currentTimeMillis()
                 true
             } else {
+                ActivityUtils.finishAllActivities()
                 false
             }
         }
@@ -181,14 +173,14 @@ object Renhuan {
      */
     fun glide(view: ImageView, url: String, isOriginal: Boolean = false) {
         Glide
-                .with(getContext())
-                .load(url)
-                .apply(RequestOptions().apply {
-                    placeholder(R.drawable.loading)
-                    error(R.drawable.empty)
-                    if (isOriginal) override(Target.SIZE_ORIGINAL)
-                })
-                .into(view)
+            .with(getContext())
+            .load(url)
+            .apply(RequestOptions().apply {
+                placeholder(R.drawable.loading)
+                error(R.drawable.empty)
+                if (isOriginal) override(Target.SIZE_ORIGINAL)
+            })
+            .into(view)
     }
 
     /**

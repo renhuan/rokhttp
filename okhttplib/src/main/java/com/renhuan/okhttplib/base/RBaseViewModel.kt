@@ -16,7 +16,9 @@ import kotlinx.coroutines.CoroutineScope
  */
 abstract class RBaseViewModel : ViewModel() {
 
-    private val loading by lazy { XPopup.Builder(Renhuan.getCurrentActivity()).dismissOnTouchOutside(false).asLoading() }
+    abstract fun showLoading()
+
+    abstract fun dismissLoading()
 
     /**
      * base协程  处理loading 和 弹出异常message
@@ -35,8 +37,8 @@ abstract class RBaseViewModel : ViewModel() {
                 onError?.let { its -> its(it) }
                 it.printStackTrace()
             },
-            { if (isShowLoading) loading.show() },
-            { if (isShowLoading) loading.smartDismiss() }
+            { if (isShowLoading) showLoading() },
+            { if (isShowLoading) dismissLoading() }
         )
     }
 }

@@ -16,7 +16,9 @@ abstract class RBaseActivity : AppCompatActivity() {
 
     protected val mmkv: MMKV by lazy { MMKV.defaultMMKV() }
 
-    private val loading by lazy { XPopup.Builder(this).dismissOnTouchOutside(false).asLoading() }
+    abstract fun showLoading()
+
+    abstract fun dismissLoading()
 
     protected abstract fun inflaterLayout(): Int?
 
@@ -67,8 +69,8 @@ abstract class RBaseActivity : AppCompatActivity() {
                 onError?.let { its -> its(it) }
                 it.printStackTrace()
             },
-            { if (isShowLoading) loading.show() },
-            { if (isShowLoading) loading.smartDismiss() }
+            { if (isShowLoading) showLoading() },
+            { if (isShowLoading) dismissLoading() }
         )
     }
 

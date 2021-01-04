@@ -20,7 +20,9 @@ abstract class RBaseFragment : Fragment() {
 
     protected val mmkv: MMKV by lazy { MMKV.defaultMMKV() }
 
-    private val loading by lazy { XPopup.Builder(activity).asLoading() }
+    abstract fun showLoading()
+
+    abstract fun dismissLoading()
 
     /**
      * 判断是否已经懒加载
@@ -77,8 +79,8 @@ abstract class RBaseFragment : Fragment() {
                 onError?.let { its -> its(it) }
                 it.printStackTrace()
             },
-            { if (isShowLoading) loading.show() },
-            { if (isShowLoading) loading.smartDismiss() }
+            { if (isShowLoading) showLoading() },
+            { if (isShowLoading) dismissLoading() }
         )
     }
 

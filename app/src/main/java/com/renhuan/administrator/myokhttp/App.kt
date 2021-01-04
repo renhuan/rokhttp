@@ -1,6 +1,7 @@
 package com.renhuan.administrator.myokhttp
 
 import android.R
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.widget.ImageView
@@ -18,6 +19,10 @@ import com.renhuan.okhttplib.utils.Renhuan
 class App : RApp() {
     override fun init() {
         NineGridView.setImageLoader(GlideImageLoader())
+    }
+
+    override fun errorActivity(): Class<out Activity>? {
+        return null
     }
 
     /** Glide 加载  */

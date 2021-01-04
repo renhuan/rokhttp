@@ -18,6 +18,11 @@ class MmkvTestActivity : RBaseActivity() {
     private var string by mmkv.string(key = "string")
     private var stringSet by mmkv.stringSet(key = "stringSet")
     private var parcelable by mmkv.parcelable<UserData>("parcelable")
+    override fun showLoading() {
+    }
+
+    override fun dismissLoading() {
+    }
 
 
     override fun inflaterLayout(): Int? {

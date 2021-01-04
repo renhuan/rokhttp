@@ -13,7 +13,8 @@ import com.renhuan.okhttplib.utils.postDelayed
  * describe : 倒计时控件
  */
 
-class CountDownView(context: Context, attrs: AttributeSet? = null) : AppCompatButton(context, attrs) {
+class CountDownView(context: Context, attrs: AttributeSet? = null) :
+    AppCompatButton(context, attrs) {
 
     /**
      * 倒计时最大值
@@ -33,7 +34,7 @@ class CountDownView(context: Context, attrs: AttributeSet? = null) : AppCompatBu
                 isClickable = true
                 text = "重新获取"
                 second = maxTime
-                Renhuan.getHandler().removeCallbacks(runnable)
+                Renhuan.getHandler().removeCallbacks(runnable!!)
             }
         }
     }
